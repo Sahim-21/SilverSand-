@@ -38,8 +38,8 @@ export default function AdminLoginPage() {
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-sm flex-col justify-center px-4">
-      <h1 className="text-xl font-semibold text-[var(--sea)]">Owner login</h1>
-      <p className="mt-2 text-sm text-[var(--muted)]">
+      <h1 className="text-xl font-semibold text-mangrove">Owner login</h1>
+      <p className="mt-2 text-sm text-muted">
         Edit occupancy rates and extra-bed price only.
       </p>
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
@@ -72,7 +72,7 @@ export default function AdminLoginPage() {
           />
         </div>
         {error ? (
-          <p className="text-sm text-[var(--danger)]" role="alert">
+          <p className="text-sm text-danger" role="alert">
             {error}
           </p>
         ) : null}

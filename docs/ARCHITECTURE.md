@@ -223,6 +223,7 @@ No thin doorway pages. A URL earns its keep with distinct intent and facts we ac
 ### Out of sitemap
 
 - `/admin`, `/admin/*` — `noindex`, omit from `sitemap.ts`
+- `/style-guide` — internal design reference, `noindex`
 - API routes
 
 ### Internal linking (minimum)

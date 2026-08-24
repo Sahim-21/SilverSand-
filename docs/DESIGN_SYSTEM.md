@@ -1,122 +1,149 @@
 # Design system
 
-Visual identity for Silver Sand Beach Homestay. **Not** owner-editable. **Not** a clone of `dandeliinn.com`, Kamath, Coastal Pearl, Amani, or Nestle Sahyadri.
+Visual identity for Silver Sand Beach Homestay. **Not** owner-editable. **Not** a clone of `dandeliinn.com`, Kamath, Coastal Pearl, Amani, Nestle Sahyadri, or the attached booking-form screenshot.
 
-This is a proposed system for implementation. It is not a registered brand book. If the owner later supplies a logo or colours, replace tokens here and in CSS variables — do not leave both palettes.
+Implemented in code as CSS custom properties + Tailwind `@theme` utilities (`src/app/globals.css`). Pages must use those utilities (`bg-sand`, `text-mangrove`, `gap-form`, …), not leftover hex values.
+
+**Rendered reference:** `/style-guide` (`noindex`, not in the sitemap).
 
 ---
 
 ## Product feel
 
-Murudeshwar is a **temple-and-beach** town, not a jungle lodge (Dandeli) and not a 5-star hotel template (Amani’s public site uses stock “luxury” lines and even a Goethe passage). Silver Sand should feel like a **real house you can book without an OTA**: calm, specific, sand-and-sea, easy on a phone.
+Murudeshwar is a **temple-and-beach** town. The site should feel like a **real house you can book without an OTA**: calm, specific, sand-and-sea, easy on a phone.
 
-Keywords for UI writing: direct, local, occupancy-honest. Avoid: “5 star accommodation”, “timeless heritage hotel”, lorem, “best luxury homestays in Uttara Kannada” unless the owner can defend it.
+Direction (locked for v1): professional, clean, trustworthy, comfortable, **premium but not artificially luxurious**, photography-first, mobile-first.
 
----
-
-## Layout
-
-- **Mobile first.** WhatsApp traffic is thumb-driven. Primary CTA stays visible (sticky bar on small screens after the guest has seen the room name).
-- **Desktop:** booking widget can sit in a right column on Home and Room; it must not trap the page in a hotel-booking iframe aesthetic.
-- **Max content width:** ~72rem for marketing; widget ~24–28rem.
-- **Section spacing:** large enough for photos; do not stack six equal icon grids (Coastal Pearl’s amenity wall) until we have real amenities.
-
-### Page skeleton (public)
-
-1. Header: wordmark, Rooms, Contact, **WhatsApp**, **Call**
-2. Main
-3. Footer: NAP (when known), phone, WhatsApp, Privacy, Terms  
-   Same phone number everywhere (`+91 99862 22892`)
-
-Admin: no marketing header. Quiet dashboard, shadcn Table + Button.
+Avoid: “5 star”, heavy gradients, excessive animation, generic stock-photo villas, gold-on-everything “luxury hotel” chrome, Dandeli-style jungle green as the whole brand.
 
 ---
 
-## Colour (proposed tokens)
+## Surfaces (what we actually decided)
 
-Name-derived, coastal, restrained. Do not use Dandeli-style saturated jungle green as the brand.
+Two surfaces, not one dark website:
 
-| Token         | Role                      | Suggested                                                       |
-| ------------- | ------------------------- | --------------------------------------------------------------- |
-| `--sand`      | Page background           | Warm off-white / pale sand `#F6F0E6`                            |
-| `--sea`       | Primary actions, links    | Deep coastal blue `#1B4F72`                                     |
-| `--sea-hover` | Primary hover             | `#163F5B`                                                       |
-| `--ink`       | Body text                 | Near-black `#1A1A1A`                                            |
-| `--muted`     | Secondary text            | `#5C5C5C`                                                       |
-| `--whatsapp`  | **Only** the WhatsApp CTA | Official-ish green `#128C7E` — recognisable, not a second brand |
-| `--call`      | Secondary phone           | Outline / `--sea`                                               |
-| `--line`      | Borders                   | `#E4D9C8`                                                       |
-| `--danger`    | Form errors               | `#B42318`                                                       |
+1. **Sand canvas** for marketing pages so real photographs (when we have them) sit on a warm, quiet field — not a hotel-white or a full-bleed dark theme.
+2. **Mangrove booking panel** (deep coastal green / near-black) with **warm gold** for titles and accent on that panel only. Adapted from a restrained warm-dark booking form; not copied pixel-for-pixel.
 
-WhatsApp green is reserved for the **one** primary conversion button so it does not compete with random “success” badges.
+WhatsApp green is **only** for WhatsApp CTAs. Gold is not a second conversion colour on light pages.
 
-Contrast: body text on `--sand` and white buttons on `--sea` must meet WCAG AA.
+---
+
+## Colour tokens
+
+Defined in `:root` and mapped in `@theme inline`.
+
+| Token              | Hex / value         | Role                                        |
+| ------------------ | ------------------- | ------------------------------------------- |
+| `--sand`           | `#F4EFE6`           | Page background                             |
+| `--sand-deep`      | `#E8DFD0`           | Photo empty states, hover washes            |
+| `--surface`        | `#FFFCF7`           | Light cards, header/footer                  |
+| `--ink`            | `#1C1914`           | Body text (warm near-black)                 |
+| `--muted`          | `#5E574C`           | Secondary text                              |
+| `--mangrove`       | `#1A2B24`           | Brand, primary buttons on light, dark panel |
+| `--mangrove-mid`   | `#243830`           | Dark-panel inputs, hover                    |
+| `--mangrove-deep`  | `#121C18`           | Reserved (deeper shade)                     |
+| `--gold`           | `#C4A35A`           | Dark-panel titles; `Button variant="gold"`  |
+| `--gold-hover`     | `#B08F48`           | Gold hover                                  |
+| `--gold-muted`     | `#D4B56A`           | Gold on dark, large type only               |
+| `--whatsapp`       | `#128C7E`           | WhatsApp CTA only                           |
+| `--whatsapp-hover` | `#0E7368`           | WhatsApp hover                              |
+| `--line`           | `#D9D0C2`           | Light borders                               |
+| `--line-on-dark`   | sand at 22% opacity | Dark-panel input borders                    |
+| `--danger`         | `#B42318`           | Errors                                      |
+
+**Do not use:** `--sea` / `--sea-hover` (Phase 1 scaffold blues — removed).
+
+Contrast: ink on sand, sand on mangrove, and mangrove on gold buttons must stay WCAG AA. Do not set body copy in gold on sand.
 
 ---
 
 ## Typography
 
-- **UI / body:** a grocer-neutral sans available on `next/font` (e.g. Source Sans 3 or Plus Jakarta Sans). One family.
-- **Display:** optional slightly warmer serif for the wordmark / H1 only (e.g. Source Serif 4) — skip if it starts looking like a wedding card.
-- **Do not** use Inter everywhere plus a script font on the hero (generic “homestay WordPress” look).
-- **Numbers in the widget:** tabular lining figures so the estimate does not jump.
+- **UI / body:** Source Sans 3 (`next/font`, `--font-source-sans`).
+- **Display / wordmark / H1–H3:** Source Serif 4 — not a script, not Inter+script.
+- **Numbers:** `tabular-nums` on estimates and admin INR fields.
 
-Scale (approx): H1 2rem mobile / 2.75rem desktop; body 1rem; small print 0.875rem.
+Scale (via `Heading` / `Text` in `src/components/ui/heading.tsx`):
 
----
-
-## Components (shadcn/ui only)
-
-Use shadcn for primitives. Do not add MUI, Ant, Chakra, or a hotel-booking widget from npm.
-
-| Piece        | Primitive                       | Notes                                                                                |
-| ------------ | ------------------------------- | ------------------------------------------------------------------------------------ |
-| WhatsApp CTA | `Button`                        | Full width on mobile; WhatsApp icon + exact label **Check Availability on WhatsApp** |
-| Call         | `Button variant="outline"`      |                                                                                      |
-| Occupancy    | `Select` or stepper             | Options 2 / 3 / 4 / 6 / 8 sharing — labels in English + “guests”                     |
-| Extra beds   | Stepper                         | 0…max; hide if rate is 0                                                             |
-| Dates        | `Calendar` / date range         | Check-out after check-in; no min-stay unless owner sets one (static later)           |
-| Estimate     | Definition list                 | “Estimated total” + “Estimate only, subject to availability”                         |
-| Admin table  | `Table` + `Input type="number"` | INR, integer                                                                         |
-| Admin save   | `Button`                        |                                                                                      |
-| Notices      | `Alert`                         | DB failure → call/WhatsApp, no fake ₹                                                |
-
-Native `<a href="https://wa.me/...">` for WhatsApp (reliable on Android). Do not wrap it in a JS web-share only path.
+| Role    | Component                | Size                              |
+| ------- | ------------------------ | --------------------------------- |
+| Display | `Heading size="display"` | 1.875rem mobile / 2.75rem desktop |
+| Title   | `Heading size="title"`   | 1.5rem / 1.875rem                 |
+| Section | `Heading size="section"` | 1.25rem / 1.5rem                  |
+| Body    | `Text`                   | 1rem, line-height 1.6             |
+| Small   | `Text size="sm"`         | 0.875rem                          |
+| Caption | `Text size="xs"`         | 0.75rem                           |
 
 ---
 
-## Booking widget (concept, not a clone)
+## Spacing and radius
 
-Adapt from Dandeli Inn’s **flow**, not its chrome:
+| Token               | Value   | Use                            |
+| ------------------- | ------- | ------------------------------ |
+| `--space-gutter`    | 1rem    | `px-gutter` mobile             |
+| `--space-gutter-md` | 1.5rem  | `px-gutter-md` from md         |
+| `--space-form`      | 1.5rem  | `gap-form` between fields      |
+| `--space-section`   | 3.5rem  | `py-section`                   |
+| `--ss-radius-md`    | 0.5rem  | Inputs, buttons (`rounded-md`) |
+| `--ss-radius-lg`    | 0.75rem | Cards, photo frames            |
 
-| Dandeli Inn (observed 24 Aug 2026)            | Silver Sand                                        |
-| --------------------------------------------- | -------------------------------------------------- |
-| Room type dropdown (6 types)                  | Single type shown as a heading; occupancy select   |
-| Quantity + “Add another room type”            | Omit unless multiple units/types are confirmed     |
-| Optional name & phone                         | Omit in v1 — WhatsApp already identifies the guest |
-| Dates + live estimate                         | Keep                                               |
-| One WhatsApp CTA                              | Keep, same job, original label                     |
-| Rates listed as static cards on the same page | Show rates **from API/DB**, not from markdown      |
+Max content width: `Container` `page` = 72rem; `narrow` = 42rem; widget column = 22rem in `Split`.
 
-Empty: dates missing → estimate em dash, CTA still allowed (message without total) **or** CTA disabled until dates exist. Prefer **dates required** so the owner gets a usable WhatsApp.
+---
 
-Error: pricing fetch fail → no number, CTA becomes “WhatsApp us” without a fake total.
+## Layout components
+
+| Component    | File                                    | Job                                |
+| ------------ | --------------------------------------- | ---------------------------------- |
+| `Container`  | `src/components/layout/container.tsx`   | Horizontal gutters + max width     |
+| `Section`    | `src/components/layout/section.tsx`     | Vertical page rhythm               |
+| `Stack`      | `src/components/layout/stack.tsx`       | Vertical gaps including `gap-form` |
+| `Split`      | `src/components/layout/split.tsx`       | Story + sticky widget              |
+| `PageHeader` | `src/components/layout/page-header.tsx` | Eyebrow + H1 + description         |
+| `PhotoFrame` | `src/components/ui/photo-frame.tsx`     | Honest empty photo, no stock       |
+
+Public skeleton: Header (wordmark, Rooms, Contact, WhatsApp, Call) → Main → Footer (NAP when known, phone, WhatsApp, Privacy, Terms). Phone is always `+91 99862 22892`.
+
+Admin: no marketing header. Quiet sand/surface dashboard.
+
+---
+
+## Primitives (shadcn-style, this repo only)
+
+Do not add MUI, Ant, or a hotel-booking npm widget.
+
+| Primitive          | Variants / notes                                                                                    |
+| ------------------ | --------------------------------------------------------------------------------------------------- |
+| `Button`           | `default` mangrove; `gold` (dark panels); `outline`; `outline-on-dark`; `whatsapp`; `call`; `ghost` |
+| `Input`            | `surface="light" \| "dark"` — h-12, soft radius, thin border                                        |
+| `Label`            | Field labels                                                                                        |
+| `Card`             | `tone="surface" \| "dark"`                                                                          |
+| `Alert`            | `info` / `danger` — pricing failure: call/WhatsApp, **no fake ₹**                                   |
+| `Heading` / `Text` | Type scale                                                                                          |
+
+Native `<a href="https://wa.me/919986222892">` for WhatsApp. Label: **Check Availability on WhatsApp**.
+
+---
+
+## Booking widget
+
+Dark `Card` on the sand page. Gold title, sand body, WhatsApp green CTA, outline-on-dark Call.
+
+Flow still follows Dandeli Inn **concept only** (dates, occupancy, estimate, one WhatsApp CTA). Interactive estimate is Phase 2. Placeholder copy must not invent rates.
 
 ---
 
 ## Imagery
 
-- Real owner photos only. No Unsplash “Maldives villa” and no competitor photos.
-- Until photos exist: honest empty state (“Photos coming from the family — WhatsApp us for recent pictures”) rather than stock.
-- `next/image`, explicit width/height, no layout shift.
-- Do not overlay “LUXURY” ribbons.
+- Owner photos only, via `next/image` when they exist.
+- Until then: `PhotoFrame` empty state, not Unsplash.
 
 ---
 
-## Motion and noise
+## Motion
 
-- Almost none. No auto-rotating hero, no count-up “Happy Customers”.
-- Kamath’s empty stat counters and Coastal Pearl’s award strip are what we are **not** copying unless we have real awards.
+Colour transitions on buttons/inputs only (`duration-150`). No hero carousels, no count-up stats.
 
 ---
 
@@ -124,16 +151,14 @@ Error: pricing fetch fail → no number, CTA becomes “WhatsApp us” without a
 
 - Specific: “Deluxe AC Room, priced by how many people share it.”
 - Direct: “Message us on WhatsApp with your dates. We confirm availability ourselves.”
-- Not: “A wonderful serenity has taken possession of my entire soul” (Amani homepage, 24 Aug 2026).
-
-H1 on Home should include **Homestay in Murudeshwar** in natural language, not keyword stuffing.
+- Home H1 includes **Homestay in Murudeshwar** in natural language.
 
 ---
 
-## Responsive checks (when UI exists)
+## Responsive checks
 
-- 375px: sticky WhatsApp, widget usable, no horizontal scroll
-- 768px: two-column starts
-- 1280px: widget does not float away from the room story
+- 375px: header CTAs usable, widget full width, no horizontal scroll
+- 768px: two-column starts on `Split`
+- 1280px: widget stays in the 22rem column, sticky on desktop
 
-Verify in a real browser, not only a screenshot.
+Verify on `/`, `/rooms/deluxe-ac`, `/contact`, and `/style-guide`.

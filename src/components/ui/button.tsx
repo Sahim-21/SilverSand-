@@ -4,20 +4,24 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--sea)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mangrove focus-visible:ring-offset-2 focus-visible:ring-offset-sand disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "bg-[var(--sea)] text-white hover:bg-[var(--sea-hover)]",
-        outline:
-          "border border-[var(--line)] bg-transparent text-[var(--sea)] hover:bg-[var(--sand)]",
-        whatsapp: "bg-[var(--whatsapp)] text-white hover:opacity-90",
-        ghost: "hover:bg-[var(--sand)] text-[var(--ink)]",
+        default: "bg-mangrove text-sand hover:bg-mangrove-mid",
+        gold: "bg-gold text-mangrove hover:bg-gold-hover",
+        outline: "border border-line bg-transparent text-mangrove hover:bg-sand-deep",
+        "outline-on-dark":
+          "border border-line-on-dark bg-transparent text-sand hover:bg-mangrove-mid",
+        whatsapp: "bg-whatsapp text-white hover:bg-whatsapp-hover",
+        ghost: "text-ink hover:bg-sand-deep",
+        call: "border border-mangrove bg-transparent text-mangrove hover:bg-sand-deep",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
+        default: "h-11 px-5 py-2",
+        sm: "h-9 rounded-md px-3 text-sm",
+        lg: "h-12 rounded-md px-8 text-base",
+        full: "h-12 w-full rounded-md px-5",
         icon: "h-10 w-10",
       },
     },
@@ -31,9 +35,7 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends
     React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-}
+    VariantProps<typeof buttonVariants> {}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, ...props }, ref) => (

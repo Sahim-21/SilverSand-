@@ -1,15 +1,31 @@
+import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
-  ({ className, type, ...props }, ref) => (
+const inputVariants = cva(
+  "flex h-12 w-full rounded-md border px-3.5 py-2 text-base md:text-sm tabular-nums transition-colors duration-150 file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50",
+  {
+    variants: {
+      surface: {
+        light: "border-line bg-surface text-ink focus-visible:ring-mangrove",
+        dark: "border-line-on-dark bg-mangrove-mid text-sand placeholder:text-sand/55 focus-visible:ring-gold",
+      },
+    },
+    defaultVariants: {
+      surface: "light",
+    },
+  },
+);
+
+export interface InputProps
+  extends React.ComponentProps<"input">, VariantProps<typeof inputVariants> {}
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, surface, ...props }, ref) => (
     <input
       type={type}
-      className={cn(
-        "flex h-10 w-full rounded-md border border-[var(--line)] bg-white px-3 py-2 text-sm text-[var(--ink)] placeholder:text-[var(--muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--sea)] disabled:cursor-not-allowed disabled:opacity-50",
-        className,
-      )}
+      className={cn(inputVariants({ surface, className }))}
       ref={ref}
       {...props}
     />
@@ -17,4 +33,4 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
 );
 Input.displayName = "Input";
 
-export { Input };
+export { Input, inputVariants };

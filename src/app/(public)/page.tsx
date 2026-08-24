@@ -2,6 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { BookingWidgetPlaceholder } from "@/components/booking-widget-placeholder";
+import { Container } from "@/components/layout/container";
+import { PageHeader } from "@/components/layout/page-header";
+import { Section } from "@/components/layout/section";
+import { Split } from "@/components/layout/split";
+import { Stack } from "@/components/layout/stack";
+import { PhotoFrame } from "@/components/ui/photo-frame";
+import { Text } from "@/components/ui/heading";
 import { BUSINESS_NAME, BUSINESS_PLACE, ROOM_NAME } from "@/lib/business";
 
 export const metadata: Metadata = {
@@ -13,31 +20,33 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
-      <div className="grid gap-10 lg:grid-cols-[1fr_22rem] lg:items-start">
-        <section>
-          <p className="text-sm font-medium uppercase tracking-wide text-[var(--sea)]">
-            {BUSINESS_PLACE}
-          </p>
-          <h1 className="mt-2 font-serif text-3xl font-semibold text-[var(--ink)] md:text-4xl">
-            Homestay in Murudeshwar
-          </h1>
-          <p className="mt-4 max-w-prose text-[var(--muted)]">
-            {BUSINESS_NAME} offers one room type — the{" "}
-            <Link href="/rooms/deluxe-ac" className="text-[var(--sea)] underline">
-              {ROOM_NAME}
-            </Link>
-            — with occupancy-based pricing for families and groups. Message us on
-            WhatsApp with your dates; we confirm availability ourselves.
-          </p>
-          <p className="mt-4 max-w-prose text-sm text-[var(--muted)]">
-            We do not publish distances, amenities, or nightly rates until the owner
-            confirms them. Rates shown on the site always come from the admin panel,
-            never hardcoded in the page.
-          </p>
-        </section>
-        <BookingWidgetPlaceholder />
-      </div>
-    </div>
+    <Container>
+      <Section>
+        <Split aside={<BookingWidgetPlaceholder />}>
+          <Stack gap="lg">
+            <PageHeader
+              eyebrow={BUSINESS_PLACE}
+              title="Homestay in Murudeshwar"
+              description={
+                <>
+                  {BUSINESS_NAME} offers one room type — the{" "}
+                  <Link href="/rooms/deluxe-ac" className="text-mangrove underline">
+                    {ROOM_NAME}
+                  </Link>{" "}
+                  — with occupancy-based pricing for families and groups. Message us on
+                  WhatsApp with your dates; we confirm availability ourselves.
+                </>
+              }
+            />
+            <PhotoFrame />
+            <Text size="sm" tone="muted">
+              We do not publish distances, amenities, or nightly rates until the owner
+              confirms them. Rates shown on the site always come from the admin panel,
+              never hardcoded in the page.
+            </Text>
+          </Stack>
+        </Split>
+      </Section>
+    </Container>
   );
 }

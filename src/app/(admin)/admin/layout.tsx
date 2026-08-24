@@ -11,8 +11,8 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen bg-white text-[var(--ink)]">
-      <div className="border-b border-[var(--line)] px-4 py-3 text-sm text-[var(--muted)]">
+    <div className="min-h-screen bg-sand text-ink">
+      <div className="border-b border-line bg-surface px-gutter py-3 text-sm text-muted">
         Silver Sand — pricing admin
       </div>
       {children}

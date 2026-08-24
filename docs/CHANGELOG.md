@@ -6,6 +6,30 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-24 — Design system tokens, primitives, style guide
+
+### What
+
+- Replaced the scaffold sand/blue tokens with a **sand canvas + mangrove/gold** system in `src/app/globals.css` (Tailwind `@theme` utilities).
+- Primitives: `Button`, `Input` (light/dark), `Label`, `Card`, `Alert`, `Heading`/`Text`, `PhotoFrame`.
+- Layout: `Container`, `Section`, `Stack`, `Split`, `PageHeader`.
+- Public pages and the booking placeholder now use those components. Booking card is mangrove with gold title; WhatsApp stays green.
+- Internal **`/style-guide`** (noindex, robots disallow) so future work can see real components.
+- `docs/DESIGN_SYSTEM.md` records the decided tokens (no longer “proposed”).
+
+### Why
+
+Photography-first marketing needs a quiet warm canvas. The booking panel borrows the **tone** of a warm-dark form (deep green/near-black, mustard accent, soft fields, generous form gaps) without cloning it or painting the whole site dark. Gold is not a luxury overlay on light pages.
+
+### Rejected
+
+- Full-site dark theme (fights photographs).
+- Heavy gradients, animation, stock photos.
+- Gold as the WhatsApp CTA (WhatsApp green stays reserved).
+- Reintroducing `--sea` blues.
+
+---
+
 ## 2026-08-24 — Phase 1: project scaffold
 
 ### What

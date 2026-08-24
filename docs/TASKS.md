@@ -62,6 +62,7 @@ Full checklist with why each item matters: `BUSINESS_INFO.md`.
 - [x] `robots.ts`, `sitemap.ts`, `.env.example`, CI workflow
 - [x] Lint / typecheck / format scripts
 - [x] Booking widget **placeholder** (full interactive widget → Phase 2)
+- [x] Design system: tokens, primitives, layout, `/style-guide`
 
 ---
 

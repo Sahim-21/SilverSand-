@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Container } from "@/components/layout/container";
 import { buttonVariants } from "@/components/ui/button";
 import { BUSINESS_NAME, DISPLAY_PHONE, TEL_URL, WHATSAPP_URL } from "@/lib/business";
 import { cn } from "@/lib/utils";
@@ -11,9 +12,9 @@ const navLinks = [
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-[var(--line)] bg-white/90 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
-        <Link href="/" className="font-serif text-lg font-semibold text-[var(--sea)]">
+    <header className="border-b border-line bg-surface/90 backdrop-blur-sm">
+      <Container className="flex items-center justify-between gap-4 py-4">
+        <Link href="/" className="font-serif text-lg font-semibold text-mangrove">
           {BUSINESS_NAME}
         </Link>
         <nav className="hidden items-center gap-6 text-sm md:flex">
@@ -21,7 +22,7 @@ export function SiteHeader() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-[var(--ink)] hover:text-[var(--sea)]"
+              className="text-ink hover:text-mangrove"
             >
               {link.label}
             </Link>
@@ -39,14 +40,14 @@ export function SiteHeader() {
           <a
             href={TEL_URL}
             className={cn(
-              buttonVariants({ variant: "outline", size: "sm" }),
+              buttonVariants({ variant: "call", size: "sm" }),
               "hidden sm:inline-flex",
             )}
           >
             {DISPLAY_PHONE}
           </a>
         </div>
-      </div>
+      </Container>
     </header>
   );
 }

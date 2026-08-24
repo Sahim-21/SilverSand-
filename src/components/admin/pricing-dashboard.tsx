@@ -75,11 +75,11 @@ export function AdminPricingDashboard() {
 
   return (
     <form onSubmit={onSave} className="mt-6 space-y-6">
-      <div className="rounded-lg border border-[var(--line)] p-4">
+      <div className="rounded-lg border border-line bg-surface p-4">
         <p className="font-medium">Deluxe AC Room</p>
         <table className="mt-4 w-full text-sm">
           <thead>
-            <tr className="text-left text-[var(--muted)]">
+            <tr className="text-left text-muted">
               <th className="pb-2">Sharing</th>
               <th className="pb-2">₹ / night</th>
             </tr>
@@ -124,11 +124,11 @@ export function AdminPricingDashboard() {
         </table>
       </div>
       {error ? (
-        <p className="text-sm text-[var(--danger)]" role="alert">
+        <p className="text-sm text-danger" role="alert">
           {error}
         </p>
       ) : null}
-      {message ? <p className="text-sm text-[var(--sea)]">{message}</p> : null}
+      {message ? <p className="text-sm text-mangrove">{message}</p> : null}
       <div className="flex gap-3">
         <Button type="submit" disabled={saving}>
           {saving ? "Saving…" : "Save"}

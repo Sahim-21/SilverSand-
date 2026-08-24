@@ -90,7 +90,8 @@ export async function PATCH(request: Request) {
 
   revalidateTag("pricing", "max");
   revalidatePath("/");
-  revalidatePath("/rooms/deluxe-ac");
+  revalidatePath("/rooms");
+  revalidatePath("/rooms/deluxe-ac-room");
 
   return NextResponse.json({ ok: true, updatedAt: new Date().toISOString() });
 }

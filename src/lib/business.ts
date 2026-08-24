@@ -14,6 +14,7 @@ export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_E164}`;
 export const TEL_URL = `tel:${PHONE_E164}`;
 
 export const ROOM_SLUG = "deluxe-ac";
+export const ROOM_PATH = "/rooms/deluxe-ac-room";
 export const ROOM_NAME = "Deluxe AC Room";
 
 export const OCCUPANCY_TIERS = [2, 3, 4, 6, 8] as const;

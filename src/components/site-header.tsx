@@ -3,12 +3,8 @@ import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { buttonVariants } from "@/components/ui/button";
 import { BUSINESS_NAME, DISPLAY_PHONE, TEL_URL, WHATSAPP_URL } from "@/lib/business";
+import { mainNav } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
-
-const navLinks = [
-  { href: "/rooms/deluxe-ac", label: "Rooms" },
-  { href: "/contact", label: "Contact" },
-];
 
 export function SiteHeader() {
   return (
@@ -18,7 +14,7 @@ export function SiteHeader() {
           {BUSINESS_NAME}
         </Link>
         <nav className="hidden items-center gap-6 text-sm md:flex">
-          {navLinks.map((link) => (
+          {mainNav.map((link) => (
             <Link
               key={link.href}
               href={link.href}

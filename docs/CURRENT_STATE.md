@@ -1,7 +1,7 @@
 # Current state
 
 **Date of this snapshot:** 24 August 2026  
-**Phase:** 1 complete — **project scaffold + design system**. Phase 2 feature work (interactive booking widget, JSON-LD, launch) is next.
+**Phase:** 1 complete — **scaffold + design system + marketing pages**. Phase 2 feature work (interactive booking widget, JSON-LD, launch) is next.
 
 ## What exists
 
@@ -11,7 +11,8 @@
 | Cursor rules                      | `.cursor/rules/` (silver-sand, pricing, docs)                                            |
 | Next.js App Router app            | Scaffolded — TypeScript, Tailwind 4, token-based UI primitives                           |
 | Design system                     | Tokens in `globals.css`; layout + primitives; rendered at **`/style-guide`** (`noindex`) |
-| Public pages                      | Home, Deluxe AC Room, Contact, Privacy, Terms (`(public)` route group)                   |
+| Public pages                      | Home (full section stack), `/rooms`, `/rooms/deluxe-ac-room`, `/gallery`, `/about`, `/location`, `/contact`, Privacy, Terms |
+| Marketing sections                | Reusable components under `src/components/sections/` and `src/components/marketing/`   |
 | Admin                             | `/admin/login`, `/admin` pricing dashboard (JWT + `admin_users`)                         |
 | API                               | `GET /api/pricing`, `PATCH /api/admin/pricing`, Auth.js routes                           |
 | Database schema                   | Drizzle — `rooms`, `occupancy_prices`, `admin_users`, `price_audit_log`                  |
@@ -21,7 +22,7 @@
 | Booking widget                    | Dark mangrove placeholder — WhatsApp/call CTAs; interactive dates/estimate not built yet |
 | Domain `silversandhomestay.com`   | Intended. DNS not configured in this repo.                                               |
 | Owner occupancy rates (2/3/4/6/8) | **Still missing** — room stays `is_published: false` until owner saves rates in admin    |
-| Address, photos, amenities, GBP   | **Missing** — copy is conservative; `PhotoFrame` empty states, no stock photos           |
+| Address, photos, amenities, GBP   | **Missing** — copy is conservative; `PhotoFrame` empty states, `TodoNotice` for gaps   |
 
 ## How to run locally
 

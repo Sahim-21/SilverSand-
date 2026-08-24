@@ -6,6 +6,32 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-24 — Must-have marketing pages and reusable sections
+
+### What
+
+- Homepage wired to the full section stack from the architecture brief: hero (+ WhatsApp/phone CTAs high), property intro, room & pricing (DB), photos, about, Murudeshwar beach/temple, nearby attractions, FAQ, map, final CTA.
+- New public routes: `/rooms` (single-room listing), `/rooms/deluxe-ac-room` (canonical room URL), `/gallery`, `/about`, `/location`; `/contact` enhanced with shared `ContactCta` and TODOs.
+- Reusable layers: `src/components/sections/*`, `src/components/marketing/*`, `src/lib/navigation.ts`, `src/lib/site-content.ts`, `src/lib/todos.ts`.
+- Header/footer use shared nav; `sitemap.ts` updated; `/rooms/deluxe-ac` → `/rooms/deluxe-ac-room` redirect.
+- Missing owner facts surface as `TodoNotice` components referencing `docs/BUSINESS_INFO.md` checklist numbers — no invented amenities, distances, or rates.
+
+### Why
+
+Ship a complete, honest marketing surface using the Phase 2 design system without duplicating markup or hardcoding occupancy prices. Inner pages reuse the same sections as Home where intent overlaps.
+
+### Rejected
+
+- Hardcoded ₹ occupancy rates in components.
+- Stock photos or invented beach-distance copy.
+- `/rooms` → room-detail redirect (user brief requires a listing page even with one type).
+
+### Follow-up
+
+Phase 2: interactive booking widget, owner occupancy rates in admin, JSON-LD when address exists. See `docs/TASKS.md`.
+
+---
+
 ## 2026-08-24 — Design system tokens, primitives, style guide
 
 ### What

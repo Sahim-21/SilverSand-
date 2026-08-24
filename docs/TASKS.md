@@ -63,6 +63,7 @@ Full checklist with why each item matters: `BUSINESS_INFO.md`.
 - [x] Lint / typecheck / format scripts
 - [x] Booking widget **placeholder** (full interactive widget → Phase 2)
 - [x] Design system: tokens, primitives, layout, `/style-guide`
+- [x] Marketing pages: Home (full section stack), `/rooms`, `/rooms/deluxe-ac-room`, `/gallery`, `/about`, `/location`, `/contact` — reusable section components; pricing from DB only
 
 ---
 
@@ -81,9 +82,9 @@ Must ship a **usable** booking path, not a platform.
 
 ## Phase 3 — Recommended pages and local SEO (after must-have pages are truthful)
 
-- [ ] About the homestay (family/host story — from owner, not invented)
-- [ ] Murudeshwar guide / how to reach (useful, not a doorway)
-- [ ] FAQ (only answered questions)
+- [x] About the homestay (family/host story — from owner, not invented) — `/about` with TODOs for missing host facts
+- [ ] Murudeshwar guide / how to reach (useful, not a doorway) — partial on `/location`; dedicated `/murudeshwar` deferred
+- [x] FAQ (only answered questions) — on Home; pending answers marked TODO
 - [ ] NAP consistency: site, WhatsApp about, GBP, listed directories
 - [ ] GBP setup or cleanup (categories, photos, products/services, WhatsApp, booking link = this site)
 - [ ] Search Console + Bing Webmaster

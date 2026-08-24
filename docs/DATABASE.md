@@ -224,3 +224,39 @@ Do not seed competitor-like dummy rates (e.g. copying Coastal Pearl’s ₹2899)
 2. Check `price_audit_log` for the last `after` payload.
 3. Confirm `GET /api/pricing` matches.
 4. If the widget disagrees, the bug is in `estimateStay` / `estimateEnquiry` — not a second price list in React.
+
+---
+
+## Audit: one write path, one read path (24 Aug 2026)
+
+Scanned `src/` (excluding `*.test.ts`) for occupancy nightly rates, extra-bed rupee amounts, named `RATE_*` / `PRICE_*` fallbacks, and `₹` amounts in UI.
+
+### What we found
+
+| Location | Amount | Verdict |
+| -------- | ------ | ------- |
+| `scripts/seed.ts` | `extraBedRateInr: 500` | **Allowed.** Owner-supplied extra-bed figure, written into `rooms.extra_bed_rate_inr` at seed. Not imported by React. Occupancy nightly rates are **not** seeded. Room stays `is_published = false` until admin save. |
+| `src/lib/pricing/estimate.test.ts` | Fixture 2000/2500/3000/4000/5000 + extra 500 | **Allowed.** Unit-test math only; not shipped to the public UI. |
+| `src/lib/booking/whatsapp-message.test.ts` | `₹4,500` as a formatted label argument | **Allowed.** Asserts message formatting; the production builder never invents a total. |
+| Admin validation copy | `₹99,999` / `₹9,999` | **Allowed.** Upper bounds, not rack rates. |
+| Style guide glyph row | `₹ 0 1 2 3 4 5 6 7 8 9` | **Allowed.** Type specimen, not a price. |
+
+No occupancy nightly rate and no extra-bed rupee amount exist as a React default, JSX fallback, or `NEXT_PUBLIC_` env. Public components call `getPublicPricing()` / `GET /api/pricing` and render `—` / enquire copy when that returns null. Occupancy table fail-closes: `nightlyRateInr <= 0` → em dash; `extraBedRateInr <= 0` → “Not offered”.
+
+### Same table, same columns
+
+| Path | Code | Table.column |
+| ---- | ---- | ------------ |
+| Admin save | `PATCH /api/admin/pricing` | `UPDATE rooms.extra_bed_rate_inr`; upsert `occupancy_prices.nightly_rate_inr` per occupancy 2/3/4/6/8; insert `price_audit_log` |
+| Admin load | `getAdminPricing()` | `SELECT` those same columns (no `is_published` gate) |
+| Public load | `getPublicPricing()` → `GET /api/pricing`, occupancy table, booking widget, FAQ extra-bed line | `SELECT rooms.extra_bed_rate_inr` + `occupancy_prices.nightly_rate_inr` (requires `is_published` and all five tiers `> 0`) |
+
+After save, `revalidateTag("pricing")` drops the public cache so the next Home / room / widget fetch reads Postgres again. No redeploy.
+
+### Guardrail
+
+`src/lib/pricing/no-hardcoded-prices.test.ts` (run via `npm test`):
+
+1. Walks `src/**/*.ts(x)` excluding tests and fails on literal `nightlyRateInr` / `extraBedRateInr` numbers, named `RATE_*` constants, or unexpected `₹` amounts.
+2. Asserts the admin PATCH, `getAdminPricing()`, and `getPublicPricing()` all import `@/db/schema` and reference `rooms`, `occupancyPrices`, `extraBedRateInr`, and `nightlyRateInr`.
+

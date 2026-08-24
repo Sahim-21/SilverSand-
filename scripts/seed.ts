@@ -35,7 +35,7 @@ async function main() {
       slug: ROOM_SLUG,
       name: ROOM_NAME,
       maxOccupancy: 8,
-      extraBedRateInr: 500,
+      extraBedRateInr: 500, // owner-supplied extra-bed rate only; occupancy nightly rates are not seeded
       isPublished: false,
     });
     console.log("Created room (unpublished, no occupancy rates).");

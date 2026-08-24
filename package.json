@@ -14,7 +14,7 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "db:seed": "npx --yes tsx scripts/seed.ts",
-    "test": "npx --yes tsx --test src/lib/pricing/estimate.test.ts src/lib/booking/whatsapp-message.test.ts"
+    "test": "npx --yes tsx --test src/lib/pricing/estimate.test.ts src/lib/booking/whatsapp-message.test.ts src/lib/pricing/no-hardcoded-prices.test.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",

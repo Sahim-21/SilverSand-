@@ -6,6 +6,25 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-24 — Hardcoded-price audit + fail-closed display
+
+### What
+
+- Audited `src/` for occupancy nightly rates or extra-bed rupees that are not read from `rooms` / `occupancy_prices`. None in React. The only numeric extra-bed in the repo outside tests is `scripts/seed.ts` (`extraBedRateInr: 500`, owner-supplied, unpublished until admin save). Occupancy nightly rates are still not seeded.
+- Occupancy table fail-closes: missing or `<= 0` nightly rate → em dash; extra bed `<= 0` → “Not offered” (no `₹0`).
+- Added `src/lib/pricing/no-hardcoded-prices.test.ts`: scans production source for literal rates / unexpected `₹` amounts, and asserts admin PATCH + public `getPublicPricing()` both use `rooms.extra_bed_rate_inr` and `occupancy_prices.nightly_rate_inr`. Wired into `npm test` and CI.
+
+### Why
+
+A second occupancy constant in JSX would silently diverge from admin. The scanner is the tripwire.
+
+### Rejected
+
+- Moving extra-bed `500` out of seed (it is the one owner-supplied figure and lives in the DB row, not in the UI).
+- Allowing `₹0` as a published extra-bed display.
+
+---
+
 ## 2026-08-24 — Admin login + pricing dashboard (hardened)
 
 ### What

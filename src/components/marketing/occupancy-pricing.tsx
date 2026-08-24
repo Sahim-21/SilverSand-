@@ -45,11 +45,12 @@ export async function OccupancyPricing() {
             <tbody>
               {OCCUPANCY_TIERS.map((tier) => {
                 const row = pricing.occupancyRates.find((r) => r.occupancy === tier);
+                const amount = row?.nightlyRateInr ?? 0;
                 return (
                   <tr key={tier} className="border-b border-line/60">
                     <td className="py-3 pr-4">{tier} sharing</td>
                     <td className="py-3 tabular-nums font-medium">
-                      {row ? formatInr(row.nightlyRateInr) : "—"}
+                      {amount > 0 ? formatInr(amount) : "—"}
                     </td>
                   </tr>
                 );
@@ -57,10 +58,16 @@ export async function OccupancyPricing() {
               <tr>
                 <td className="py-3 pr-4">Extra bed / person</td>
                 <td className="py-3 tabular-nums font-medium">
-                  {formatInr(pricing.room.extraBedRateInr)}
-                  <span className="ml-1 text-xs font-normal text-muted">
-                    (per night — confirm with owner)
-                  </span>
+                  {pricing.room.extraBedRateInr > 0 ? (
+                    <>
+                      {formatInr(pricing.room.extraBedRateInr)}
+                      <span className="ml-1 text-xs font-normal text-muted">
+                        (per night — confirm with owner)
+                      </span>
+                    </>
+                  ) : (
+                    <span className="font-normal text-muted">Not offered</span>
+                  )}
                 </td>
               </tr>
             </tbody>

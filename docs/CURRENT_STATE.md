@@ -22,6 +22,7 @@
 | Booking widget                    | Interactive mangrove panel — occupancy dropdown, quantity, extra beds, dates, live estimate from `GET /api/pricing`, WhatsApp prefill + Call us |
 | Admin login                       | `/admin/login` — Auth.js Credentials + JWT session cookie, rate limiting, constant-time compare, design-system form |
 | Admin dashboard                   | `/admin` — server-loaded prices, per-field validation, dirty tracking, IST timestamp, published badge, Sign out |
+| Hardcoded-price guardrail         | `npm test` scans `src/` for literal occupancy/extra-bed rupees; admin write + public read share `rooms` / `occupancy_prices` |
 | `getAdminPricing()`               | Server-only admin fetch — no `is_published` gate, no tag cache |
 | Domain `silversandhomestay.com`   | Intended. DNS not configured in this repo.                                               |
 | Owner occupancy rates (2/3/4/6/8) | **Still missing** — room stays `is_published: false` until owner saves rates in admin    |

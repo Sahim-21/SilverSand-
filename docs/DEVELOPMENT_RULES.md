@@ -4,6 +4,17 @@ Rules for humans and for Cursor. If a rule here conflicts with a convenience, th
 
 ---
 
+## Workflow: PLAN → IMPLEMENT → VERIFY → DOCUMENT
+
+For any non-trivial change:
+
+1. **PLAN** — Read `START_HERE.md`, `CURRENT_STATE.md`, `BUSINESS_INFO.md`, and the owning doc (`ARCHITECTURE`, `DATABASE`, `SEO_STRATEGY`, `DESIGN_SYSTEM`). Confirm the task is in `TASKS.md`.
+2. **IMPLEMENT** — Smallest diff that matches the plan. No invented facts or hardcoded prices.
+3. **VERIFY** — `npm run typecheck`, `npm run lint`, `npm run build` (and manual check in browser when UI changes).
+4. **DOCUMENT** — Update `CURRENT_STATE.md`, `TASKS.md`, and `CHANGELOG.md` (what **and** why).
+
+---
+
 ## Before any significant change
 
 1. Read `START_HERE.md`.
@@ -23,12 +34,12 @@ Rules for humans and for Cursor. If a rule here conflicts with a convenience, th
 
 ## Only pricing is dynamic
 
-| Dynamic (DB, owner admin) | Static (repo) |
-| --- | --- |
-| Occupancy nightly rates (2/3/4/6/8) | All page copy |
-| Extra-bed rate | Layout, nav, design tokens |
-| `is_published` / `updated_at` | Images, SEO body, FAQ answers |
-| Admin password hash | Phone number, domain, WhatsApp URL **as published facts** (change via PR if the owner’s number changes — it is not a CMS field in v1) |
+| Dynamic (DB, owner admin)           | Static (repo)                                                                                                                         |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Occupancy nightly rates (2/3/4/6/8) | All page copy                                                                                                                         |
+| Extra-bed rate                      | Layout, nav, design tokens                                                                                                            |
+| `is_published` / `updated_at`       | Images, SEO body, FAQ answers                                                                                                         |
+| Admin password hash                 | Phone number, domain, WhatsApp URL **as published facts** (change via PR if the owner’s number changes — it is not a CMS field in v1) |
 
 Phone lives in one config module (e.g. `src/lib/business.ts`) sourced from documented facts — **not** in the pricing table. That is still not owner-editable from the panel.
 
@@ -94,10 +105,10 @@ OTA pages (EaseMyTrip, Casai, etc.) that mention Silver Sand are **leads to veri
 
 Update, in the same PR/commit batch:
 
-1. `docs/CURRENT_STATE.md` — what is true now  
-2. `docs/TASKS.md` — checkboxes  
-3. `docs/CHANGELOG.md` — **what and why**  
-4. `docs/BUSINESS_INFO.md` — if the owner supplied a new fact  
+1. `docs/CURRENT_STATE.md` — what is true now
+2. `docs/TASKS.md` — checkboxes
+3. `docs/CHANGELOG.md` — **what and why**
+4. `docs/BUSINESS_INFO.md` — if the owner supplied a new fact
 
 ---
 

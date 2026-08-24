@@ -17,14 +17,14 @@ This file holds the stack recommendation (section B), the system design (section
 
 ### What the stack must do well
 
-| Need | Why it matters here |
-| --- | --- |
-| SEO | Primary acquisition is Google for “homestay in Murudeshwar” and close variants. SSR/SSG and clean HTML beat a client-only SPA. |
-| Load speed | Mobile visitors on coastal 4G; photos will dominate weight. |
-| Tiny dynamic surface | One room type, a handful of INR fields, one editor. |
-| Secure admin | One owner, one login, money-adjacent numbers. |
-| Low operating cost | A single homestay, not a SaaS. |
-| Second developer in Cursor | TypeScript + a boring folder layout, documented in this repo. |
+| Need                       | Why it matters here                                                                                                            |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| SEO                        | Primary acquisition is Google for “homestay in Murudeshwar” and close variants. SSR/SSG and clean HTML beat a client-only SPA. |
+| Load speed                 | Mobile visitors on coastal 4G; photos will dominate weight.                                                                    |
+| Tiny dynamic surface       | One room type, a handful of INR fields, one editor.                                                                            |
+| Secure admin               | One owner, one login, money-adjacent numbers.                                                                                  |
+| Low operating cost         | A single homestay, not a SaaS.                                                                                                 |
+| Second developer in Cursor | TypeScript + a boring folder layout, documented in this repo.                                                                  |
 
 ### Option 1 — Next.js App Router + Postgres (recommended)
 
@@ -48,7 +48,7 @@ This file holds the stack recommendation (section B), the system design (section
 
 **Cost:** Cloudflare is cheap.
 
-**Why not first:** Two runtimes (static site + worker), two dashboards, and auth on a Worker is more glue. A second developer must learn Astro islands *and* the API project. The booking widget is interactive enough that you still need a serious client island — the “static site” win shrinks.
+**Why not first:** Two runtimes (static site + worker), two dashboards, and auth on a Worker is more glue. A second developer must learn Astro islands _and_ the API project. The booking widget is interactive enough that you still need a serious client island — the “static site” win shrinks.
 
 ### Option 3 — WordPress + ACF (rejected for this brief)
 
@@ -69,7 +69,7 @@ Justification against the brief’s criteria:
 - **Low operating cost:** Two managed services, both with free/low tiers.
 - **Cursor / second developer:** One language, App Router conventions, docs in `/docs`. shadcn is the primitive library (Button, Input, Dialog, Form, Table, Calendar) — do not add a second component kit.
 
-Do not add Prisma *and* Drizzle, Redux, a hotel booking SaaS, or a visual page builder.
+Do not add Prisma _and_ Drizzle, Redux, a hotel booking SaaS, or a visual page builder.
 
 ---
 
@@ -106,8 +106,8 @@ Guests never create records. A WhatsApp click is the “booking”. That is inte
 - **Booking widget:** client component. Inputs: check-in, check-out, occupancy (published tiers 2/3/4/6/8), extra beds. Output: nights × (tier rate + extra beds × extra-bed rate). Copy: “Estimate only — we confirm on WhatsApp.”
 - **Primary CTA:** one prominent button, label **Check Availability on WhatsApp**, `https://wa.me/919986222892?text=...` (use the canonical formatted number without spaces).
 - **Secondary CTA:** `tel:+919986222892`.
-- **No** “Add another room type” (Dandeli Inn pattern) unless the owner later confirms multiple *types*.
-- **No** room-quantity stepper unless the owner confirms multiple *units* of Deluxe AC.
+- **No** “Add another room type” (Dandeli Inn pattern) unless the owner later confirms multiple _types_.
+- **No** room-quantity stepper unless the owner confirms multiple _units_ of Deluxe AC.
 - Prices displayed on the room page come from the same fetch as the widget, never from a constant in the component file.
 
 Inspiration from `dandeliinn.com` (concept only): room/guest control, date range, live estimated total, single WhatsApp availability CTA. Do not copy layout, palette, lodge features, or Dandeli sightseeing.
@@ -116,11 +116,11 @@ Inspiration from `dandeliinn.com` (concept only): room/guest control, date range
 
 Keep the API surface small.
 
-| Method | Path | Auth | Purpose |
-| --- | --- | --- | --- |
-| `GET` | `/api/pricing` | public | Current room, occupancy rates, extra-bed rate, currency, `updatedAt` |
+| Method  | Path                 | Auth          | Purpose                                                                                |
+| ------- | -------------------- | ------------- | -------------------------------------------------------------------------------------- |
+| `GET`   | `/api/pricing`       | public        | Current room, occupancy rates, extra-bed rate, currency, `updatedAt`                   |
 | `PATCH` | `/api/admin/pricing` | admin session | Replace occupancy rates + extra-bed rate; write audit rows; `revalidateTag('pricing')` |
-| `POST` | `/api/auth/*` | Auth.js | Login / logout |
+| `POST`  | `/api/auth/*`        | Auth.js       | Login / logout                                                                         |
 
 No `POST /api/bookings`. Optional later: a server log of WhatsApp clicks (date, occupancy) — not required for v1.
 
@@ -163,14 +163,14 @@ No WYSIWYG, no image upload, no “pages”.
 
 ### Deployment
 
-| Piece | Where |
-| --- | --- |
-| App | Vercel, project bound to this git repo |
-| DB | Neon (or Vercel Postgres) in `ap-southeast-1` / `ap-south-1` if available — pick the region closest to India that the vendor offers and record it in CHANGELOG |
-| Domain | `silversandhomestay.com` + `www` → Vercel |
-| TLS | Vercel default |
-| Backups | Neon point-in-time; do not store prices only in Vercel’s ephemeral FS |
-| Env | Vercel project settings, never committed |
+| Piece   | Where                                                                                                                                                          |
+| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| App     | Vercel, project bound to this git repo                                                                                                                         |
+| DB      | Neon (or Vercel Postgres) in `ap-southeast-1` / `ap-south-1` if available — pick the region closest to India that the vendor offers and record it in CHANGELOG |
+| Domain  | `silversandhomestay.com` + `www` → Vercel                                                                                                                      |
+| TLS     | Vercel default                                                                                                                                                 |
+| Backups | Neon point-in-time; do not store prices only in Vercel’s ephemeral FS                                                                                          |
+| Env     | Vercel project settings, never committed                                                                                                                       |
 
 Preview deployments: admin must not be usable with production credentials. Use a separate Neon branch or disable admin on Preview.
 
@@ -191,32 +191,32 @@ No thin doorway pages. A URL earns its keep with distinct intent and facts we ac
 
 ### Must-have (v1)
 
-| URL | Intent | Notes |
-| --- | --- | --- |
-| `/` | “Homestay in Murudeshwar” — choose this stay, start dates | Hero, proof we can legally show, booking widget, WhatsApp + call, honest location line |
-| `/rooms/deluxe-ac` | Evaluate the one room | Layout, occupancy pricing (from DB), extra bed, photos, widget |
-| `/contact` | Call / WhatsApp / later map | NAP once address exists |
-| `/privacy` | Trust / WhatsApp prefill | Short, real |
-| `/terms` | House rules we actually have | Do not paste a hotel TOS template |
+| URL                | Intent                                                    | Notes                                                                                  |
+| ------------------ | --------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `/`                | “Homestay in Murudeshwar” — choose this stay, start dates | Hero, proof we can legally show, booking widget, WhatsApp + call, honest location line |
+| `/rooms/deluxe-ac` | Evaluate the one room                                     | Layout, occupancy pricing (from DB), extra bed, photos, widget                         |
+| `/contact`         | Call / WhatsApp / later map                               | NAP once address exists                                                                |
+| `/privacy`         | Trust / WhatsApp prefill                                  | Short, real                                                                            |
+| `/terms`           | House rules we actually have                              | Do not paste a hotel TOS template                                                      |
 
 `/rooms` as a listing page is optional in v1 (only one type). Prefer redirect `/rooms` → `/rooms/deluxe-ac` rather than a fake catalog.
 
 ### Recommended (v1.1, after facts exist)
 
-| URL | Intent | Distinct from Home? |
-| --- | --- | --- |
-| `/about` | Who hosts, what “homestay” means here | Yes — people and house, not rates |
-| `/murudeshwar` | Plan the trip, how to reach **this** pin | Yes — transport + local orientation. Not a Wikipedia dump. |
-| `/faq` | Objections: parking, food, check-in, extra bed | Only Qs we can answer |
+| URL            | Intent                                         | Distinct from Home?                                        |
+| -------------- | ---------------------------------------------- | ---------------------------------------------------------- |
+| `/about`       | Who hosts, what “homestay” means here          | Yes — people and house, not rates                          |
+| `/murudeshwar` | Plan the trip, how to reach **this** pin       | Yes — transport + local orientation. Not a Wikipedia dump. |
+| `/faq`         | Objections: parking, food, check-in, extra bed | Only Qs we can answer                                      |
 
 ### Future SEO / content (only with unique substance)
 
-| URL | Opportunity | Guardrail |
-| --- | --- | --- |
-| `/rooms-in-murudeshwar` | User SERP for **“rooms in murudeshwar”** showed OTAs, not local homestay sites | Write as *our* rooms in Murudeshwar + how occupancy pricing works + when to pick 4 vs 6 vs 8. Do **not** scrape a city-wide hotel list. |
-| `/homestay-near-murudeshwar-beach` | Matches a stated target keyword | **Blocked** until beach distance is known. Then it must add beach-specific practicality (sand, parking, walk vs auto), not a duplicate Home. |
-| `/family-homestay-murudeshwar` | 6/8 occupancy is a real differentiator if the room actually sleeps that many | Blocked until layout is confirmed. |
-| `/how-to-reach-murudeshwar` | Can merge with `/murudeshwar` if thin | Do not split until there is enough unique text. |
+| URL                                | Opportunity                                                                    | Guardrail                                                                                                                                    |
+| ---------------------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/rooms-in-murudeshwar`            | User SERP for **“rooms in murudeshwar”** showed OTAs, not local homestay sites | Write as _our_ rooms in Murudeshwar + how occupancy pricing works + when to pick 4 vs 6 vs 8. Do **not** scrape a city-wide hotel list.      |
+| `/homestay-near-murudeshwar-beach` | Matches a stated target keyword                                                | **Blocked** until beach distance is known. Then it must add beach-specific practicality (sand, parking, walk vs auto), not a duplicate Home. |
+| `/family-homestay-murudeshwar`     | 6/8 occupancy is a real differentiator if the room actually sleeps that many   | Blocked until layout is confirmed.                                                                                                           |
+| `/how-to-reach-murudeshwar`        | Can merge with `/murudeshwar` if thin                                          | Do not split until there is enough unique text.                                                                                              |
 
 **Do not create:** `/affordable-homestay-in-murudeshwar`, `/best-homestay-in-murudeshwar`, `/homestay-in-murdeshwar` (spelling variant) as separate pages. Those are title/H1/FAQ jobs on existing URLs, plus `hreflang` is irrelevant (one language). Spelling variants belong in body copy and GBP, not extra routes.
 

@@ -1,47 +1,49 @@
 # Current state
 
 **Date of this snapshot:** 24 August 2026  
-**Phase:** 1 — documentation and architecture. **No application code is in scope.**
+**Phase:** 1 complete — **project scaffold**. Phase 2 feature work (interactive booking widget, JSON-LD, launch) is next.
 
 ## What exists
 
-| Area | Status |
-| --- | --- |
-| Public website | Not built |
-| Admin pricing panel | Not built |
-| Database | Not provisioned; schema specified in `DATABASE.md` |
-| Auth | Not implemented; approach specified in `ARCHITECTURE.md` |
-| Domain `silversandhomestay.com` | Intended. No indexed public site found on 24 Aug 2026 (`site:silversandhomestay.com` empty). Registrar/DNS not verified in this repo. |
-| Owner-supplied facts | Name, place (Murudeshwar, Karnataka), phone/WhatsApp, one room type name, occupancy ladder, extra-bed ₹500/person. See `BUSINESS_INFO.md`. |
-| Occupancy prices (2/3/4/6/8) | **Missing** |
-| Address, photos, amenities, policies, GBP, coordinates | **Missing** |
-| This documentation set | Complete for Phase 1 |
-| Cursor rules | `.cursor/rules/` |
+| Area                              | Status                                                                                |
+| --------------------------------- | ------------------------------------------------------------------------------------- |
+| Documentation (10 files)          | Complete — `START_HERE.md` + nine files under `docs/`                                 |
+| Cursor rules                      | `.cursor/rules/` (silver-sand, pricing, docs)                                         |
+| Next.js App Router app            | Scaffolded — TypeScript, Tailwind 4, shadcn-style UI primitives                       |
+| Public pages                      | Home, Deluxe AC Room, Contact, Privacy, Terms (`(public)` route group)                |
+| Admin                             | `/admin/login`, `/admin` pricing dashboard (JWT + `admin_users`)                      |
+| API                               | `GET /api/pricing`, `PATCH /api/admin/pricing`, Auth.js routes                        |
+| Database schema                   | Drizzle — `rooms`, `occupancy_prices`, `admin_users`, `price_audit_log`               |
+| Seed script                       | `scripts/seed.ts` — room (unpublished) + admin; **no occupancy ₹ invented**           |
+| Tooling                           | `lint`, `typecheck`, `format`, `format:check`, `db:*`, GitHub Actions CI              |
+| `.env.example`                    | All required variables documented                                                     |
+| Booking widget                    | **Placeholder only** — WhatsApp/call CTAs; interactive dates/estimate not built yet   |
+| Domain `silversandhomestay.com`   | Intended. DNS not configured in this repo.                                            |
+| Owner occupancy rates (2/3/4/6/8) | **Still missing** — room stays `is_published: false` until owner saves rates in admin |
+| Address, photos, amenities, GBP   | **Missing** — copy is conservative                                                    |
 
-## What must not be treated as the product
+## How to run locally
 
-The cloud environment may have dropped a default `create-next-app` tree (`src/`, `package.json`, Next 16, Tailwind 4) in the working directory. **That scaffold is leftover bootstrap, not Silver Sand.** Do not copy its README, Geist marketing page, or `tmp-scaffold` package name into production. When implementation starts, scaffold (or rebuild) against `ARCHITECTURE.md`.
+1. Copy `.env.example` → `.env.local` and fill `DATABASE_URL`, `AUTH_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`.
+2. `npm install`
+3. `npm run db:push` then `npm run db:seed`
+4. `npm run dev` → http://localhost:43123
+5. Owner admin → http://localhost:43123/admin/login
 
-## What was observed (not built)
-
-Competitor and reference sites were fetched on 24 August 2026 for architecture and SEO decisions. Findings are in `SEO_STRATEGY.md`. They are observational (what the pages claim and how they are structured). They are **not** keyword-volume, backlink, or ranking-position data.
-
-## Single source of truth for prices (intended)
+## Single source of truth for prices
 
 ```
 Owner → /admin login → dashboard → edit occupancy + extra-bed rates
-     → Postgres → public server components / GET /api/pricing
-     → booking widget estimate → WhatsApp prefilled message
+     → Postgres → GET /api/pricing (tag: pricing)
+     → public pages / future booking widget → WhatsApp estimate
 ```
 
-Nothing in that chain is live yet.
+Rates are **not** hardcoded in React. Until the owner enters all five occupancy tiers, `GET /api/pricing` returns 404 and the site shows enquire-only CTAs without ₹ totals.
 
-## Blockers before a public launch
+## Blockers before public launch
 
-1. Occupancy rates from the owner (or an explicit “show Enquire, hide rupee total until rates exist” launch mode — worse UX, only as a last resort).
-2. Whether Deluxe AC is one unit or several.
-3. At least a usable address or map pin, and real photographs.
-4. Domain DNS pointing at the host.
-5. Honest amenity and house-rule copy (check-in, parking, Wi-Fi, cancellation).
-
-Until then, any implemented UI must fail closed: no invented ₹ amounts, no invented “2 min from beach”.
+1. Occupancy rates from the owner (or deliberate enquire-only mode).
+2. Interactive booking widget (dates, occupancy, live estimate, WhatsApp prefill).
+3. Address or map pin, real photos, honest amenities/policies.
+4. Domain DNS → Vercel (or chosen host).
+5. `LodgingBusiness` JSON-LD only when geo/address are confirmed.

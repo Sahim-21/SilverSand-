@@ -6,7 +6,41 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
-## 2026-08-24 — Phase 1: documentation only
+## 2026-08-24 — Phase 1: project scaffold
+
+### What
+
+- Replaced the leftover `create-next-app` demo with **Silver Sand Homestay** per `docs/ARCHITECTURE.md`.
+- Stack: Next.js 16 App Router, TypeScript, Tailwind 4, shadcn-style UI (`Button`, `Input`), Neon + Drizzle, Auth.js (Credentials → `admin_users`), Zod validation.
+- App structure: `(public)` marketing routes, `(admin)` pricing panel, API routes for pricing and auth.
+- Drizzle schema matching `docs/DATABASE.md`; `scripts/seed.ts` creates one unpublished room + admin (extra bed ₹500 only; no occupancy rates).
+- Design tokens from `docs/DESIGN_SYSTEM.md` in `globals.css`; Source Sans / Source Serif fonts.
+- `.env.example`, `components.json`, Prettier + ESLint, GitHub Actions CI (`typecheck`, `lint`, `format:check`, `build`).
+- Public `robots.ts`, `sitemap.ts`, `/rooms` → `/rooms/deluxe-ac` redirect.
+- Booking widget is a **placeholder** (honest CTAs, no fake ₹).
+
+### Why
+
+Phase 0 documentation defined constraints; Phase 1 gives a second developer a runnable repo with the correct boundaries (pricing-only dynamic surface) without inventing owner facts or rack rates.
+
+Auth uses **JWT sessions** because Auth.js Credentials provider does not support database sessions — documented here so we do not assume `auth_sessions` tables exist.
+
+`revalidateTag('pricing', 'max')` is required by Next.js 16’s cache API.
+
+### Rejected (on purpose)
+
+- Seeding invented occupancy prices.
+- `@auth/drizzle-adapter` / extra auth tables (unused with JWT + `admin_users`).
+- Full interactive booking widget in this phase (Phase 2).
+- `Hotel` schema, fake reviews, beach-distance copy.
+
+### Follow-up
+
+Phase 2: interactive widget, JSON-LD with known facts, owner occupancy rates, Vercel deploy. See `docs/TASKS.md`.
+
+---
+
+## 2026-08-24 — Phase 0: documentation only
 
 ### What
 
@@ -22,15 +56,11 @@ Competitor and reference sites were fetched the same day so SEO and UX recommend
 
 ### Rejected (on purpose)
 
-- **Application code** in this phase, including treating any leftover `create-next-app` tree as the product.
-- **WordPress / a headless CMS** — the brief forbids owner-editable pages; WordPress is still a CMS.
-- **Astro + Worker as v1** — better HTML diet, worse for a second Cursor developer than one Next.js app.
-- **Hotel / PMS / payments / live calendar** — conversion is WhatsApp; we do not have availability data.
-- **Invented occupancy ₹ amounts, address, or beach walking time** — not in `BUSINESS_INFO.md` confirmed facts.
-- **Treating sahyadristays.com as the Sahyadri beach homestay** — it is a marketplace; Nestle Sahyadri is the Murudeshwar property.
+- **Application code** in that phase.
+- **WordPress / a headless CMS** — the brief forbids owner-editable pages.
+- **Astro + Worker as v1** — split stack for a small team.
+- **Hotel / PMS / payments / live calendar**.
+- **Invented occupancy ₹ amounts, address, or beach walking time**.
+- **Treating sahyadristays.com as the Sahyadri beach homestay**.
 - **Hotel schema and fake review stars.**
 - **Doorway URLs** for every keyword variant.
-
-### Follow-up
-
-Implementation starts only when authorised, ideally after occupancy rates and unit count exist. See `docs/TASKS.md` Phase 0 and Phase 2.

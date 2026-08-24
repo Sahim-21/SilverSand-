@@ -33,7 +33,7 @@ Full checklist with why each item matters: `BUSINESS_INFO.md`.
 
 ---
 
-## Phase 1 — Documentation (this phase)
+## Phase 1 — Documentation
 
 - [x] Project understanding and constraints (`START_HERE.md`)
 - [x] Tech stack comparison and pick (`ARCHITECTURE.md`)
@@ -50,24 +50,31 @@ Full checklist with why each item matters: `BUSINESS_INFO.md`.
 
 ---
 
-## Phase 2 — Implementation slice (only after Phase 0 minimum: rates + unit count)
+## Phase 1 — Project scaffold (complete)
+
+- [x] Next.js App Router + TypeScript + Tailwind + shadcn-style UI
+- [x] Drizzle schema: `rooms`, `occupancy_prices`, `admin_users`, `price_audit_log`
+- [x] Seed script (unpublished room, admin user; no invented occupancy rates)
+- [x] Auth.js Credentials → `admin_users` (JWT sessions)
+- [x] `GET /api/pricing`, `PATCH /api/admin/pricing`
+- [x] Admin login + pricing dashboard
+- [x] Must-have public pages (honest placeholder copy)
+- [x] `robots.ts`, `sitemap.ts`, `.env.example`, CI workflow
+- [x] Lint / typecheck / format scripts
+- [x] Booking widget **placeholder** (full interactive widget → Phase 2)
+
+---
+
+## Phase 2 — Booking widget and launch (in progress)
 
 Must ship a **usable** booking path, not a platform.
 
-- [ ] Fresh Next.js App Router + TypeScript + Tailwind + shadcn/ui scaffold (do not reuse leftover demo branding)
-- [ ] Postgres + Drizzle schema for `rooms`, `occupancy_prices`, `admin_users`, `price_audit_log`
-- [ ] Seed: one room row; occupancy prices **from owner**; extra bed ₹500 (or owner correction)
-- [ ] Auth: single owner, credentials, httpOnly session, no public registration
-- [ ] `GET` pricing for the public site (no secrets)
-- [ ] Admin: login → dashboard → edit rates → save → revalidate public pages
-- [ ] Public booking widget: occupancy (or guest count mapped to a published tier), extra beds, date range, **live estimate**, primary CTA **Check Availability on WhatsApp**, secondary **Call**
-- [ ] Estimate labelled as estimate; WhatsApp message includes dates, guests, extra beds, estimate, room name
-- [ ] Must-have pages: Home, Deluxe AC Room, Contact, Privacy, Terms
-- [ ] Technical SEO baseline: metadata, canonical, sitemap.xml, robots.txt, OG image, `LodgingBusiness` + `Accommodation` JSON-LD **only with known facts**
-- [ ] `noindex` on `/admin` and API error pages
-- [ ] Mobile layout for the booking widget (thumb-reachable WhatsApp CTA)
-- [ ] README: how to run locally, env vars, how owner prices are edited
-- [ ] Update `CURRENT_STATE.md`, this file, and `CHANGELOG.md`
+- [ ] Owner occupancy rates entered (Phase 0) and room published via admin
+- [ ] Interactive booking widget: dates, occupancy, extra beds, live estimate from API
+- [ ] WhatsApp prefill with dates, guests, estimate, room name
+- [ ] `LodgingBusiness` + `Accommodation` JSON-LD **only with known facts**
+- [ ] Deploy to Vercel + Neon; domain DNS
+- [ ] README verified against production setup
 
 ---
 
@@ -88,7 +95,7 @@ Must ship a **usable** booking path, not a platform.
 
 Do not build these as thin keyword URLs.
 
-- [ ] `rooms-in-murudeshwar` — **content-gap page** (user SERP: this query showed OTAs, not local homestays). Must explain *this* room, occupancy pricing, who it suits, how to book direct. Not a fake city-wide inventory.
+- [ ] `rooms-in-murudeshwar` — **content-gap page** (user SERP: this query showed OTAs, not local homestays). Must explain _this_ room, occupancy pricing, who it suits, how to book direct. Not a fake city-wide inventory.
 - [ ] Homestay near Murudeshwar Beach — **only if** distance is known and the page is distinct from Home
 - [ ] Affordable / family occupancy page — only if pricing and layout support the claim
 - [ ] Netrani / temple day-trip companion pages — only if the host actually helps with those trips

@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+:root {
+  --sand: #f6f0e6;
+  --sea: #1b4f72;
+  --sea-hover: #163f5b;
+  --ink: #1a1a1a;
+  --muted: #5c5c5c;
+  --whatsapp: #128c7e;
+  --line: #e4d9c8;
+  --danger: #b42318;
+  --background: var(--sand);
+  --foreground: var(--ink);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-source-sans);
+  --font-serif: var(--font-source-serif);
+}
+
+body {
+  background: var(--sand);
+  color: var(--ink);
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+}
+
+.font-serif {
+  font-family: var(--font-source-serif), Georgia, serif;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

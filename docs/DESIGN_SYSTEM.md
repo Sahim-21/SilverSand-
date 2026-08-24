@@ -36,17 +36,17 @@ Admin: no marketing header. Quiet dashboard, shadcn Table + Button.
 
 Name-derived, coastal, restrained. Do not use Dandeli-style saturated jungle green as the brand.
 
-| Token | Role | Suggested |
-| --- | --- | --- |
-| `--sand` | Page background | Warm off-white / pale sand `#F6F0E6` |
-| `--sea` | Primary actions, links | Deep coastal blue `#1B4F72` |
-| `--sea-hover` | Primary hover | `#163F5B` |
-| `--ink` | Body text | Near-black `#1A1A1A` |
-| `--muted` | Secondary text | `#5C5C5C` |
-| `--whatsapp` | **Only** the WhatsApp CTA | Official-ish green `#128C7E` — recognisable, not a second brand |
-| `--call` | Secondary phone | Outline / `--sea` |
-| `--line` | Borders | `#E4D9C8` |
-| `--danger` | Form errors | `#B42318` |
+| Token         | Role                      | Suggested                                                       |
+| ------------- | ------------------------- | --------------------------------------------------------------- |
+| `--sand`      | Page background           | Warm off-white / pale sand `#F6F0E6`                            |
+| `--sea`       | Primary actions, links    | Deep coastal blue `#1B4F72`                                     |
+| `--sea-hover` | Primary hover             | `#163F5B`                                                       |
+| `--ink`       | Body text                 | Near-black `#1A1A1A`                                            |
+| `--muted`     | Secondary text            | `#5C5C5C`                                                       |
+| `--whatsapp`  | **Only** the WhatsApp CTA | Official-ish green `#128C7E` — recognisable, not a second brand |
+| `--call`      | Secondary phone           | Outline / `--sea`                                               |
+| `--line`      | Borders                   | `#E4D9C8`                                                       |
+| `--danger`    | Form errors               | `#B42318`                                                       |
 
 WhatsApp green is reserved for the **one** primary conversion button so it does not compete with random “success” badges.
 
@@ -69,17 +69,17 @@ Scale (approx): H1 2rem mobile / 2.75rem desktop; body 1rem; small print 0.875re
 
 Use shadcn for primitives. Do not add MUI, Ant, Chakra, or a hotel-booking widget from npm.
 
-| Piece | Primitive | Notes |
-| --- | --- | --- |
-| WhatsApp CTA | `Button` | Full width on mobile; WhatsApp icon + exact label **Check Availability on WhatsApp** |
-| Call | `Button variant="outline"` | |
-| Occupancy | `Select` or stepper | Options 2 / 3 / 4 / 6 / 8 sharing — labels in English + “guests” |
-| Extra beds | Stepper | 0…max; hide if rate is 0 |
-| Dates | `Calendar` / date range | Check-out after check-in; no min-stay unless owner sets one (static later) |
-| Estimate | Definition list | “Estimated total” + “Estimate only, subject to availability” |
-| Admin table | `Table` + `Input type="number"` | INR, integer |
-| Admin save | `Button` | |
-| Notices | `Alert` | DB failure → call/WhatsApp, no fake ₹ |
+| Piece        | Primitive                       | Notes                                                                                |
+| ------------ | ------------------------------- | ------------------------------------------------------------------------------------ |
+| WhatsApp CTA | `Button`                        | Full width on mobile; WhatsApp icon + exact label **Check Availability on WhatsApp** |
+| Call         | `Button variant="outline"`      |                                                                                      |
+| Occupancy    | `Select` or stepper             | Options 2 / 3 / 4 / 6 / 8 sharing — labels in English + “guests”                     |
+| Extra beds   | Stepper                         | 0…max; hide if rate is 0                                                             |
+| Dates        | `Calendar` / date range         | Check-out after check-in; no min-stay unless owner sets one (static later)           |
+| Estimate     | Definition list                 | “Estimated total” + “Estimate only, subject to availability”                         |
+| Admin table  | `Table` + `Input type="number"` | INR, integer                                                                         |
+| Admin save   | `Button`                        |                                                                                      |
+| Notices      | `Alert`                         | DB failure → call/WhatsApp, no fake ₹                                                |
 
 Native `<a href="https://wa.me/...">` for WhatsApp (reliable on Android). Do not wrap it in a JS web-share only path.
 
@@ -89,14 +89,14 @@ Native `<a href="https://wa.me/...">` for WhatsApp (reliable on Android). Do not
 
 Adapt from Dandeli Inn’s **flow**, not its chrome:
 
-| Dandeli Inn (observed 24 Aug 2026) | Silver Sand |
-| --- | --- |
-| Room type dropdown (6 types) | Single type shown as a heading; occupancy select |
-| Quantity + “Add another room type” | Omit unless multiple units/types are confirmed |
-| Optional name & phone | Omit in v1 — WhatsApp already identifies the guest |
-| Dates + live estimate | Keep |
-| One WhatsApp CTA | Keep, same job, original label |
-| Rates listed as static cards on the same page | Show rates **from API/DB**, not from markdown |
+| Dandeli Inn (observed 24 Aug 2026)            | Silver Sand                                        |
+| --------------------------------------------- | -------------------------------------------------- |
+| Room type dropdown (6 types)                  | Single type shown as a heading; occupancy select   |
+| Quantity + “Add another room type”            | Omit unless multiple units/types are confirmed     |
+| Optional name & phone                         | Omit in v1 — WhatsApp already identifies the guest |
+| Dates + live estimate                         | Keep                                               |
+| One WhatsApp CTA                              | Keep, same job, original label                     |
+| Rates listed as static cards on the same page | Show rates **from API/DB**, not from markdown      |
 
 Empty: dates missing → estimate em dash, CTA still allowed (message without total) **or** CTA disabled until dates exist. Prefer **dates required** so the owner gets a usable WhatsApp.
 

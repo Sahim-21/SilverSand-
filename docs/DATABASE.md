@@ -32,30 +32,30 @@ admin_users 1──* price_audit_log
 
 One row in v1.
 
-| Column | Type | Notes |
-| --- | --- | --- |
-| `id` | `uuid` PK | Default `gen_random_uuid()` |
-| `slug` | `text` UNIQUE NOT NULL | `'deluxe-ac'` |
-| `name` | `text` NOT NULL | `'Deluxe AC Room'` — display name, not a CMS page |
-| `max_occupancy` | `smallint` NOT NULL | `8` until owner says otherwise |
-| `extra_bed_rate_inr` | `integer` NOT NULL | Owner-editable. Brief: `500` |
-| `extra_bed_label` | `text` NOT NULL DEFAULT `'Extra bed'` | Not owner-editable in v1 UI if we want zero CMS creep; can stay in code instead. Prefer column only if admin must change label. **v1: keep label in code, rate in DB.** |
-| `currency` | `char(3)` NOT NULL DEFAULT `'INR'` | |
-| `is_published` | `boolean` NOT NULL DEFAULT `true` | If false, public API returns 404/empty and widget shows “Call to enquire” with **no ₹** |
-| `created_at` | `timestamptz` NOT NULL | |
-| `updated_at` | `timestamptz` NOT NULL | |
+| Column               | Type                                  | Notes                                                                                                                                                                   |
+| -------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                 | `uuid` PK                             | Default `gen_random_uuid()`                                                                                                                                             |
+| `slug`               | `text` UNIQUE NOT NULL                | `'deluxe-ac'`                                                                                                                                                           |
+| `name`               | `text` NOT NULL                       | `'Deluxe AC Room'` — display name, not a CMS page                                                                                                                       |
+| `max_occupancy`      | `smallint` NOT NULL                   | `8` until owner says otherwise                                                                                                                                          |
+| `extra_bed_rate_inr` | `integer` NOT NULL                    | Owner-editable. Brief: `500`                                                                                                                                            |
+| `extra_bed_label`    | `text` NOT NULL DEFAULT `'Extra bed'` | Not owner-editable in v1 UI if we want zero CMS creep; can stay in code instead. Prefer column only if admin must change label. **v1: keep label in code, rate in DB.** |
+| `currency`           | `char(3)` NOT NULL DEFAULT `'INR'`    |                                                                                                                                                                         |
+| `is_published`       | `boolean` NOT NULL DEFAULT `true`     | If false, public API returns 404/empty and widget shows “Call to enquire” with **no ₹**                                                                                 |
+| `created_at`         | `timestamptz` NOT NULL                |                                                                                                                                                                         |
+| `updated_at`         | `timestamptz` NOT NULL                |                                                                                                                                                                         |
 
 Do **not** store check-in time, Wi-Fi, or photo URLs here. Those are static until the brief changes.
 
 ### `occupancy_prices`
 
-| Column | Type | Notes |
-| --- | --- | --- |
-| `id` | `uuid` PK | |
-| `room_id` | `uuid` NOT NULL FK → `rooms(id)` ON DELETE CASCADE | |
-| `occupancy` | `smallint` NOT NULL | CHECK (`occupancy` IN (2, 3, 4, 6, 8)) |
-| `nightly_rate_inr` | `integer` NOT NULL | CHECK (`nightly_rate_inr` > 0) |
-| `updated_at` | `timestamptz` NOT NULL | |
+| Column             | Type                                               | Notes                                  |
+| ------------------ | -------------------------------------------------- | -------------------------------------- |
+| `id`               | `uuid` PK                                          |                                        |
+| `room_id`          | `uuid` NOT NULL FK → `rooms(id)` ON DELETE CASCADE |                                        |
+| `occupancy`        | `smallint` NOT NULL                                | CHECK (`occupancy` IN (2, 3, 4, 6, 8)) |
+| `nightly_rate_inr` | `integer` NOT NULL                                 | CHECK (`nightly_rate_inr` > 0)         |
+| `updated_at`       | `timestamptz` NOT NULL                             |                                        |
 
 **UNIQUE** (`room_id`, `occupancy`).
 
@@ -63,38 +63,38 @@ Exactly five rows per room in v1. Admin PATCH replaces all five in one transacti
 
 ### `admin_users`
 
-| Column | Type | Notes |
-| --- | --- | --- |
-| `id` | `uuid` PK | |
-| `email` | `citext` UNIQUE NOT NULL | |
-| `password_hash` | `text` NOT NULL | bcrypt/argon2 |
-| `created_at` | `timestamptz` NOT NULL | |
-| `last_login_at` | `timestamptz` | |
+| Column          | Type                     | Notes         |
+| --------------- | ------------------------ | ------------- |
+| `id`            | `uuid` PK                |               |
+| `email`         | `citext` UNIQUE NOT NULL |               |
+| `password_hash` | `text` NOT NULL          | bcrypt/argon2 |
+| `created_at`    | `timestamptz` NOT NULL   |               |
+| `last_login_at` | `timestamptz`            |               |
 
 Auth.js will add `accounts` / `sessions` / `verification_tokens` if we use the Auth.js Prisma/Drizzle adapter. That is auth infrastructure, not a CMS.
 
 ### `price_audit_log`
 
-| Column | Type | Notes |
-| --- | --- | --- |
-| `id` | `uuid` PK | |
-| `room_id` | `uuid` NOT NULL FK | |
-| `actor_user_id` | `uuid` FK `admin_users` | |
-| `changed_at` | `timestamptz` NOT NULL DEFAULT `now()` | |
-| `payload` | `jsonb` NOT NULL | `{ "before": { "extraBedRateInr": 500, "occupancy": { "2": … } }, "after": { … } }` |
+| Column          | Type                                   | Notes                                                                               |
+| --------------- | -------------------------------------- | ----------------------------------------------------------------------------------- |
+| `id`            | `uuid` PK                              |                                                                                     |
+| `room_id`       | `uuid` NOT NULL FK                     |                                                                                     |
+| `actor_user_id` | `uuid` FK `admin_users`                |                                                                                     |
+| `changed_at`    | `timestamptz` NOT NULL DEFAULT `now()` |                                                                                     |
+| `payload`       | `jsonb` NOT NULL                       | `{ "before": { "extraBedRateInr": 500, "occupancy": { "2": … } }, "after": { … } }` |
 
 v1 admin UI does not need a history screen. The table exists so a bad save is recoverable and a second developer can see why a rate changed.
 
 ### What is not modelled (on purpose)
 
-| Idea | Why later / never |
-| --- | --- |
-| Seasonal / weekend rates | Brief is occupancy + extra bed only |
-| 5- and 7-person rows | Owner has not defined the rule; handle in **application policy**, not extra rows, until they do |
-| Multiple rooms / units inventory | Unknown unit count |
-| Taxes / GST % | Unknown; if later, add `tax_note` static copy first, not a tax engine |
-| Coupons | Out of scope |
-| Bookings table | Conversion is WhatsApp |
+| Idea                             | Why later / never                                                                               |
+| -------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Seasonal / weekend rates         | Brief is occupancy + extra bed only                                                             |
+| 5- and 7-person rows             | Owner has not defined the rule; handle in **application policy**, not extra rows, until they do |
+| Multiple rooms / units inventory | Unknown unit count                                                                              |
+| Taxes / GST %                    | Unknown; if later, add `tax_note` static copy first, not a tax engine                           |
+| Coupons                          | Out of scope                                                                                    |
+| Bookings table                   | Conversion is WhatsApp                                                                          |
 
 ### Application policy for unpublished occupancies (confirm with owner)
 
@@ -166,14 +166,14 @@ Do not seed competitor-like dummy rates (e.g. copying Coastal Pearl’s ₹2899)
 2. **Login → Dashboard**  
    Server Component, session required. Loads the single `rooms` row + five `occupancy_prices`. Renders a table:
 
-   | Sharing | ₹ per night |
-   | --- | --- |
-   | 2 | [input] |
-   | 3 | [input] |
-   | 4 | [input] |
-   | 6 | [input] |
-   | 8 | [input] |
-   | Extra bed / person | [input] |
+   | Sharing            | ₹ per night |
+   | ------------------ | ----------- |
+   | 2                  | [input]     |
+   | 3                  | [input]     |
+   | 4                  | [input]     |
+   | 6                  | [input]     |
+   | 8                  | [input]     |
+   | Extra bed / person | [input]     |
 
    Shows `updated_at` in IST. No other widgets.
 
@@ -199,14 +199,14 @@ Do not seed competitor-like dummy rates (e.g. copying Coastal Pearl’s ₹2899)
 
 ### Failure modes
 
-| Case | Behaviour |
-| --- | --- |
-| Wrong password | Generic error; backoff |
-| Partial occupancy payload | 400; no commit |
-| DB down | Public: do not invent rates; show “Call or WhatsApp for today’s rate” + phone CTAs, **no stale hardcoded ₹** |
-| Owner sets extra bed 0 | Allowed; widget hides extra-bed stepper or shows “not offered” |
-| `is_published = false` | Same as DB down for ₹; still show the room photograph/copy if we have them |
-| Preview deploy | Admin disabled or separate DB; never point at production rates with public auth |
+| Case                      | Behaviour                                                                                                    |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Wrong password            | Generic error; backoff                                                                                       |
+| Partial occupancy payload | 400; no commit                                                                                               |
+| DB down                   | Public: do not invent rates; show “Call or WhatsApp for today’s rate” + phone CTAs, **no stale hardcoded ₹** |
+| Owner sets extra bed 0    | Allowed; widget hides extra-bed stepper or shows “not offered”                                               |
+| `is_published = false`    | Same as DB down for ₹; still show the room photograph/copy if we have them                                   |
+| Preview deploy            | Admin disabled or separate DB; never point at production rates with public auth                              |
 
 ### Security checklist (pricing)
 

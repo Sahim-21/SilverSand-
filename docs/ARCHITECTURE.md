@@ -65,7 +65,7 @@ Justification against the brief’s criteria:
 - **SEO:** SSR/SSG, metadata, sitemap, structured data without a separate prerender pipeline.
 - **Load speed:** Server-rendered booking numbers; images via `next/image`; shadcn does not require a heavy runtime kit. Keep JS to the widget, not the whole page.
 - **Simple dynamic pricing only:** One `GET` and one authenticated `PATCH`. No headless CMS.
-- **Secure admin auth:** Session cookies, no public signup, `robots.txt` + `noindex` on `/admin`.
+- **Secure admin auth:** Session cookies, no public signup, `robots.txt` + `noindex` on `/admin`. Three enforcement layers: edge middleware (JWT verify), server component `auth()` check, PATCH route `auth()` check. In-memory rate limit + constant-time bcrypt. JWT sessions because Auth.js Credentials cannot use the DB adapter — documented in CHANGELOG.
 - **Low operating cost:** Two managed services, both with free/low tiers.
 - **Cursor / second developer:** One language, App Router conventions, docs in `/docs`. shadcn is the primitive library (Button, Input, Dialog, Form, Table, Calendar) — do not add a second component kit.
 
@@ -131,28 +131,28 @@ Postgres. Schema in `DATABASE.md`. One `rooms` row for Deluxe AC. Child `occupan
 
 No tables for pages, media, menus, guests, or invoices.
 
-### Auth
+### Auth (implemented)
 
 - **One owner account**, created by seed or CLI, not a register form.
-- **Auth.js Credentials** + bcrypt (or Argon2) password hash.
-- **Database sessions** (or JWT in an httpOnly cookie — prefer DB sessions so logout is real).
-- Lockouts / rate limit on `/admin` login (middleware or provider).
-- 2FA is optional v1 (nice later); HTTPS is mandatory.
+- **Auth.js Credentials** + bcrypt password hash. Constant-time compare even for missing emails.
+- **JWT sessions** in httpOnly, Secure, SameSite=Lax cookie. DB sessions require the adapter which does not work with Credentials — documented in CHANGELOG.
+- **Rate limit:** 5 failed attempts per email in 15 min (in-process Map; bcrypt cost is the primary defense in serverless).
+- 2FA optional v1; HTTPS mandatory (Vercel default).
 - Env: `AUTH_SECRET`, `DATABASE_URL`, `ADMIN_EMAIL` (seed only). Never `NEXT_PUBLIC_` for prices.
 
-Forgot-password: v1 can be “SSH / dashboard reset hash”. Document it. Do not build email recovery until there is a real transactional mailer.
+Forgot-password: v1 — SSH/dashboard reset hash. Do not build email recovery without a transactional mailer.
 
-### Admin
+### Admin (implemented)
 
 URL: `/admin` and `/admin/login`.
 
-Screens (v1, only these):
+Screens:
 
-1. Login
-2. Dashboard: one card, “Deluxe AC Room”, table of occupancy → ₹ / night, extra-bed field, last updated
-3. Save (disabled until dirty). Success = “Live on the public site.”
+1. **Login** — email + password, design-system `Label`/`Alert`, generic error, rate-limited.
+2. **Dashboard** — one card, "Deluxe AC Room", inline inputs for each tier + extra bed; Published badge, last-saved IST timestamp; Save Changes (disabled until dirty); Sign out. Prices loaded server-side (bypasses `is_published`).
+3. **Save** — `PATCH /api/admin/pricing` → Zod → DB transaction → `revalidateTag("pricing", "max")`. Success: "Live on the public site."
 
-No WYSIWYG, no image upload, no “pages”.
+No WYSIWYG, no image upload, no "pages".
 
 ### Caching
 

@@ -6,6 +6,32 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-24 — Admin login + pricing dashboard (hardened)
+
+### What
+
+- **`/admin/login`**: redesigned with `Label` and `Alert` design-system primitives; generic error message (does not reveal whether the email exists).
+- **`/admin`**: Server Component now loads current prices from `getAdminPricing()` before the page renders — no client-side `useEffect` round-trip, and admin can see/edit rates even when the room is unpublished or fewer than 5 occupancy rows exist (both of which make the public API return null).
+- **`PricingDashboard` (client form)**: receives initial prices as props; dirty-state tracking (Save Changes disabled until a value changes); per-field validation (whole numbers, sensible upper bounds); `baseline` reset after successful save so the form returns to "not dirty" without a reload; "Last saved" timestamp in IST; Published/Unpublished badge; Sign out alongside Save.
+- **`auth.ts`**: in-memory per-email rate limiting (5 attempts / 15 minutes); constant-time bcrypt.compare (always runs even when email not found) to prevent timing oracle on email existence; rate-limit resets on successful login.
+- **`getAdminPricing()`** (`src/lib/pricing/admin-fetch.ts`): server-only query, no `is_published` gate, no tag cache — always fresh from Postgres.
+
+### Why
+
+The scaffold admin shell was functional but loaded prices via the public API (which fails when unpublished) and lacked dirty-state tracking, per-field feedback, and timing-safe auth. These are the minimum quality bars for a money-adjacent page used by a single owner.
+
+### Rate limiting note
+
+In-process `Map` resets on cold starts in serverless. This is documented here: bcrypt's cost factor (~100ms per check) is the primary brute-force defense. A distributed rate limiter (e.g. Upstash Redis or Arcjet) can replace this without changing the auth architecture.
+
+### Rejected
+
+- No user management UI, no roles, no reservation fields — pricing only.
+- No CMS capability added to the admin.
+- DB sessions (Auth.js Credentials cannot use the adapter without OAuth; JWT in httpOnly cookie is the correct v1 approach — documented in CHANGELOG).
+
+---
+
 ## 2026-08-24 — Interactive booking widget (live estimate + WhatsApp prefill)
 
 ### What

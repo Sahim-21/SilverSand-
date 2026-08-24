@@ -4,9 +4,16 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 
+import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { BUSINESS_NAME } from "@/lib/business";
 
+/**
+ * Client component: must use next-auth/react for client-side signIn().
+ * No credentials flow with redirect:false needs a client to handle the result.
+ */
 export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -28,7 +35,8 @@ export default function AdminLoginPage() {
     setLoading(false);
 
     if (result?.error) {
-      setError("Invalid email or password.");
+      // Generic message — do not reveal whether the email exists.
+      setError("Invalid email or password. Please try again.");
       return;
     }
 
@@ -37,46 +45,42 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-[70vh] max-w-sm flex-col justify-center px-4">
-      <h1 className="text-xl font-semibold text-mangrove">Owner login</h1>
-      <p className="mt-2 text-sm text-muted">
-        Edit occupancy rates and extra-bed price only.
-      </p>
-      <form onSubmit={onSubmit} className="mt-6 space-y-4">
+    <div className="mx-auto flex min-h-[70vh] max-w-sm flex-col justify-center px-gutter">
+      <h1 className="font-serif text-2xl font-semibold text-mangrove">{BUSINESS_NAME}</h1>
+      <p className="mt-1 text-sm text-muted">Pricing admin — owner login</p>
+
+      <form onSubmit={onSubmit} className="mt-8 flex flex-col gap-form">
         <div>
-          <label htmlFor="email" className="text-sm font-medium">
+          <Label htmlFor="email" className="mb-2">
             Email
-          </label>
+          </Label>
           <Input
             id="email"
             type="email"
             autoComplete="username"
+            required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
-            className="mt-1"
           />
         </div>
+
         <div>
-          <label htmlFor="password" className="text-sm font-medium">
+          <Label htmlFor="password" className="mb-2">
             Password
-          </label>
+          </Label>
           <Input
             id="password"
             type="password"
             autoComplete="current-password"
+            required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
-            className="mt-1"
           />
         </div>
-        {error ? (
-          <p className="text-sm text-danger" role="alert">
-            {error}
-          </p>
-        ) : null}
-        <Button type="submit" disabled={loading} className="w-full">
+
+        {error ? <Alert tone="danger">{error}</Alert> : null}
+
+        <Button type="submit" disabled={loading} size="full">
           {loading ? "Signing in…" : "Sign in"}
         </Button>
       </form>

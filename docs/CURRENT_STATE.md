@@ -1,7 +1,7 @@
 # Current state
 
 **Date of this snapshot:** 24 August 2026  
-**Phase:** 1 complete — **scaffold + design system + marketing pages**. Phase 2: **interactive booking widget is in**. Remaining: owner occupancy rates, JSON-LD, launch.
+**Phase:** 1 complete — scaffold + design system + marketing pages + booking widget + **admin pricing panel (hardened)**. Remaining Phase 2 work: owner occupancy rates, JSON-LD, deploy.
 
 ## What exists
 
@@ -20,6 +20,9 @@
 | Tooling                           | `lint`, `typecheck`, `format`, `format:check`, `db:*`, GitHub Actions CI                 |
 | `.env.example`                    | All required variables documented                                                        |
 | Booking widget                    | Interactive mangrove panel — occupancy dropdown, quantity, extra beds, dates, live estimate from `GET /api/pricing`, WhatsApp prefill + Call us |
+| Admin login                       | `/admin/login` — Auth.js Credentials + JWT session cookie, rate limiting, constant-time compare, design-system form |
+| Admin dashboard                   | `/admin` — server-loaded prices, per-field validation, dirty tracking, IST timestamp, published badge, Sign out |
+| `getAdminPricing()`               | Server-only admin fetch — no `is_published` gate, no tag cache |
 | Domain `silversandhomestay.com`   | Intended. DNS not configured in this repo.                                               |
 | Owner occupancy rates (2/3/4/6/8) | **Still missing** — room stays `is_published: false` until owner saves rates in admin    |
 | Address, photos, amenities, GBP   | **Missing** — copy is conservative; `PhotoFrame` empty states, `TodoNotice` for gaps   |
@@ -44,7 +47,7 @@ Rates are **not** hardcoded in React. Until the owner enters all five occupancy 
 
 ## Blockers before public launch
 
-1. Occupancy rates from the owner (or deliberate enquire-only mode).
+1. Occupancy rates from the owner (admin is ready to accept them).
 2. Address or map pin, real photos, honest amenities/policies.
 3. Domain DNS → Vercel (or chosen host).
 4. `LodgingBusiness` JSON-LD only when geo/address are confirmed.

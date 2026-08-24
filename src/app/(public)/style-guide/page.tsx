@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { BookingWidget } from "@/components/booking/booking-widget";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
@@ -204,6 +205,20 @@ export default function StyleGuidePage() {
           <Alert tone="danger" className="mt-6">
             Form error example — occupancy rates must be positive integers.
           </Alert>
+        </section>
+
+        <section>
+          <Heading as="h2" size="section" className="mb-6">
+            Booking widget
+          </Heading>
+          <Text tone="muted" className="mb-6 max-w-prose">
+            Live mangrove panel. Estimates come from GET /api/pricing only. Until the
+            owner publishes rates, the results box stays enquire-only with no rupee
+            fallback.
+          </Text>
+          <div className="max-w-md">
+            <BookingWidget />
+          </div>
         </section>
       </Stack>
     </Container>

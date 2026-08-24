@@ -61,7 +61,7 @@ Full checklist with why each item matters: `BUSINESS_INFO.md`.
 - [x] Must-have public pages (honest placeholder copy)
 - [x] `robots.ts`, `sitemap.ts`, `.env.example`, CI workflow
 - [x] Lint / typecheck / format scripts
-- [x] Booking widget **placeholder** (full interactive widget → Phase 2)
+- [x] Booking widget (dates, occupancy, extra beds, live estimate, WhatsApp prefill)
 - [x] Design system: tokens, primitives, layout, `/style-guide`
 - [x] Marketing pages: Home (full section stack), `/rooms`, `/rooms/deluxe-ac-room`, `/gallery`, `/about`, `/location`, `/contact` — reusable section components; pricing from DB only
 
@@ -72,8 +72,8 @@ Full checklist with why each item matters: `BUSINESS_INFO.md`.
 Must ship a **usable** booking path, not a platform.
 
 - [ ] Owner occupancy rates entered (Phase 0) and room published via admin
-- [ ] Interactive booking widget: dates, occupancy, extra beds, live estimate from API
-- [ ] WhatsApp prefill with dates, guests, estimate, room name
+- [x] Interactive booking widget: dates, occupancy, extra beds, live estimate from API
+- [x] WhatsApp prefill with dates, guests, estimate, room name
 - [ ] `LodgingBusiness` + `Accommodation` JSON-LD **only with known facts**
 - [ ] Deploy to Vercel + Neon; domain DNS
 - [ ] README verified against production setup

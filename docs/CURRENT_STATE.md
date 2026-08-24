@@ -1,7 +1,7 @@
 # Current state
 
 **Date of this snapshot:** 24 August 2026  
-**Phase:** 1 complete — **scaffold + design system + marketing pages**. Phase 2 feature work (interactive booking widget, JSON-LD, launch) is next.
+**Phase:** 1 complete — **scaffold + design system + marketing pages**. Phase 2: **interactive booking widget is in**. Remaining: owner occupancy rates, JSON-LD, launch.
 
 ## What exists
 
@@ -19,7 +19,7 @@
 | Seed script                       | `scripts/seed.ts` — room (unpublished) + admin; **no occupancy ₹ invented**              |
 | Tooling                           | `lint`, `typecheck`, `format`, `format:check`, `db:*`, GitHub Actions CI                 |
 | `.env.example`                    | All required variables documented                                                        |
-| Booking widget                    | Dark mangrove placeholder — WhatsApp/call CTAs; interactive dates/estimate not built yet |
+| Booking widget                    | Interactive mangrove panel — occupancy dropdown, quantity, extra beds, dates, live estimate from `GET /api/pricing`, WhatsApp prefill + Call us |
 | Domain `silversandhomestay.com`   | Intended. DNS not configured in this repo.                                               |
 | Owner occupancy rates (2/3/4/6/8) | **Still missing** — room stays `is_published: false` until owner saves rates in admin    |
 | Address, photos, amenities, GBP   | **Missing** — copy is conservative; `PhotoFrame` empty states, `TodoNotice` for gaps   |
@@ -37,7 +37,7 @@
 ```
 Owner → /admin login → dashboard → edit occupancy + extra-bed rates
      → Postgres → GET /api/pricing (tag: pricing)
-     → public pages / future booking widget → WhatsApp estimate
+     → public pages / booking widget → WhatsApp estimate
 ```
 
 Rates are **not** hardcoded in React. Until the owner enters all five occupancy tiers, `GET /api/pricing` returns 404 and the site shows enquire-only CTAs without ₹ totals.
@@ -45,7 +45,6 @@ Rates are **not** hardcoded in React. Until the owner enters all five occupancy 
 ## Blockers before public launch
 
 1. Occupancy rates from the owner (or deliberate enquire-only mode).
-2. Interactive booking widget (dates, occupancy, live estimate, WhatsApp prefill).
-3. Address or map pin, real photos, honest amenities/policies.
-4. Domain DNS → Vercel (or chosen host).
-5. `LodgingBusiness` JSON-LD only when geo/address are confirmed.
+2. Address or map pin, real photos, honest amenities/policies.
+3. Domain DNS → Vercel (or chosen host).
+4. `LodgingBusiness` JSON-LD only when geo/address are confirmed.

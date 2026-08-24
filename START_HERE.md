@@ -67,9 +67,9 @@ Until the owner answers the checklist in `docs/BUSINESS_INFO.md`, copy must stay
 
 ## Current task
 
-**Done:** Phase 0 documentation; Phase 1 scaffold (Next.js, Drizzle, admin shell, public pages, API, CI).
+**Done:** Phase 0 documentation; Phase 1 scaffold; marketing pages; **interactive booking widget** (live estimate + WhatsApp prefill).
 
-**Next (Phase 2):** interactive booking widget with dates/occupancy/estimate + WhatsApp prefill; owner occupancy rates; JSON-LD when address exists; deploy to Vercel.
+**Next (Phase 2 remaining):** owner occupancy rates in admin; JSON-LD when address exists; deploy to Vercel.
 
 **Do not do without owner facts:** invented beach distance, amenities, review quotes, or hardcoded occupancy ₹.
 

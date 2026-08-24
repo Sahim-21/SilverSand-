@@ -112,7 +112,8 @@ Document the owner’s choice in `BUSINESS_INFO.md` when given; then encode it i
 nights = dateDiff(checkout, checkin)   // reject checkout ≤ checkin
 base   = occupancy_prices[occupancy].nightly_rate_inr
 extra  = extraBeds * rooms.extra_bed_rate_inr
-total  = nights * (base + extra)
+line   = quantity * base + extra       // extra beds are per enquiry line, not × quantity
+total  = nights * line                 // sum across room-type lines
 ```
 
 No GST unless owner supplies a rate. Label: “Estimate only, subject to availability.”
@@ -222,4 +223,4 @@ Do not seed competitor-like dummy rates (e.g. copying Coastal Pearl’s ₹2899)
 1. Open `/admin` (or `SELECT * FROM occupancy_prices`).
 2. Check `price_audit_log` for the last `after` payload.
 3. Confirm `GET /api/pricing` matches.
-4. If the widget disagrees, the bug is in `estimateStay` — not a second price list in React.
+4. If the widget disagrees, the bug is in `estimateStay` / `estimateEnquiry` — not a second price list in React.

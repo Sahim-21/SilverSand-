@@ -103,12 +103,11 @@ Guests never create records. A WhatsApp click is the “booking”. That is inte
 
 - **App Router** under `src/app/`.
 - **Route groups:** `(public)` for marketing pages; `(admin)` for `/admin`.
-- **Booking widget:** client component. Inputs: check-in, check-out, occupancy (published tiers 2/3/4/6/8), extra beds. Output: nights × (tier rate + extra beds × extra-bed rate). Copy: “Estimate only — we confirm on WhatsApp.”
-- **Primary CTA:** one prominent button, label **Check Availability on WhatsApp**, `https://wa.me/919986222892?text=...` (use the canonical formatted number without spaces).
-- **Secondary CTA:** `tel:+919986222892`.
-- **No** “Add another room type” (Dandeli Inn pattern) unless the owner later confirms multiple _types_.
-- **No** room-quantity stepper unless the owner confirms multiple _units_ of Deluxe AC.
-- Prices displayed on the room page come from the same fetch as the widget, never from a constant in the component file.
+- **Booking widget:** client component. Inputs: name (optional), occupancy dropdown for each room type (published tiers 2/3/4/6/8), quantity stepper, extra beds, check-in and check-out date pickers (check-out after check-in), phone (optional). Output: nights × (quantity × occupancy rate + extra beds × extra-bed rate), summed across lines. Rates come from `GET /api/pricing` only. Copy: “\*Estimate only, subject to availability.”
+- **Primary CTA:** one prominent button, label **Check Availability on WhatsApp**, `https://wa.me/919986222892?text=...` prefilled with the enquiry (room, occupancy, dates, estimate, name/phone if given).
+- **Secondary CTA:** **Call us** → `tel:+919986222892`.
+- **Add another room type:** extra enquiry lines so a second type can be added later without a rewrite. v1 catalog is still one Deluxe AC Room. Quantity is an enquiry count, not live remaining rooms (unit count still unknown).
+- Prices displayed on the room page and in the widget come from the same fetch, never from a constant in the component file.
 
 Inspiration from `dandeliinn.com` (concept only): room/guest control, date range, live estimated total, single WhatsApp availability CTA. Do not copy layout, palette, lodge features, or Dandeli sightseeing.
 

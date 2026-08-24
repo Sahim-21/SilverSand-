@@ -23,10 +23,30 @@ export type EstimateInput = {
   checkOut: Date;
   occupancy: OccupancyTier;
   extraBeds: number;
+  quantity?: number;
 };
 
 export type EstimateResult = {
   nights: number;
   nightlySubtotalInr: number;
   totalInr: number;
+};
+
+/** One enquiry line — occupancy option of a room type, with quantity. */
+export type EnquiryLine = {
+  roomSlug: string;
+  occupancy: OccupancyTier;
+  quantity: number;
+  extraBeds: number;
+};
+
+export type EnquiryLineEstimate = EnquiryLine & {
+  nightlySubtotalInr: number;
+  totalInr: number;
+};
+
+export type EnquiryEstimate = {
+  nights: number;
+  totalInr: number;
+  lines: EnquiryLineEstimate[];
 };

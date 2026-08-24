@@ -31,7 +31,7 @@ After seeding, log in and enter all five occupancy rates (2/3/4/6/8) plus extra-
 | `npm run typecheck`               | `tsc --noEmit`                     |
 | `npm run format` / `format:check` | Prettier                           |
 | `npm run db:push`                 | Push Drizzle schema to Postgres    |
-| `npm run db:seed`                 | Seed room + admin (no occupancy ₹) |
+| `npm test`                        | Estimate + WhatsApp message tests  |
 
 ## Docs
 

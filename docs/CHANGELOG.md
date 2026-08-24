@@ -6,6 +6,29 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-24 — Interactive booking widget (live estimate + WhatsApp prefill)
+
+### What
+
+- Replaced the mangrove placeholder with a working booking panel: optional name, occupancy dropdown (room type × 2/3/4/6/8 sharing), quantity stepper, extra beds, native check-in/out date pickers (check-out after check-in), optional phone, results box, **Check Availability on WhatsApp**, and **Call us**.
+- “+ Add another room type” adds enquiry lines. v1 still has one Deluxe AC Room; the catalog is an array so a second type can be added later without rewriting the form.
+- Estimated Total uses `GET /api/pricing` + `estimateEnquiry` only. Unpublished rates → enquire-only copy, **no ₹ fallback**. Disclaimer: `*Estimate only, subject to availability`.
+- WhatsApp `wa.me` message is built from the form (room, occupancy, quantity, extra beds, dates, live estimate, name/phone if given).
+- Estimate math lives in `src/lib/pricing/estimate.ts` (covered by `npm test`). Widget sits on Home, the Deluxe AC room page, and `/style-guide`.
+
+### Why
+
+Guests need a usable mobile-first path to see a live occupancy estimate and message the owner, without inventing rack rates or implying instant confirmation.
+
+### Rejected
+
+- Hardcoded occupancy ₹ or extra-bed ₹ in the widget.
+- A date-picker npm library (native `<input type="date">` is the real mobile picker).
+- Treating quantity as live remaining-room inventory (unit count is still unknown).
+- Cloning Dandeli Inn’s layout or extra room-type inventory.
+
+---
+
 ## 2026-08-24 — Must-have marketing pages and reusable sections
 
 ### What

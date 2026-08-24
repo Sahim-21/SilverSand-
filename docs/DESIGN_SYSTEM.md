@@ -88,7 +88,7 @@ Scale (via `Heading` / `Text` in `src/components/ui/heading.tsx`):
 | `--ss-radius-md`    | 0.5rem  | Inputs, buttons (`rounded-md`) |
 | `--ss-radius-lg`    | 0.75rem | Cards, photo frames            |
 
-Max content width: `Container` `page` = 72rem; `narrow` = 42rem; widget column = 22rem in `Split`.
+Max content width: `Container` `page` = 72rem; `narrow` = 42rem; widget column = 24rem in `Split` / heroes.
 
 ---
 
@@ -128,9 +128,11 @@ Native `<a href="https://wa.me/919986222892">` for WhatsApp. Label: **Check Avai
 
 ## Booking widget
 
-Dark `Card` on the sand page. Gold title, sand body, WhatsApp green CTA, outline-on-dark Call.
+Dark `Card` on the sand page. Gold title, sand body, WhatsApp green CTA, outline-on-dark **Call us**.
 
-Flow still follows Dandeli Inn **concept only** (dates, occupancy, estimate, one WhatsApp CTA). Interactive estimate is Phase 2. Placeholder copy must not invent rates.
+Fields: name (optional), occupancy dropdown (room type × sharing), quantity stepper, extra beds, native date pickers, phone (optional), estimate results box, WhatsApp + Call. “+ Add another room type” adds another enquiry line so a second room type can be catalogued later without a rewrite.
+
+Estimates use `GET /api/pricing` / `estimateEnquiry` only. If rates are unpublished, the results box stays enquire-only with **no ₹ fallback**. Disclaimer: `*Estimate only, subject to availability`.
 
 ---
 
@@ -159,6 +161,6 @@ Colour transitions on buttons/inputs only (`duration-150`). No hero carousels, n
 
 - 375px: header CTAs usable, widget full width, no horizontal scroll
 - 768px: two-column starts on `Split`
-- 1280px: widget stays in the 22rem column, sticky on desktop
+- 1280px: widget stays in the 24rem column, sticky on desktop
 
-Verify on `/`, `/rooms/deluxe-ac`, `/contact`, and `/style-guide`.
+Verify on `/`, `/rooms/deluxe-ac-room`, `/contact`, and `/style-guide`.

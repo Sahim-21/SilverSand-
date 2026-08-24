@@ -13,7 +13,7 @@ export function Split({ children, aside, className }: SplitProps) {
   return (
     <div
       className={cn(
-        "grid gap-10 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start",
+        "grid gap-10 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start",
         className,
       )}
     >

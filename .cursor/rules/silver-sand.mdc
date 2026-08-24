@@ -1,0 +1,45 @@
+---
+description: Core Silver Sand rules — read docs first, pricing is the only dynamic data, no CMS
+alwaysApply: true
+---
+
+# Silver Sand Beach Homestay
+
+You are working on the direct-booking site for Silver Sand Beach Homestay, Murudeshwar, Karnataka.
+
+## Before significant work
+
+Read, in order:
+
+1. `START_HERE.md`
+2. `docs/CURRENT_STATE.md`
+3. `docs/BUSINESS_INFO.md`
+4. The relevant specialist doc (`docs/ARCHITECTURE.md`, `docs/DATABASE.md`, `docs/SEO_STRATEGY.md`, `docs/DESIGN_SYSTEM.md`, `docs/DEVELOPMENT_RULES.md`)
+
+If a fact is not in `docs/BUSINESS_INFO.md` as **Confirmed**, do not publish it as truth (no guessed address, beach minutes, Wi-Fi, meals, review quotes, or occupancy rupee amounts).
+
+## Preserve architecture
+
+- Stack: Next.js App Router, TypeScript, Tailwind, shadcn/ui, Postgres, Drizzle, Auth.js, Vercel — see `docs/ARCHITECTURE.md`.
+- Conversion: WhatsApp + phone. No bookings table in v1.
+- Ask the user before changing architecture, adding a CMS, payments, OTA/iCal, a second room type, or a second component library.
+
+## Only pricing is dynamic
+
+The owner admin panel edits occupancy rates (2/3/4/6/8) and extra-bed rate. That is the single source of truth.
+
+**Never** hardcode those prices in React, markdown the widget reads, or `NEXT_PUBLIC_*` env vars.
+
+Everything else (layout, copy, images, SEO, nav, design) is static in git — not owner-editable.
+
+## Do not
+
+- Build a full CMS or hotel management system
+- Clone dandeliinn.com (or other competitors) visually or in copy; the booking *flow* may be adapted
+- Create thin doorway pages for each keyword
+- Use `Hotel` schema or fake `AggregateRating`
+- Edit unrelated files or add dependencies without a `docs/CHANGELOG.md` reason
+
+## After significant work
+
+Update `docs/CURRENT_STATE.md`, `docs/TASKS.md`, and `docs/CHANGELOG.md` (what **and** why). New owner facts go in `docs/BUSINESS_INFO.md`.

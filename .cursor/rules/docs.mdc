@@ -1,0 +1,14 @@
+---
+description: Keep docs in sync after meaningful changes
+globs:
+  - "docs/**/*.md"
+  - "START_HERE.md"
+alwaysApply: false
+---
+
+# Documentation
+
+- `docs/BUSINESS_INFO.md` — confirmed facts only; never fill gaps from OTA scrapes without labelling them Unverified
+- `docs/CHANGELOG.md` — record why, not only what
+- Sitemap lives in `docs/ARCHITECTURE.md`; pricing schema lives in `docs/DATABASE.md`; do not split those into extra files
+- Do not add `PROJECT_CONTEXT.md`, `SITE_STRUCTURE.md`, or `ROOM_PRICING.md` — that content already belongs in `START_HERE.md` / `ARCHITECTURE.md` / `DATABASE.md`

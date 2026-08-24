@@ -1,0 +1,18 @@
+---
+description: Pricing must come from the database; admin is the only editor
+globs:
+  - "src/**/*.{ts,tsx,js,jsx}"
+  - "app/**/*.{ts,tsx,js,jsx}"
+alwaysApply: false
+---
+
+# Pricing rules
+
+Deluxe AC Room occupancy rates (2, 3, 4, 6, 8) and extra-bed INR are loaded from Postgres via server/API. See `docs/DATABASE.md`.
+
+- No `const` rate tables in client components
+- No duplicated “fallback” prices for SSR
+- If the pricing fetch fails, show Call/WhatsApp with **no** rupee total
+- Estimates must be labelled estimates; WhatsApp text should use the fetched numbers
+- Admin `PATCH` must write `price_audit_log` and revalidate the `pricing` tag
+- `/admin` is `noindex` and is not in the sitemap

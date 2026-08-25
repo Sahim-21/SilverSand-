@@ -68,7 +68,7 @@ Full checklist with why each item matters: `BUSINESS_INFO.md`.
 - [x] Homepage motion: one hero entrance (image then copy stagger); IntersectionObserver fade-up on Room & Pricing, Photos, About, Nearby Attractions, FAQ; `prefers-reduced-motion` off-ramp
 - [x] Public micro-interactions: shared `--ss-duration` / `--ss-ease` on buttons, occupancy cards, nav links, room/attraction photos; admin dashboard excluded
 - [x] Homepage section bands: alternate canvas / sand-deep with a static fade join; `--space-section` 5.5rem (inner pages not rolled out yet)
-- [x] Photo hover reveal: mangrove-deep bottom caption on room and attraction images (live occupancy ₹); visible by default on coarse pointers; reduced-motion opacity only
+- [x] Gold contact FAB: WhatsApp + Call, live widget enquiry when present, hide vs booking CTA, pulse off for reduced motion
 - [x] Marketing pages: Home (full section stack), `/rooms`, `/rooms/deluxe-ac-room`, `/gallery`, `/about`, `/location`, `/contact` — reusable section components; pricing from DB only
 
 ---

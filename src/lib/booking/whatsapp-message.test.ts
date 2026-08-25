@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { buildWhatsAppEnquiryMessage } from "./whatsapp-message";
+import {
+  buildGenericWhatsAppEnquiryMessage,
+  buildWhatsAppEnquiryMessage,
+} from "./whatsapp-message";
 
 test("WhatsApp message includes enquiry details without inventing a rate", () => {
   const message = buildWhatsAppEnquiryMessage({
@@ -50,4 +53,14 @@ test("WhatsApp message uses the formatted live estimate when provided", () => {
   assert.match(message, /\*Estimate only, subject to availability/);
   assert.match(message, /Rates include GST/);
   assert.match(message, /1 extra bed/);
+});
+
+test("generic WhatsApp enquiry has no invented rate and names the Deluxe AC Room", () => {
+  const message = buildGenericWhatsAppEnquiryMessage();
+  assert.match(message, /Silver Sand Beach Homestay/);
+  assert.match(message, /Deluxe AC Room/);
+  assert.match(message, /today's rate/);
+  assert.doesNotMatch(message, /Estimated total/);
+  assert.doesNotMatch(message, /₹/);
+  assert.doesNotMatch(message, /\d{3,}/);
 });

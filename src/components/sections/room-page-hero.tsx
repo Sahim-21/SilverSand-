@@ -7,7 +7,7 @@ import { ROOM_NAME, ROOM_PATH } from "@/lib/business";
 
 export function RoomPageHero() {
   return (
-    <section className="border-b border-line bg-surface">
+    <section className="border-b border-line bg-surface" data-ss-hero="">
       <Container className="py-section">
         <div className="grid gap-10 lg:grid-cols-[1fr_24rem] lg:items-start">
           <Stack gap="lg">

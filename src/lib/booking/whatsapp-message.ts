@@ -1,4 +1,4 @@
-import { BUSINESS_NAME, WHATSAPP_E164 } from "@/lib/business";
+import { BUSINESS_NAME, ROOM_NAME, WHATSAPP_E164 } from "@/lib/business";
 import type { OccupancyTier } from "@/lib/business";
 import { formatIsoDateLong } from "@/lib/booking/dates";
 
@@ -72,7 +72,23 @@ export function buildWhatsAppEnquiryMessage(input: WhatsAppEnquiryInput): string
   return lines.join("\n");
 }
 
+export function buildGenericWhatsAppEnquiryMessage(): string {
+  return [
+    `Hello ${BUSINESS_NAME},`,
+    "",
+    `I would like to enquire about staying in the ${ROOM_NAME}.`,
+    "",
+    "Please share availability and today's rate.",
+    "",
+    "Thank you.",
+  ].join("\n");
+}
+
 export function buildWhatsAppEnquiryUrl(input: WhatsAppEnquiryInput): string {
   const text = buildWhatsAppEnquiryMessage(input);
   return `https://wa.me/${WHATSAPP_E164}?text=${encodeURIComponent(text)}`;
+}
+
+export function buildGenericWhatsAppEnquiryUrl(): string {
+  return `https://wa.me/${WHATSAPP_E164}?text=${encodeURIComponent(buildGenericWhatsAppEnquiryMessage())}`;
 }

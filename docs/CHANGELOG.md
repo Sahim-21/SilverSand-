@@ -6,6 +6,29 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Gold contact FAB (WhatsApp + Call)
+
+### What
+
+- Public pages (and 404) get a fixed bottom-right cluster: gold WhatsApp and Call icon buttons (`+91 99862 22892`).
+- WhatsApp reuses `buildWhatsAppEnquiryUrl` while the booking widget is mounted; otherwise a generic enquiry (`buildGenericWhatsAppEnquiryUrl`) with no invented ₹.
+- The cluster fades/slides in after `[data-ss-hero]` leaves the viewport, and hides while `[data-ss-booking-cta]` (the widget’s WhatsApp button) is on screen.
+- WhatsApp has a slow gold pulse ring (`--ss-fab-pulse` 2.8s). `prefers-reduced-motion` keeps the buttons and drops the pulse/slide.
+- Small viewports add footer padding so the cluster does not cover Privacy/Terms.
+
+### Why
+
+Guests who have scrolled past the hero still need a reachable WhatsApp/Call path without stacking a second green CTA on top of the booking widget.
+
+### Rejected
+
+- WhatsApp-green FABs (in-flow WhatsApp buttons stay green; the corner cluster uses gold).
+- A rapid pulse or a second hover-timing token.
+- Showing the FAB while the widget’s own WhatsApp button is visible.
+- Putting the FAB on `/admin`.
+
+---
+
 ## 2026-08-25 — Photo hover reveals occupancy, rate, and attraction name
 
 ### What

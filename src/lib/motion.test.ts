@@ -80,6 +80,40 @@ test("interaction tokens are defined once and scoped to the public site", () => 
 
   const pub = readFileSync(join(process.cwd(), "src/app/(public)/layout.tsx"), "utf8");
   assert.ok(pub.includes("public-site"));
+  assert.ok(pub.includes("PublicShell"));
+});
+
+test("gold contact FAB pulses slowly, hides vs booking CTA, and respects reduced motion", () => {
+  const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+  assert.ok(css.includes("--ss-fab-pulse: 2.8s"));
+  assert.ok(css.includes(".ss-fab-cluster"));
+  assert.ok(css.includes("ss-fab-pulse"));
+  assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*ss-fab-pulse/);
+  assert.match(css, /prefers-reduced-motion:\s*no-preference[\s\S]*ss-fab-pulse/);
+
+  const fab = readFileSync(
+    join(process.cwd(), "src/components/floating-contact.tsx"),
+    "utf8",
+  );
+  assert.ok(fab.includes('variant: "gold"'));
+  assert.ok(fab.includes("TEL_URL"));
+  assert.ok(fab.includes("buildGenericWhatsAppEnquiryUrl"));
+  assert.ok(fab.includes("widgetWhatsAppHref"));
+  assert.ok(fab.includes("[data-ss-booking-cta]"));
+  assert.ok(fab.includes("[data-ss-hero]"));
+
+  const widget = readFileSync(
+    join(process.cwd(), "src/components/booking/booking-widget-form.tsx"),
+    "utf8",
+  );
+  assert.ok(widget.includes("data-ss-booking-cta"));
+  assert.ok(widget.includes("setWidgetWhatsAppHref"));
+
+  const admin = readFileSync(
+    join(process.cwd(), "src/app/(admin)/admin/layout.tsx"),
+    "utf8",
+  );
+  assert.doesNotMatch(admin, /FloatingContact|PublicShell/);
 });
 
 test("photo caption overlay uses mangrove tokens, hover reveal, and reduced-motion opacity", () => {

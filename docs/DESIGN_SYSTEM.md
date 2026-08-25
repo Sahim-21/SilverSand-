@@ -170,7 +170,7 @@ One treatment for major blocks on Home (Hero → intro → Room & Pricing → Ph
 | `Breadcrumbs` | `src/components/layout/breadcrumbs.tsx` | Visible trail + `BreadcrumbList` JSON-LD                    |
 | `PhotoFrame`  | `src/components/ui/photo-frame.tsx`     | Honest empty photo; **required `alt`**                      |
 
-Public skeleton: **Sticky** header (wordmark, Rooms, Contact, **theme toggle**, WhatsApp, Call) → Main → Footer (NAP when known, phone, WhatsApp, Privacy, Terms). Phone is always `+91 99862 22892`. Booking widgets on Home and the room page use `lg:sticky lg:top-24` so they sit below the header.
+Public skeleton: **Sticky** header (wordmark, Rooms, Contact, **theme toggle**, WhatsApp, Call) → Main → Footer (NAP when known, phone, WhatsApp, Privacy, Terms). A gold **contact FAB** (WhatsApp + Call) sits at the bottom-right after you scroll past the hero; it hides while the booking widget’s WhatsApp CTA is on screen. Phone is always `+91 99862 22892`. Booking widgets on Home and the room page use `lg:sticky lg:top-24` so they sit below the header.
 
 Admin: no marketing header. Quiet canvas/surface dashboard with the same theme toggle.
 
@@ -222,14 +222,15 @@ No hero carousels, no count-up stats, no animation library.
 
 Defined once in `:root` and reused. Do not hand-tune a second duration or easing on a single control.
 
-| Token              | Value                            | Role                                    |
-| ------------------ | -------------------------------- | --------------------------------------- |
-| `--ss-duration`    | `180ms`                          | All hover/press transitions (150–250ms) |
-| `--ss-ease`        | `cubic-bezier(0.22, 1, 0.36, 1)` | Shared easing                           |
-| `--ss-hover-scale` | `1.02`                           | Buttons on hover                        |
-| `--ss-press-scale` | `0.98`                           | Buttons while pressed                   |
-| `--ss-card-lift`   | `-0.25rem`                       | Occupancy/pricing cards on hover        |
-| `--ss-image-zoom`  | `1.04`                           | Room and attraction photos on hover     |
+| Token              | Value                            | Role                                     |
+| ------------------ | -------------------------------- | ---------------------------------------- |
+| `--ss-duration`    | `180ms`                          | All hover/press transitions (150–250ms)  |
+| `--ss-ease`        | `cubic-bezier(0.22, 1, 0.36, 1)` | Shared easing                            |
+| `--ss-hover-scale` | `1.02`                           | Buttons on hover                         |
+| `--ss-press-scale` | `0.98`                           | Buttons while pressed                    |
+| `--ss-card-lift`   | `-0.25rem`                       | Occupancy/pricing cards on hover         |
+| `--ss-image-zoom`  | `1.04`                           | Room and attraction photos on hover      |
+| `--ss-fab-pulse`   | `2.8s`                           | Slow WhatsApp FAB ring (not hover/press) |
 
 Scoped to `.public-site` (public layout + 404). **Admin (`.admin-shell`) does not use these** — dashboard stays colour-only `duration-150` on buttons/inputs, no scale or lift.
 
@@ -239,10 +240,13 @@ Scoped to `.public-site` (public layout + 404). **Admin (`.admin-shell`) does no
 | Occupancy cards           | Shadow + translateY                                                             | —          | Shadow only                      |
 | Nav / footer (`.ss-link`) | Colour to `--mangrove-fg` (no underline)                                        | —          | Colour transition kept           |
 | Room / attraction photos  | Zoom 1.04 + mangrove-deep bottom caption (occupancy + live ₹ / attraction name) | —          | Opacity only (no zoom, no slide) |
+| Contact FAB               | Gold circles; WhatsApp has a slow gold pulse ring                               | Scale 0.98 | Pulse off; buttons stay          |
 
-Classes: `ss-press` (on `buttonVariants`), `ss-link`, `ss-card-lift`, `ss-zoom-frame` + `ss-image-zoom`, `ss-photo-caption`.
+Classes: `ss-press` (on `buttonVariants`), `ss-link`, `ss-card-lift`, `ss-zoom-frame` + `ss-image-zoom`, `ss-photo-caption`, `ss-fab-cluster` / `ss-fab` / `ss-fab-pulse`.
 
 Room/attraction captions sit in `.ss-photo-caption` (sand type on a mangrove-deep gradient from the bottom). Fine-pointer hover (and `:focus-within`) fades them in with `--ss-duration`. Coarse pointers / `hover: none` keep the caption visible. Occupancy ₹ comes from `getPublicPricing` / `formatInr` — never a hardcoded amount. Unpublished rates show the occupancy label only.
+
+Contact FABs are gold (not WhatsApp green — in-flow WhatsApp buttons stay green). They fade/slide in after `[data-ss-hero]` leaves the viewport, and hide while `[data-ss-booking-cta]` (the widget’s WhatsApp button) is on screen. The WhatsApp FAB reuses `buildWhatsAppEnquiryUrl` when the widget is mounted; otherwise `buildGenericWhatsAppEnquiryUrl`. Call is `tel:+919986222892`. Footer padding on small viewports keeps links clear of the cluster.
 
 ### Homepage entrance
 
@@ -251,7 +255,7 @@ Not on `/rooms`, `/about`, `/gallery`, `/location`:
 1. **Hero entrance** — the photograph (and overlay) fades/scales in from `1.045`. Headline, subtext, then **Check dates** follow at 160 / 260 / 360ms. The last beat finishes by ~760ms. The booking widget is not part of this sequence and must stay visible and usable from first paint.
 2. **Scroll fade-up** — `IntersectionObserver` in `RevealOnScroll`. Same ease and 12px rise on Room & Pricing, Photos, About, Nearby Attractions, and FAQ. Content is in the DOM immediately; off-screen sections are only visually pending after mount.
 
-`prefers-reduced-motion: reduce` disables transform-based motion (hero scale, section fade-up, button scale, card lift, image zoom). Colour and opacity transitions may remain. Never use motion as a loading gate for prices or the widget.
+`prefers-reduced-motion: reduce` disables transform-based motion (hero scale, section fade-up, button scale, card lift, image zoom, FAB slide, WhatsApp FAB pulse). Colour and opacity transitions may remain. Never use motion as a loading gate for prices or the widget.
 
 ---
 
@@ -265,7 +269,7 @@ Not on `/rooms`, `/about`, `/gallery`, `/location`:
 
 ## Responsive checks
 
-- 375px: header CTAs usable, widget full width, no horizontal scroll
+- 375px: header CTAs usable, widget full width, no horizontal scroll; gold contact FAB must not cover footer links or the widget CTA (it hides while the widget WhatsApp button is on screen; extra footer padding on small viewports)
 - 768px: two-column starts on `Split`
 - 1280px: widget stays in the 24rem column, sticky below the site header on desktop
 

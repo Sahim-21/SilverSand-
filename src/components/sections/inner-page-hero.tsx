@@ -19,7 +19,7 @@ export function InnerPageHero({
   crumbs,
 }: InnerPageHeroProps) {
   return (
-    <Section className="border-b border-line bg-surface pb-10 pt-10">
+    <Section className="border-b border-line bg-surface pb-10 pt-10" data-ss-hero="">
       <Container>
         <PageHeader
           eyebrow={eyebrow}

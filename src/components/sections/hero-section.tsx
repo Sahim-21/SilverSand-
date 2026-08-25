@@ -15,7 +15,7 @@ const HERO_ALT =
 
 export function HeroSection() {
   return (
-    <section className="relative isolate overflow-hidden">
+    <section className="relative isolate overflow-hidden" data-ss-hero="">
       <div className="hero-media pointer-events-none absolute inset-0">
         <TokenImage
           src={heroCoast}

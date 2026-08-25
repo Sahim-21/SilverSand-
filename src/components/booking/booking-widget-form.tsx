@@ -3,6 +3,7 @@
 import { useEffect, useId, useMemo, useState, useSyncExternalStore } from "react";
 
 import { QuantityStepper } from "@/components/booking/quantity-stepper";
+import { useBookingEnquiry } from "@/components/booking/enquiry-context";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -240,6 +241,12 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
     estimatedTotalLabel: estimate ? formatInr(estimate.totalInr) : null,
   });
 
+  const { setWidgetWhatsAppHref } = useBookingEnquiry();
+  useEffect(() => {
+    setWidgetWhatsAppHref(whatsappHref);
+    return () => setWidgetWhatsAppHref(null);
+  }, [whatsappHref, setWidgetWhatsAppHref]);
+
   return (
     <Card tone="dark" className="w-full scheme-dark">
       <CardHeader>
@@ -457,6 +464,7 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
           href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
+          data-ss-booking-cta=""
           className={cn(buttonVariants({ variant: "whatsapp", size: "full" }))}
         >
           Check Availability on WhatsApp

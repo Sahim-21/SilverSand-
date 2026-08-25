@@ -6,6 +6,23 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Booking widget date `min` hydration
+
+### What
+
+- Check-in / check-out `min` is no longer computed with `todayIso()` during SSR. The first render omits `min`; after mount it uses the guest's local calendar date.
+
+### Why
+
+Server HTML used the VM date (`2026-08-25`) while the browser used a different local date (`2026-08-18`), which React reported as a hydration mismatch on the date inputs.
+
+### Rejected
+
+- `suppressHydrationWarning` on the inputs (hides the mismatch instead of avoiding it).
+- Passing the server's "today" to the client (still wrong in another timezone).
+
+---
+
 ## 2026-08-25 — Nearby attraction photographs
 
 ### What

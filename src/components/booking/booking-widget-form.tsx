@@ -76,8 +76,14 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
   const [phone, setPhone] = useState("");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
-  const minCheckIn = todayIso();
+  // Set after mount so SSR HTML and the first client render match. Server "today"
+  // (UTC / VM clock) and the guest's local calendar often differ.
+  const [minCheckIn, setMinCheckIn] = useState("");
   const [lines, setLines] = useState<RoomLine[]>(() => [defaultLine(initialPricing)]);
+
+  useEffect(() => {
+    setMinCheckIn(todayIso());
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -305,7 +311,7 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
               surface="dark"
               type="date"
               required
-              min={minCheckIn}
+              min={minCheckIn || undefined}
               value={checkIn}
               onChange={(event) => onCheckInChange(event.target.value)}
             />
@@ -319,7 +325,7 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
               surface="dark"
               type="date"
               required
-              min={minCheckOut ?? minCheckIn}
+              min={(minCheckOut ?? minCheckIn) || undefined}
               value={checkOut}
               onChange={(event) => setCheckOut(event.target.value)}
             />
@@ -417,8 +423,8 @@ function EstimatePanel({
   if (!estimate) {
     return (
       <Text size="sm" className="text-sand/80">
-        Pricing is temporarily unavailable. Message us on WhatsApp for today&apos;s
-        rate — we do not invent a fallback rupee amount.
+        Pricing is temporarily unavailable. Message us on WhatsApp for today&apos;s rate
+        — we do not invent a fallback rupee amount.
       </Text>
     );
   }

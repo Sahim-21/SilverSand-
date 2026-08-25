@@ -46,22 +46,21 @@ export async function OccupancyPricing({ bookingHref }: OccupancyPricingProps) {
             const row = pricing.occupancyRates.find((r) => r.occupancy === tier);
             const amount = row?.nightlyRateInr ?? 0;
             return (
-              <article
-                key={tier}
-                className="flex flex-col overflow-hidden rounded-lg border border-line bg-surface"
-              >
-                <OccupancyRoomImage occupancy={tier} className="rounded-none" />
-                <div className="flex flex-1 flex-col gap-3 p-4">
-                  <p className="font-medium text-ink">{tier} sharing</p>
-                  <p className="tabular-nums font-medium text-ink">
-                    {amount > 0 ? formatInr(amount) : "—"}
-                    {amount > 0 ? (
-                      <span className="ml-1 text-xs font-normal text-muted">
-                        / night
-                      </span>
-                    ) : null}
-                  </p>
-                  <BookNowButton href={bookingHref} size="full" className="mt-auto" />
+              <article key={tier} className="ss-card-lift">
+                <div className="flex h-full flex-col overflow-hidden rounded-lg border border-line bg-surface">
+                  <OccupancyRoomImage occupancy={tier} className="rounded-none" />
+                  <div className="flex flex-1 flex-col gap-3 p-4">
+                    <p className="font-medium text-ink">{tier} sharing</p>
+                    <p className="tabular-nums font-medium text-ink">
+                      {amount > 0 ? formatInr(amount) : "—"}
+                      {amount > 0 ? (
+                        <span className="ml-1 text-xs font-normal text-muted">
+                          / night
+                        </span>
+                      ) : null}
+                    </p>
+                    <BookNowButton href={bookingHref} size="full" className="mt-auto" />
+                  </div>
                 </div>
               </article>
             );
@@ -91,14 +90,13 @@ function OccupancyImageGrid({ bookingHref }: { bookingHref: string }) {
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {OCCUPANCY_TIERS.map((tier) => (
-        <article
-          key={tier}
-          className="flex flex-col overflow-hidden rounded-lg border border-line bg-surface"
-        >
-          <OccupancyRoomImage occupancy={tier} className="rounded-none" />
-          <div className="flex flex-1 flex-col gap-3 p-4">
-            <p className="font-medium text-ink">{tier} sharing</p>
-            <BookNowButton href={bookingHref} size="full" className="mt-auto" />
+        <article key={tier} className="ss-card-lift">
+          <div className="flex h-full flex-col overflow-hidden rounded-lg border border-line bg-surface">
+            <OccupancyRoomImage occupancy={tier} className="rounded-none" />
+            <div className="flex flex-1 flex-col gap-3 p-4">
+              <p className="font-medium text-ink">{tier} sharing</p>
+              <BookNowButton href={bookingHref} size="full" className="mt-auto" />
+            </div>
           </div>
         </article>
       ))}

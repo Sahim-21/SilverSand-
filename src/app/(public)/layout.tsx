@@ -15,9 +15,11 @@ export default async function PublicLayout({
     <>
       <JsonLd data={websiteJsonLd()} />
       <JsonLd data={lodgingBusinessJsonLd(pricing)} />
-      <SiteHeader />
-      <main className="flex-1">{children}</main>
-      <SiteFooter />
+      <div className="public-site flex flex-1 flex-col">
+        <SiteHeader />
+        <main className="flex-1">{children}</main>
+        <SiteFooter />
+      </div>
     </>
   );
 }

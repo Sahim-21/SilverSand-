@@ -22,18 +22,18 @@ export function SiteFooter() {
               href={GOOGLE_MAPS_PLACE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-mangrove-fg hover:underline"
+              className="ss-link"
             >
               {FULL_ADDRESS}
             </a>
           </p>
           <div className="mt-4 flex flex-col gap-1 text-sm">
-            <a href={TEL_URL} className="text-mangrove-fg hover:underline">
+            <a href={TEL_URL} className="ss-link text-mangrove-fg">
               {DISPLAY_PHONE}
             </a>
             <a
               href={WHATSAPP_URL}
-              className="text-mangrove-fg hover:underline"
+              className="ss-link text-mangrove-fg"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -43,7 +43,7 @@ export function SiteFooter() {
         </div>
         <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
           {footerNav.map((link) => (
-            <Link key={link.href} href={link.href} className="hover:text-mangrove-fg">
+            <Link key={link.href} href={link.href} className="ss-link">
               {link.label}
             </Link>
           ))}

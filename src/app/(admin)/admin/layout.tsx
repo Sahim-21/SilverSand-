@@ -15,7 +15,7 @@ export default function AdminLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="min-h-screen bg-background text-ink">
+    <div className="admin-shell min-h-screen bg-background text-ink">
       <header className="border-b border-line bg-surface">
         <div className="mx-auto flex max-w-lg items-center justify-between px-gutter py-2 text-sm text-muted">
           <span>Silver Sand — pricing admin only</span>

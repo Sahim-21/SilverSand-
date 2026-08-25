@@ -56,3 +56,28 @@ test("scroll reveals are homepage-only wrappers, not baked into sections", () =>
     assert.doesNotMatch(source, /hero-copy/);
   }
 });
+
+test("interaction tokens are defined once and scoped to the public site", () => {
+  const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+  assert.ok(css.includes("--ss-duration: 180ms"));
+  assert.ok(css.includes("--ss-ease:"));
+  assert.ok(css.includes("--ss-hover-scale: 1.02"));
+  assert.ok(css.includes("--ss-press-scale: 0.98"));
+  assert.ok(css.includes("--ss-card-lift:"));
+  assert.ok(css.includes("--ss-image-zoom: 1.04"));
+  assert.ok(css.includes(".public-site .ss-press"));
+  assert.ok(css.includes(".public-site .ss-card-lift"));
+  assert.ok(css.includes(".public-site .ss-link"));
+  assert.ok(css.includes(".public-site .ss-image-zoom"));
+
+  const admin = readFileSync(
+    join(process.cwd(), "src/app/(admin)/admin/layout.tsx"),
+    "utf8",
+  );
+  assert.ok(admin.includes("admin-shell"));
+  assert.doesNotMatch(admin, /public-site/);
+  assert.doesNotMatch(admin, /ss-card-lift/);
+
+  const pub = readFileSync(join(process.cwd(), "src/app/(public)/layout.tsx"), "utf8");
+  assert.ok(pub.includes("public-site"));
+});

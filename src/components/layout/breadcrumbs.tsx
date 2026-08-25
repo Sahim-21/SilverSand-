@@ -34,7 +34,7 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
                     {item.label}
                   </span>
                 ) : (
-                  <Link href={item.href} className="hover:text-mangrove-fg">
+                  <Link href={item.href} className="ss-link">
                     {item.label}
                   </Link>
                 )}

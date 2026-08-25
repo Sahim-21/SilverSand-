@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <>
+    <div className="public-site flex flex-1 flex-col">
       <SiteHeader />
       <main className="flex-1">
         <Container width="narrow">
@@ -42,6 +42,6 @@ export default function NotFound() {
         </Container>
       </main>
       <SiteFooter />
-    </>
+    </div>
   );
 }

@@ -20,14 +20,16 @@ export function OccupancyRoomImage({
   const image = OCCUPANCY_IMAGES[occupancy];
 
   return (
-    <figure className={cn("overflow-hidden rounded-lg bg-sand-deep", className)}>
+    <figure
+      className={cn("ss-zoom-frame overflow-hidden rounded-lg bg-sand-deep", className)}
+    >
       <Image
         src={image.src}
         alt={image.alt}
         width={image.width}
         height={image.height}
         sizes={sizes}
-        className="aspect-[4/3] h-auto w-full object-cover"
+        className="ss-image-zoom aspect-[4/3] h-auto w-full object-cover"
       />
       {caption ? (
         <figcaption className="px-1 pt-2 text-sm text-muted">{caption}</figcaption>

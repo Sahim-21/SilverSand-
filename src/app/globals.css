@@ -44,6 +44,14 @@
   --space-section: 3.5rem;
   --space-form: 1.5rem;
 
+  /* Interaction — one timing/easing for public hover/press. Do not retune per control. */
+  --ss-duration: 180ms;
+  --ss-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ss-hover-scale: 1.02;
+  --ss-press-scale: 0.98;
+  --ss-card-lift: -0.25rem;
+  --ss-image-zoom: 1.04;
+
   --background: var(--sand);
   --foreground: var(--ink);
   color-scheme: light;
@@ -97,6 +105,9 @@ html.dark {
   --spacing-gutter-md: var(--space-gutter-md);
   --spacing-section: var(--space-section);
   --spacing-form: var(--space-form);
+
+  --ease-ss: var(--ss-ease);
+  --duration-ss: var(--ss-duration);
 }
 
 html {
@@ -113,12 +124,12 @@ html {
     Last beat finishes by 760ms. Booking widget is not in this sequence.
   */
   .hero-media {
-    animation: hero-media-in 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: hero-media-in 500ms var(--ss-ease) both;
     transform-origin: center;
   }
 
   .hero-copy {
-    animation: hero-copy-in 400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: hero-copy-in 400ms var(--ss-ease) both;
   }
 
   .hero-copy-delay-1 {
@@ -142,8 +153,8 @@ html {
     opacity: 1;
     transform: translateY(0);
     transition:
-      opacity 450ms cubic-bezier(0.22, 1, 0.36, 1),
-      transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 450ms var(--ss-ease),
+      transform 450ms var(--ss-ease);
   }
 }
 
@@ -179,6 +190,90 @@ html {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/*
+  Public-site hover/press only (.public-site). Admin must stay functional.
+  Colour/opacity always; transforms only when motion is allowed.
+*/
+.public-site .ss-press,
+.public-site .ss-link,
+.public-site .ss-card-lift,
+.public-site .ss-image-zoom {
+  transition-duration: var(--ss-duration);
+  transition-timing-function: var(--ss-ease);
+}
+
+.public-site .ss-press {
+  transition-property: background-color, border-color, color, filter;
+}
+
+.public-site .ss-link {
+  transition-property: color;
+}
+
+.public-site .ss-link:hover {
+  color: var(--mangrove-fg);
+}
+
+.public-site .ss-card-lift {
+  transition-property: box-shadow;
+}
+
+.public-site .ss-card-lift:hover {
+  box-shadow: 0 0.7rem 1.6rem color-mix(in srgb, var(--mangrove-deep) 22%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .public-site .ss-press {
+    transition-property: background-color, border-color, color, filter, transform;
+  }
+
+  .public-site .ss-press:hover {
+    transform: scale(var(--ss-hover-scale));
+    filter: brightness(1.05);
+  }
+
+  .public-site .ss-press:active {
+    transform: scale(var(--ss-press-scale));
+    filter: brightness(0.97);
+  }
+
+  .public-site .ss-card-lift {
+    transition-property: box-shadow, transform;
+  }
+
+  .public-site .ss-card-lift:hover {
+    transform: translateY(var(--ss-card-lift));
+  }
+
+  .public-site .ss-image-zoom {
+    transition-property: transform;
+    transform-origin: center;
+  }
+
+  .public-site .ss-zoom-frame:hover .ss-image-zoom,
+  .public-site .ss-card-lift:hover .ss-image-zoom {
+    transform: scale(var(--ss-image-zoom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .public-site .ss-press:hover {
+    filter: brightness(1.05);
+  }
+
+  .public-site .ss-press:active {
+    filter: brightness(0.97);
+  }
+
+  .public-site .ss-press,
+  .public-site .ss-card-lift,
+  .public-site .ss-image-zoom,
+  .public-site .ss-zoom-frame:hover .ss-image-zoom,
+  .public-site .ss-card-lift:hover .ss-image-zoom {
+    transform: none;
   }
 }
 

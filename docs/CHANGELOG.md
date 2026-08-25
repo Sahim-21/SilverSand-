@@ -6,6 +6,28 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Public hover/press micro-interactions
+
+### What
+
+- One interaction timing/easing in CSS (`--ss-duration` 180ms, `--ss-ease`) reused by buttons, occupancy cards, nav links, and room/attraction photos.
+- Public buttons: hover scale 1.02 + slight brightness, press 0.98. Occupancy cards lift (shadow + translateY). Nav/footer links change colour only (no hover underline). Photos zoom to 1.04 inside their frame.
+- Scoped to `.public-site`. Admin (`.admin-shell`) is unchanged — no scale, lift, or zoom.
+- `prefers-reduced-motion: reduce` drops transforms; colour and brightness remain.
+
+### Why
+
+Guests should feel a quiet, consistent response on the marketing site without a second motion system or a playful admin dashboard.
+
+### Rejected
+
+- Per-button durations or a second easing curve.
+- Hover underline _and_ colour change on nav.
+- Dramatic image zoom or card bounce.
+- Applying the same transforms on `/admin`.
+
+---
+
 ## 2026-08-25 — Homepage hero entrance and section fade-up
 
 ### What

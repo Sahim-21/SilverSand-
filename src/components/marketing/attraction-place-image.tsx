@@ -15,14 +15,14 @@ export function AttractionPlaceImage({
   sizes = "(max-width: 640px) 100vw, 50vw",
 }: AttractionPlaceImageProps) {
   return (
-    <div className={cn("overflow-hidden bg-sand-deep", className)}>
+    <div className={cn("ss-zoom-frame overflow-hidden bg-sand-deep", className)}>
       <Image
         src={image.src}
         alt={image.alt}
         width={image.width}
         height={image.height}
         sizes={sizes}
-        className="aspect-[4/3] h-auto w-full object-cover"
+        className="ss-image-zoom aspect-[4/3] h-auto w-full object-cover"
       />
     </div>
   );

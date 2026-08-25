@@ -200,14 +200,40 @@ Estimates use `GET /api/pricing` / `estimateEnquiry` only. If rates are unpublis
 
 ## Motion
 
-Colour transitions on buttons/inputs (`duration-150`). No hero carousels, no count-up stats, no animation library.
+No hero carousels, no count-up stats, no animation library.
 
-**Homepage only** (not on `/rooms`, `/about`, `/gallery`, `/location`):
+### Interaction tokens (public site only)
+
+Defined once in `:root` and reused. Do not hand-tune a second duration or easing on a single control.
+
+| Token              | Value                            | Role                                    |
+| ------------------ | -------------------------------- | --------------------------------------- |
+| `--ss-duration`    | `180ms`                          | All hover/press transitions (150–250ms) |
+| `--ss-ease`        | `cubic-bezier(0.22, 1, 0.36, 1)` | Shared easing                           |
+| `--ss-hover-scale` | `1.02`                           | Buttons on hover                        |
+| `--ss-press-scale` | `0.98`                           | Buttons while pressed                   |
+| `--ss-card-lift`   | `-0.25rem`                       | Occupancy/pricing cards on hover        |
+| `--ss-image-zoom`  | `1.04`                           | Room and attraction photos on hover     |
+
+Scoped to `.public-site` (public layout + 404). **Admin (`.admin-shell`) does not use these** — dashboard stays colour-only `duration-150` on buttons/inputs, no scale or lift.
+
+| Surface                   | Hover                                    | Press      | Reduced motion                 |
+| ------------------------- | ---------------------------------------- | ---------- | ------------------------------ |
+| Buttons (`.ss-press`)     | Scale 1.02 + slight brightness           | Scale 0.98 | Brightness only (no transform) |
+| Occupancy cards           | Shadow + translateY                      | —          | Shadow only                    |
+| Nav / footer (`.ss-link`) | Colour to `--mangrove-fg` (no underline) | —          | Colour transition kept         |
+| Room / attraction photos  | Scale 1.04 inside overflow clip          | —          | No zoom                        |
+
+Classes: `ss-press` (on `buttonVariants`), `ss-link`, `ss-card-lift`, `ss-zoom-frame` + `ss-image-zoom`.
+
+### Homepage entrance
+
+Not on `/rooms`, `/about`, `/gallery`, `/location`:
 
 1. **Hero entrance** — the photograph (and overlay) fades/scales in from `1.045`. Headline, subtext, then **Check dates** follow at 160 / 260 / 360ms. The last beat finishes by ~760ms. The booking widget is not part of this sequence and must stay visible and usable from first paint.
 2. **Scroll fade-up** — `IntersectionObserver` in `RevealOnScroll`. Same ease and 12px rise on Room & Pricing, Photos, About, Nearby Attractions, and FAQ. Content is in the DOM immediately; off-screen sections are only visually pending after mount.
 
-`prefers-reduced-motion: reduce` disables every animation and transition above; content shows at full opacity with no transform. Never use motion as a loading gate for prices or the widget.
+`prefers-reduced-motion: reduce` disables transform-based motion (hero scale, section fade-up, button scale, card lift, image zoom). Colour and opacity transitions may remain. Never use motion as a loading gate for prices or the widget.
 
 ---
 

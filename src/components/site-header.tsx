@@ -16,11 +16,7 @@ export function SiteHeader() {
         </Link>
         <nav className="hidden items-center gap-6 text-sm md:flex">
           {mainNav.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-ink hover:text-mangrove-fg"
-            >
+            <Link key={link.href} href={link.href} className="ss-link text-ink">
               {link.label}
             </Link>
           ))}

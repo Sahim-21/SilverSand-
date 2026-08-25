@@ -6,6 +6,29 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Deluxe AC Room occupancy photos + Book Now
+
+### What
+
+- Wired owner photos in `public/Rooms/` to each occupancy tier (2 / 3 / 4 / 6 / 8 sharing) via `next/image` (`OccupancyRoomImage`, lazy, unique alt per image). Filename for 6 sharing is `6Sharing.jpeg` (case-sensitive).
+- Replaced the room `PhotoFrame` placeholder in `PhotosSection` (Home, `/gallery`, `/rooms/deluxe-ac-room`) with the five occupancy photographs.
+- Occupancy pricing cards on Home, `/rooms`, and `/rooms/deluxe-ac-room` show the matching photo, the DB rate, and a **Book Now** control.
+- **Book Now** uses the existing `Button` `whatsapp` variant (same as “Check Availability on WhatsApp”). On Home and the room page it is a smooth-scroll link to `#booking` on the in-page widget; on `/rooms` and `/gallery` it goes to `/rooms/deluxe-ac-room#booking`.
+- `docs/TASKS.md`: room occupancy images marked resolved (exterior / bathroom still open).
+
+### Why
+
+The owner supplied per-occupancy room photographs. Guests should see the matching image next to each sharing rate and jump to the existing WhatsApp booking widget without a new route.
+
+### Rejected
+
+- Raw `<img>` tags.
+- Inventing a new Button variant.
+- A separate `/book` page — the widget already lives in the Home and Deluxe AC Room heroes.
+- Replacing exterior/bathroom placeholders (those photos are still missing).
+
+---
+
 ## 2026-08-25 — Homepage hero: Murudeshwar coast photograph
 
 ### What

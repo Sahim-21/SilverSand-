@@ -4,6 +4,7 @@ import { Stack } from "@/components/layout/stack";
 import { OccupancyPricing } from "@/components/marketing/occupancy-pricing";
 import { TodoNotice } from "@/components/marketing/todo-notice";
 import { Heading, Text } from "@/components/ui/heading";
+import { BOOKING_HASH } from "@/lib/booking/anchor";
 
 export function RoomLayoutSection() {
   return (
@@ -22,7 +23,7 @@ export function RoomLayoutSection() {
               current, not rounded estimates.
             </Text>
           </div>
-          <OccupancyPricing />
+          <OccupancyPricing bookingHref={BOOKING_HASH} />
           <TodoNotice
             item="bedsBath"
             detail="Bed count, bathroom layout, and maximum extra beds for this room are not published yet (checklist #3). The owner needs to confirm before we list them here."

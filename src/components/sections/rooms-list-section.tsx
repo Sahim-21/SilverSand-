@@ -3,10 +3,12 @@ import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
+import { BookNowButton } from "@/components/marketing/book-now-button";
 import { OccupancyPricing } from "@/components/marketing/occupancy-pricing";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Text } from "@/components/ui/heading";
+import { ROOM_BOOKING_HREF } from "@/lib/booking/anchor";
 import { ROOM_NAME, ROOM_PATH } from "@/lib/business";
 import { cn } from "@/lib/utils";
 
@@ -27,10 +29,13 @@ export function RoomsListSection() {
               </Text>
             </CardHeader>
             <CardContent className="gap-6">
-              <OccupancyPricing />
-              <Link href={ROOM_PATH} className={cn(buttonVariants(), "w-fit")}>
-                Room details and booking widget
-              </Link>
+              <OccupancyPricing bookingHref={ROOM_BOOKING_HREF} />
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <BookNowButton href={ROOM_BOOKING_HREF} />
+                <Link href={ROOM_PATH} className={cn(buttonVariants(), "w-fit")}>
+                  Room details and booking widget
+                </Link>
+              </div>
             </CardContent>
           </Card>
         </Stack>

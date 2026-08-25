@@ -27,7 +27,7 @@
 | `getAdminPricing()`               | Server-only admin fetch — no `is_published` gate, no tag cache                                                                                  |
 | Domain `silversandhomestay.com`   | Intended. DNS not configured in this repo.                                                                                                      |
 | Owner occupancy rates (2/3/4/6/8) | **Still missing** — room stays `is_published: false` until owner saves rates in admin                                                           |
-| Address, photos, amenities, GBP   | **Missing** — copy is conservative; `PhotoFrame` empty states, `TodoNotice` for gaps                                                            |
+| Address, photos, amenities, GBP   | Address + map live. **Room occupancy photos live** (`public/Rooms/`). Exterior/bathroom still missing; `TodoNotice` for remaining gaps          |
 
 ## How to run locally
 

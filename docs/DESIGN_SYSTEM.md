@@ -140,8 +140,9 @@ Estimates use `GET /api/pricing` / `estimateEnquiry` only. If rates are unpublis
 ## Imagery
 
 - Homepage hero: Murudeshwar coastal photograph via `next/image` (`priority`, responsive `sizes`) with a mangrove-deep gradient overlay — alt describes the beach scene, not the property.
-- Owner property photos only for gallery/room frames, via `next/image` when they exist. Every `PhotoFrame` (and later `<img>`) has an `alt`.
-- Until property photos exist: `PhotoFrame` empty state with `role="img"` + `aria-label={alt}`, not Unsplash.
+- Deluxe AC Room occupancy photos: `next/image` from `public/Rooms/` (`2sharing.jpeg`, `3sharing.jpeg`, `4sharing.jpeg`, `6Sharing.jpeg`, `8sharing.jpeg`). Lazy-load (below the fold), unique `alt` per tier, 4:3 crop in `OccupancyRoomImage`. Do not use raw `<img>`.
+- Owner property photos only, via `next/image` when they exist. Every `PhotoFrame` (and later image) has an `alt`.
+- Until remaining property photos exist (exterior, bathroom): `PhotoFrame` empty state with `role="img"` + `aria-label={alt}`, not Unsplash. Do not show empty frames for those categories.
 
 ---
 

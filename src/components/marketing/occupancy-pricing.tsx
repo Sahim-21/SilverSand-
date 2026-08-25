@@ -1,11 +1,18 @@
+import { BookNowButton } from "@/components/marketing/book-now-button";
+import { OccupancyRoomImage } from "@/components/marketing/occupancy-room-image";
+import { TodoNotice } from "@/components/marketing/todo-notice";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Text } from "@/components/ui/heading";
 import { OCCUPANCY_TIERS, ROOM_NAME } from "@/lib/business";
 import { formatInr } from "@/lib/pricing/estimate";
 import { getPublicPricing } from "@/lib/pricing/fetch";
-import { TodoNotice } from "@/components/marketing/todo-notice";
 
-export async function OccupancyPricing() {
+type OccupancyPricingProps = {
+  /** Hash or path to the booking widget (`#booking` or `/rooms/deluxe-ac-room#booking`). */
+  bookingHref: string;
+};
+
+export async function OccupancyPricing({ bookingHref }: OccupancyPricingProps) {
   const pricing = await getPublicPricing();
 
   if (!pricing) {
@@ -15,6 +22,7 @@ export async function OccupancyPricing() {
           <CardTitle>{ROOM_NAME} — occupancy rates</CardTitle>
         </CardHeader>
         <CardContent className="gap-4">
+          <OccupancyImageGrid bookingHref={bookingHref} />
           <TodoNotice
             item="occupancyRates"
             detail="Nightly rates for 2 / 3 / 4 / 6 / 8 sharing are not published yet. The owner sets them in the admin panel — we do not hardcode prices on this site. Message us on WhatsApp for today’s rate."
@@ -34,46 +42,67 @@ export async function OccupancyPricing() {
         </Text>
       </CardHeader>
       <CardContent>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-line text-left text-muted">
-                <th className="pb-3 pr-4 font-medium">Guests sharing</th>
-                <th className="pb-3 font-medium tabular-nums">₹ / night</th>
-              </tr>
-            </thead>
-            <tbody>
-              {OCCUPANCY_TIERS.map((tier) => {
-                const row = pricing.occupancyRates.find((r) => r.occupancy === tier);
-                const amount = row?.nightlyRateInr ?? 0;
-                return (
-                  <tr key={tier} className="border-b border-line/60">
-                    <td className="py-3 pr-4">{tier} sharing</td>
-                    <td className="py-3 tabular-nums font-medium">
-                      {amount > 0 ? formatInr(amount) : "—"}
-                    </td>
-                  </tr>
-                );
-              })}
-              <tr>
-                <td className="py-3 pr-4">Extra bed / person</td>
-                <td className="py-3 tabular-nums font-medium">
-                  {pricing.room.extraBedRateInr > 0 ? (
-                    <>
-                      {formatInr(pricing.room.extraBedRateInr)}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {OCCUPANCY_TIERS.map((tier) => {
+            const row = pricing.occupancyRates.find((r) => r.occupancy === tier);
+            const amount = row?.nightlyRateInr ?? 0;
+            return (
+              <article
+                key={tier}
+                className="flex flex-col overflow-hidden rounded-lg border border-line bg-sand"
+              >
+                <OccupancyRoomImage occupancy={tier} className="rounded-none" />
+                <div className="flex flex-1 flex-col gap-3 p-4">
+                  <p className="font-medium text-ink">{tier} sharing</p>
+                  <p className="tabular-nums font-medium text-ink">
+                    {amount > 0 ? formatInr(amount) : "—"}
+                    {amount > 0 ? (
                       <span className="ml-1 text-xs font-normal text-muted">
-                        (per night — confirm with owner)
+                        / night
                       </span>
-                    </>
-                  ) : (
-                    <span className="font-normal text-muted">Not offered</span>
-                  )}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                    ) : null}
+                  </p>
+                  <BookNowButton href={bookingHref} size="full" className="mt-auto" />
+                </div>
+              </article>
+            );
+          })}
+        </div>
+        <div className="flex flex-wrap items-baseline justify-between gap-2 border-t border-line pt-4">
+          <Text size="sm">Extra bed / person</Text>
+          <Text size="sm" className="tabular-nums font-medium">
+            {pricing.room.extraBedRateInr > 0 ? (
+              <>
+                {formatInr(pricing.room.extraBedRateInr)}
+                <span className="ml-1 text-xs font-normal text-muted">
+                  (per night — confirm with owner)
+                </span>
+              </>
+            ) : (
+              <span className="font-normal text-muted">Not offered</span>
+            )}
+          </Text>
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+function OccupancyImageGrid({ bookingHref }: { bookingHref: string }) {
+  return (
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {OCCUPANCY_TIERS.map((tier) => (
+        <article
+          key={tier}
+          className="flex flex-col overflow-hidden rounded-lg border border-line bg-sand"
+        >
+          <OccupancyRoomImage occupancy={tier} className="rounded-none" />
+          <div className="flex flex-1 flex-col gap-3 p-4">
+            <p className="font-medium text-ink">{tier} sharing</p>
+            <BookNowButton href={bookingHref} size="full" className="mt-auto" />
+          </div>
+        </article>
+      ))}
+    </div>
   );
 }

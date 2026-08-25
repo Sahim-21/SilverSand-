@@ -82,6 +82,12 @@ html {
   scroll-behavior: auto;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   background: var(--sand);
   color: var(--ink);

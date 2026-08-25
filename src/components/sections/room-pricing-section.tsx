@@ -5,6 +5,7 @@ import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
 import { OccupancyPricing } from "@/components/marketing/occupancy-pricing";
 import { Heading, Text } from "@/components/ui/heading";
+import { BOOKING_HASH } from "@/lib/booking/anchor";
 import { ROOM_PATH } from "@/lib/business";
 
 export function RoomPricingSection() {
@@ -26,7 +27,7 @@ export function RoomPricingSection() {
               for occupancy details and the booking widget.
             </Text>
           </div>
-          <OccupancyPricing />
+          <OccupancyPricing bookingHref={BOOKING_HASH} />
         </Stack>
       </Container>
     </Section>

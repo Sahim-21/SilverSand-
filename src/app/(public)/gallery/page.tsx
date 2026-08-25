@@ -6,6 +6,7 @@ import { Section } from "@/components/layout/section";
 import { InnerPageHero } from "@/components/sections/inner-page-hero";
 import { PhotosSection } from "@/components/sections/photos-section";
 import { FinalCtaSection } from "@/components/sections/final-cta-section";
+import { ROOM_BOOKING_HREF } from "@/lib/booking/anchor";
 import { PAGE_SEO } from "@/lib/seo/copy";
 import { pageMetadata } from "@/lib/seo/metadata";
 
@@ -22,7 +23,7 @@ export default function GalleryPage() {
           { href: "/gallery", label: "Gallery" },
         ]}
       />
-      <PhotosSection showGalleryLink={false} />
+      <PhotosSection showGalleryLink={false} bookingHref={ROOM_BOOKING_HREF} />
       <Section>
         <Container>
           <ContactCta whatsappLabel="Ask about photos on WhatsApp" />

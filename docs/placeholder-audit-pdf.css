@@ -1,0 +1,87 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.45;
+  color: #1a1a1a;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 20pt;
+  border-bottom: 2px solid #1a2b24;
+  padding-bottom: 0.3em;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 13pt;
+  color: #1a2b24;
+  margin-top: 1.4em;
+  page-break-after: avoid;
+}
+
+p, li {
+  orphans: 3;
+  widows: 3;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8.5pt;
+  margin: 0.8em 0 1.2em;
+  page-break-inside: auto;
+}
+
+thead {
+  display: table-header-group;
+}
+
+tr {
+  page-break-inside: avoid;
+  page-break-after: auto;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 5px 6px;
+  text-align: left;
+  vertical-align: top;
+  word-wrap: break-word;
+}
+
+th {
+  background: #f0ebe3;
+  font-weight: 600;
+}
+
+code {
+  font-family: "SF Mono", Consolas, monospace;
+  font-size: 8pt;
+  background: #f5f5f5;
+  padding: 1px 3px;
+  border-radius: 2px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 1.5em 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+@media print {
+  body {
+    padding: 0;
+  }
+
+  h2 {
+    page-break-before: auto;
+  }
+}

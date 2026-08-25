@@ -6,6 +6,23 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Yana rock photo on Nearby Attractions
+
+### What
+
+- Wired `public/tourist_places/yana.jpeg` to the Yana rock formations card on Home and `/location` (`next/image`, unique alt, 1080×787).
+- Every nearby-attraction card now has a photo.
+
+### Why
+
+The file was added to `public/tourist_places/`. The Yana card was the only text-only attraction.
+
+### Rejected
+
+- Inventing a walking or driving time from the homestay to Yana.
+
+---
+
 ## 2026-08-25 — Guest-facing copy: drop developer-note phrasing
 
 ### What

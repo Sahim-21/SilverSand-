@@ -12,7 +12,6 @@ export type AttractionImage = {
 /**
  * Owner-supplied photographs for Nearby Attractions cards.
  * Keys match `nearbyAttractions[].name` in site-content.ts.
- * Yana has no photo yet — that card stays text-only.
  * Filenames match `public/tourist_places/` (Linux is case-sensitive).
  */
 export const ATTRACTION_IMAGES: Partial<Record<AttractionName, AttractionImage>> = {
@@ -39,6 +38,12 @@ export const ATTRACTION_IMAGES: Partial<Record<AttractionName, AttractionImage>>
     width: 596,
     height: 335,
     alt: "Idagunji Temple entrance with colourful deity sculptures above the gateway",
+  },
+  "Yana rock formations": {
+    src: "/tourist_places/yana.jpeg",
+    width: 1080,
+    height: 787,
+    alt: "Yana rock formations — a dark jagged karst tower rising above forest in the Sahyadri foothills",
   },
   "Murdeshwar jetty & local fish market": {
     src: "/tourist_places/murudeshwar_jetty.jpg",

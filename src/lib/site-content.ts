@@ -20,7 +20,7 @@ export const murudeshwarContext = {
  * Attractions visitors commonly pair with a Murudeshwar stay.
  * Notes describe each place, not invented distances from the homestay.
  * The one confirmed landmark is 1 km from Murudeshwar bus stand.
- * Photographs live in `src/lib/attractions/images.ts` (Yana has none yet).
+ * Photographs live in `src/lib/attractions/images.ts`.
  */
 export const nearbyAttractions = [
   {

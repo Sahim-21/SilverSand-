@@ -14,7 +14,7 @@ Phased. Check a box only when the work is in the repo (or the owner has given th
 - [x] Full postal address + PIN — 1, Naveen Beach Rd, Murdeshwar, Mavalli, Karnataka 581350
 - [x] Exact map coordinates (or a Google Maps pin the owner owns) — Place ID + Embed map; 14.1007798, 74.4874894
 - [x] Walking/driving distance to Murudeshwar Beach, Murudeshwar Temple, bus stand, railway station — **1 km from Murudeshwar bus stand** (owner, 25 Aug 2026). Beach / temple / railway still unpublished; **not flagged on the public site**
-- [ ] Real photographs with permission to use — **homepage hero coast scene done** (`public/images/hero-murudeshwar-coast.jpg`); **Deluxe AC Room occupancy photos done** (`public/Rooms/` 2/3/4/6/8 sharing via `next/image`); **nearby attraction photos done** (`public/tourist_places/` temple, beach, jetty, Idagunji, Netrani); exterior, bathroom, and other property photos still open
+- [ ] Real photographs with permission to use — **homepage hero coast scene done** (`public/images/hero-murudeshwar-coast.jpg`); **Deluxe AC Room occupancy photos done** (`public/Rooms/` 2/3/4/6/8 sharing via `next/image`); **nearby attraction photos done** (`public/tourist_places/` temple, beach, jetty, Idagunji, Netrani, Yana); exterior, bathroom, and other property photos still open
 - [x] Homepage hero photograph (Murudeshwar coastal scene) — wired with `next/image` + mangrove overlay; not a property exterior shot
 - [x] Check-in / check-out times
 - [x] Cancellation / advance-payment policy — cancellation confirmed (non-refundable); advance payment method still open

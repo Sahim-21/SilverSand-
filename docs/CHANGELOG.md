@@ -6,6 +6,29 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Photo hover reveals occupancy, rate, and attraction name
+
+### What
+
+- Room and attraction photos keep the 1.04 zoom and add a mangrove-deep gradient from the bottom that fades in the caption (`--ss-duration` / `--ss-ease`).
+- Room overlays show `{occupancy} sharing` plus the live nightly rate from `getPublicPricing` (`formatInr`). Unpublished rates omit the rupee line.
+- Attraction overlays show the place name.
+- Fine pointer + hover (and `:focus-within`): caption starts hidden. Coarse pointers / no hover: caption stays visible.
+- `prefers-reduced-motion: reduce`: no slide or zoom; opacity may still change.
+
+### Why
+
+Zoom alone was decorative. Hover should add the occupancy/attraction label (and the real rate on room photos) without a second timing token or a grey overlay.
+
+### Rejected
+
+- A second duration (240ms+) beside `--ss-duration`.
+- Hardcoded occupancy rupees on the overlay.
+- Hiding the caption on touch with no tap fallback.
+- Ignoring `prefers-reduced-motion`.
+
+---
+
 ## 2026-08-25 — Image skeletons on the reserved photo box
 
 ### What

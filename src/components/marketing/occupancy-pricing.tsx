@@ -48,7 +48,11 @@ export async function OccupancyPricing({ bookingHref }: OccupancyPricingProps) {
             return (
               <article key={tier} className="ss-card-lift">
                 <div className="flex h-full flex-col overflow-hidden rounded-lg border border-line bg-surface">
-                  <OccupancyRoomImage occupancy={tier} className="rounded-none" />
+                  <OccupancyRoomImage
+                    occupancy={tier}
+                    nightlyRateInr={amount > 0 ? amount : null}
+                    className="rounded-none"
+                  />
                   <div className="flex flex-1 flex-col gap-3 p-4">
                     <p className="font-medium text-ink">{tier} sharing</p>
                     <p className="tabular-nums font-medium text-ink">

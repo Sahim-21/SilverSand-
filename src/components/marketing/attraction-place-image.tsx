@@ -1,5 +1,6 @@
 import type { StaticImageData } from "next/image";
 
+import { PhotoRevealCaption } from "@/components/marketing/photo-reveal-caption";
 import { TokenImage } from "@/components/ui/token-image";
 import type { AttractionImage } from "@/lib/attractions/images";
 import { cn } from "@/lib/utils";
@@ -22,12 +23,14 @@ const ATTRACTION_STATIC: Record<string, StaticImageData> = {
 
 type AttractionPlaceImageProps = {
   image: AttractionImage;
+  label: string;
   className?: string;
   sizes?: string;
 };
 
 export function AttractionPlaceImage({
   image,
+  label,
   className,
   sizes = "(max-width: 640px) 100vw, 50vw",
 }: AttractionPlaceImageProps) {
@@ -43,6 +46,7 @@ export function AttractionPlaceImage({
         slotClassName="aspect-[4/3] w-full"
         className="ss-image-zoom object-cover"
       />
+      <PhotoRevealCaption title={label} />
     </div>
   );
 }

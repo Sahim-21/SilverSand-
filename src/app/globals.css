@@ -261,6 +261,68 @@ html {
   }
 }
 
+/*
+  Photo caption overlay — mangrove-deep from the bottom, sand type.
+  Coarse pointers keep it visible; fine-pointer hover reveals it.
+*/
+.public-site .ss-zoom-frame {
+  position: relative;
+}
+
+.public-site .ss-photo-caption {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.15rem;
+  padding: 2.75rem 0.75rem 0.75rem;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--mangrove-deep) 88%, transparent) 0%,
+    color-mix(in srgb, var(--mangrove-deep) 48%, transparent) 42%,
+    transparent 74%
+  );
+  opacity: 1;
+  transition-property: opacity;
+  transition-duration: var(--ss-duration);
+  transition-timing-function: var(--ss-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .public-site .ss-photo-caption {
+    opacity: 0;
+  }
+
+  .public-site .ss-zoom-frame:hover .ss-photo-caption,
+  .public-site .ss-zoom-frame:focus-within .ss-photo-caption,
+  .public-site .ss-card-lift:hover .ss-photo-caption,
+  .public-site .ss-card-lift:focus-within .ss-photo-caption {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .public-site .ss-photo-caption {
+    transition-property: opacity, transform;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .public-site .ss-photo-caption {
+      transform: translateY(0.35rem);
+    }
+
+    .public-site .ss-zoom-frame:hover .ss-photo-caption,
+    .public-site .ss-zoom-frame:focus-within .ss-photo-caption,
+    .public-site .ss-card-lift:hover .ss-photo-caption,
+    .public-site .ss-card-lift:focus-within .ss-photo-caption {
+      transform: none;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .public-site .ss-press:hover {
     filter: brightness(1.05);
@@ -273,9 +335,14 @@ html {
   .public-site .ss-press,
   .public-site .ss-card-lift,
   .public-site .ss-image-zoom,
+  .public-site .ss-photo-caption,
   .public-site .ss-zoom-frame:hover .ss-image-zoom,
   .public-site .ss-card-lift:hover .ss-image-zoom {
     transform: none;
+  }
+
+  .public-site .ss-photo-caption {
+    transition-property: opacity;
   }
 }
 

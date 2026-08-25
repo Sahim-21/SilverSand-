@@ -82,6 +82,38 @@ test("interaction tokens are defined once and scoped to the public site", () => 
   assert.ok(pub.includes("public-site"));
 });
 
+test("photo caption overlay uses mangrove tokens, hover reveal, and reduced-motion opacity", () => {
+  const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+  assert.ok(css.includes(".ss-photo-caption"));
+  assert.ok(css.includes("var(--mangrove-deep)"));
+  assert.ok(css.includes("var(--ss-duration)"));
+  assert.match(css, /hover:\s*hover[\s\S]*pointer:\s*fine[\s\S]*ss-photo-caption/);
+  assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*ss-photo-caption/);
+
+  const occupancy = readFileSync(
+    join(process.cwd(), "src/components/marketing/occupancy-room-image.tsx"),
+    "utf8",
+  );
+  assert.ok(occupancy.includes("PhotoRevealCaption"));
+  assert.ok(occupancy.includes("formatInr"));
+  assert.ok(occupancy.includes("nightlyRateInr"));
+  assert.doesNotMatch(occupancy, /₹|2000|2500/);
+
+  const photos = readFileSync(
+    join(process.cwd(), "src/components/sections/photos-section.tsx"),
+    "utf8",
+  );
+  assert.ok(photos.includes("getPublicPricing"));
+  assert.ok(photos.includes("nightlyRateInr"));
+
+  const attractions = readFileSync(
+    join(process.cwd(), "src/components/marketing/attraction-place-image.tsx"),
+    "utf8",
+  );
+  assert.ok(attractions.includes("PhotoRevealCaption"));
+  assert.ok(attractions.includes("label"));
+});
+
 test("section bands alternate existing sand tokens without a wave SVG", () => {
   const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
   assert.ok(css.includes("--space-section: 5.5rem"));

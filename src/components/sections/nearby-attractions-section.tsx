@@ -26,7 +26,9 @@ export function NearbyAttractionsSection({ band }: { band?: SectionBand }) {
               const image = ATTRACTION_IMAGES[place.name];
               return (
                 <Card key={place.name} className="overflow-hidden">
-                  {image ? <AttractionPlaceImage image={image} /> : null}
+                  {image ? (
+                    <AttractionPlaceImage image={image} label={place.name} />
+                  ) : null}
                   <CardHeader>
                     <CardTitle className="text-base">{place.name}</CardTitle>
                   </CardHeader>

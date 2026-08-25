@@ -10,6 +10,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Heading, Text } from "@/components/ui/heading";
 import { BOOKING_HASH } from "@/lib/booking/anchor";
 import { OCCUPANCY_TIERS } from "@/lib/business";
+import { getPublicPricing } from "@/lib/pricing/fetch";
 import { cn } from "@/lib/utils";
 
 type PhotosSectionProps = {
@@ -18,11 +19,13 @@ type PhotosSectionProps = {
   band?: SectionBand;
 };
 
-export function PhotosSection({
+export async function PhotosSection({
   showGalleryLink = true,
   bookingHref = BOOKING_HASH,
   band,
 }: PhotosSectionProps) {
+  const pricing = await getPublicPricing();
+
   return (
     <Section band={band}>
       <Container>
@@ -36,13 +39,18 @@ export function PhotosSection({
             </Text>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {OCCUPANCY_TIERS.map((tier) => (
-              <OccupancyRoomImage
-                key={tier}
-                occupancy={tier}
-                caption={`${tier} sharing`}
-              />
-            ))}
+            {OCCUPANCY_TIERS.map((tier) => {
+              const nightlyRateInr =
+                pricing?.occupancyRates.find((row) => row.occupancy === tier)
+                  ?.nightlyRateInr ?? null;
+              return (
+                <OccupancyRoomImage
+                  key={tier}
+                  occupancy={tier}
+                  nightlyRateInr={nightlyRateInr}
+                />
+              );
+            })}
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <BookNowButton href={bookingHref} />

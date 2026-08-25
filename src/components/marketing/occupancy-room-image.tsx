@@ -1,7 +1,9 @@
 import type { StaticImageData } from "next/image";
 
+import { PhotoRevealCaption } from "@/components/marketing/photo-reveal-caption";
 import { TokenImage } from "@/components/ui/token-image";
 import type { OccupancyTier } from "@/lib/business";
+import { formatInr } from "@/lib/pricing/estimate";
 import { OCCUPANCY_IMAGES } from "@/lib/rooms/occupancy-images";
 import { cn } from "@/lib/utils";
 
@@ -21,18 +23,23 @@ const ROOM_STATIC: Record<OccupancyTier, StaticImageData> = {
 
 type OccupancyRoomImageProps = {
   occupancy: OccupancyTier;
+  /** Published nightly rate from `getPublicPricing`. Omit when unpublished. */
+  nightlyRateInr?: number | null;
   className?: string;
   sizes?: string;
-  caption?: string;
 };
 
 export function OccupancyRoomImage({
   occupancy,
+  nightlyRateInr,
   className,
   sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
-  caption,
 }: OccupancyRoomImageProps) {
   const image = OCCUPANCY_IMAGES[occupancy];
+  const priceLabel =
+    nightlyRateInr && nightlyRateInr > 0
+      ? `${formatInr(nightlyRateInr)} / night`
+      : undefined;
 
   return (
     <figure
@@ -46,9 +53,11 @@ export function OccupancyRoomImage({
         slotClassName="aspect-[4/3] w-full"
         className="ss-image-zoom object-cover"
       />
-      {caption ? (
-        <figcaption className="px-1 pt-2 text-sm text-muted">{caption}</figcaption>
-      ) : null}
+      <PhotoRevealCaption
+        as="figcaption"
+        title={`${occupancy} sharing`}
+        detail={priceLabel}
+      />
     </figure>
   );
 }

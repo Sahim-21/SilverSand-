@@ -206,8 +206,8 @@ Estimates use `GET /api/pricing` / `estimateEnquiry` only. If rates are unpublis
 ## Imagery
 
 - Homepage hero: Murudeshwar coastal photograph via `TokenImage` (`next/image`, `priority`, `placeholder="blur"` from the static import) with a mangrove-deep gradient overlay — alt describes the beach scene, not the property.
-- Deluxe AC Room occupancy photos: `TokenImage` from `public/Rooms/` (`2sharing.jpeg`, `3sharing.jpeg`, `4sharing.jpeg`, `6Sharing.jpeg`, `8sharing.jpeg`). Lazy-load (below the fold), unique `alt` per tier, 4:3 reserved slot (`aspect-[4/3]`) so the sand-deep skeleton cannot shift layout.
-- Nearby attraction photos: same `TokenImage` slot from `public/tourist_places/`. Lazy-load, unique `alt` per place. Do not publish walking times from these images.
+- Deluxe AC Room occupancy photos: `TokenImage` from `public/Rooms/` (`2sharing.jpeg`, `3sharing.jpeg`, `4sharing.jpeg`, `6Sharing.jpeg`, `8sharing.jpeg`). Lazy-load (below the fold), unique `alt` per tier, 4:3 reserved slot (`aspect-[4/3]`) so the sand-deep skeleton cannot shift layout. Hover (or always-on for touch) reveals occupancy sharing plus the live nightly rate on a mangrove-deep bottom gradient.
+- Nearby attraction photos: same `TokenImage` slot from `public/tourist_places/`. Lazy-load, unique `alt` per place. The overlay caption is the attraction name. Do not publish walking times from these images.
 - Loading: `placeholder="blur"` (Next.js native). The slot is `bg-sand-deep` with a CSS shimmer (`--sand` highlight). `prefers-reduced-motion: reduce` keeps the slot static. Do not use a generic grey skeleton. Review avatars use the same reserved sand-deep circle (40×40) because they are remote Google URIs.
 - Owner property photos only, via `next/image` when they exist. Every `PhotoFrame` (and later image) has an `alt`.
 - Until remaining property photos exist (exterior, bathroom): `PhotoFrame` empty state with `role="img"` + `aria-label={alt}`, not Unsplash. Do not show empty frames for those categories.
@@ -233,14 +233,16 @@ Defined once in `:root` and reused. Do not hand-tune a second duration or easing
 
 Scoped to `.public-site` (public layout + 404). **Admin (`.admin-shell`) does not use these** — dashboard stays colour-only `duration-150` on buttons/inputs, no scale or lift.
 
-| Surface                   | Hover                                    | Press      | Reduced motion                 |
-| ------------------------- | ---------------------------------------- | ---------- | ------------------------------ |
-| Buttons (`.ss-press`)     | Scale 1.02 + slight brightness           | Scale 0.98 | Brightness only (no transform) |
-| Occupancy cards           | Shadow + translateY                      | —          | Shadow only                    |
-| Nav / footer (`.ss-link`) | Colour to `--mangrove-fg` (no underline) | —          | Colour transition kept         |
-| Room / attraction photos  | Scale 1.04 inside overflow clip          | —          | No zoom                        |
+| Surface                   | Hover                                                                           | Press      | Reduced motion                   |
+| ------------------------- | ------------------------------------------------------------------------------- | ---------- | -------------------------------- |
+| Buttons (`.ss-press`)     | Scale 1.02 + slight brightness                                                  | Scale 0.98 | Brightness only (no transform)   |
+| Occupancy cards           | Shadow + translateY                                                             | —          | Shadow only                      |
+| Nav / footer (`.ss-link`) | Colour to `--mangrove-fg` (no underline)                                        | —          | Colour transition kept           |
+| Room / attraction photos  | Zoom 1.04 + mangrove-deep bottom caption (occupancy + live ₹ / attraction name) | —          | Opacity only (no zoom, no slide) |
 
-Classes: `ss-press` (on `buttonVariants`), `ss-link`, `ss-card-lift`, `ss-zoom-frame` + `ss-image-zoom`.
+Classes: `ss-press` (on `buttonVariants`), `ss-link`, `ss-card-lift`, `ss-zoom-frame` + `ss-image-zoom`, `ss-photo-caption`.
+
+Room/attraction captions sit in `.ss-photo-caption` (sand type on a mangrove-deep gradient from the bottom). Fine-pointer hover (and `:focus-within`) fades them in with `--ss-duration`. Coarse pointers / `hover: none` keep the caption visible. Occupancy ₹ comes from `getPublicPricing` / `formatInr` — never a hardcoded amount. Unpublished rates show the occupancy label only.
 
 ### Homepage entrance
 

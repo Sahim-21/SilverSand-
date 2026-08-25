@@ -417,8 +417,8 @@ function EstimatePanel({
   if (!estimate) {
     return (
       <Text size="sm" className="text-sand/80">
-        Rates are not published yet. Message us on WhatsApp for today&apos;s price — we
-        do not show a fallback rupee amount.
+        Pricing is temporarily unavailable. Message us on WhatsApp for today&apos;s
+        rate — we do not invent a fallback rupee amount.
       </Text>
     );
   }

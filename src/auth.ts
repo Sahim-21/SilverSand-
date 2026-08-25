@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
+import { authConfig } from "@/auth.config";
 import { adminUsers } from "@/db/schema";
 import { getDb, isDatabaseConfigured } from "@/lib/db";
 
@@ -49,13 +50,10 @@ const DUMMY_BCRYPT_HASH =
   "$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWq";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   // Credentials provider requires JWT sessions in Auth.js — DB sessions need
   // the adapter, which only works with OAuth providers. JWT stored in an
   // httpOnly, Secure, SameSite=Lax cookie; JS in the browser cannot read it.
-  session: { strategy: "jwt" },
-  pages: {
-    signIn: "/admin/login",
-  },
   providers: [
     Credentials({
       name: "credentials",
@@ -103,20 +101,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    jwt({ token, user }) {
-      if (user) {
-        token.sub = user.id;
-        token.email = user.email;
-      }
-      return token;
-    },
-    session({ session, token }) {
-      if (session.user && token.sub) {
-        session.user.id = token.sub;
-      }
-      return session;
-    },
-  },
-  trustHost: true,
 });

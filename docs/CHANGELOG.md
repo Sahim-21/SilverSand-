@@ -6,6 +6,27 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Live occupancy rates seeded and published
+
+### What
+
+- `scripts/seed.ts` now upserts owner-confirmed nightly rates (INR): 2→2000, 3→2500, 4→3000, 6→4000, 8→5000; `extraBedRateInr: 500` (per person per night); `max_occupancy: 8`; `is_published: true`. Re-runs update an existing room and occupancy rows.
+- Local DB re-seeded; `GET /api/pricing` returns the five rates + extra bed (no “rates not published” 404 when data is live).
+- Booking widget fail-closed copy updated: temporary unavailability / WhatsApp enquire — not “rates are not published yet.”
+- `src/lib/db.ts` uses `pg` (node-postgres) so seed and the Node.js app share one TCP driver (Neon or local Postgres). Auth middleware split onto `auth.config.ts` so Edge middleware does not import `pg`.
+- `docs/DATABASE.md` seed + public JSON examples updated to the live numbers.
+
+### Why
+
+Owner confirmed the tariff ladder on 25 August 2026 (`BUSINESS_INFO.md`). Public widget and JSON-LD offers need published DB rows, not enquire-only placeholders.
+
+### Rejected
+
+- Hardcoding these rupees in React components (still forbidden; `no-hardcoded-prices.test.ts` must pass).
+- Inventing rates for 1 / 5 / 7 guests (still open on the checklist).
+
+---
+
 ## 2026-08-25 — Owner-confirmed pricing, policies, and amenities
 
 ### What

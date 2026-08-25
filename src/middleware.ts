@@ -1,20 +1,14 @@
+import NextAuth from "next-auth";
 import { NextResponse } from "next/server";
 
-import { auth } from "@/auth";
+import { authConfig } from "@/auth.config";
+
+const { auth } = NextAuth(authConfig);
 
 export default auth((req) => {
   const { pathname } = req.nextUrl;
-  const isAdminRoute = pathname.startsWith("/admin");
   const isLoginPage = pathname === "/admin/login";
   const isLoggedIn = Boolean(req.auth);
-
-  if (!isAdminRoute) {
-    return NextResponse.next();
-  }
-
-  if (!isLoggedIn && !isLoginPage) {
-    return NextResponse.redirect(new URL("/admin/login", req.nextUrl));
-  }
 
   if (isLoggedIn && isLoginPage) {
     return NextResponse.redirect(new URL("/admin", req.nextUrl));

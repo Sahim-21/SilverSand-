@@ -120,10 +120,12 @@ No GST unless owner supplies a rate. Label: “Estimate only, subject to availab
 
 ### Seed
 
-- Insert `rooms` slug `deluxe-ac`, name `Deluxe AC Room`, `extra_bed_rate_inr = 500`.
-- Insert five `occupancy_prices` **only when the owner has given five numbers**. If implementation starts before that, `is_published = false` and the widget does not show ₹.
+- Insert `rooms` slug `deluxe-ac`, name `Deluxe AC Room`, `extra_bed_rate_inr = 500`, `max_occupancy = 8`, `is_published = true`.
+- Insert five `occupancy_prices` with owner-confirmed nightly rates (INR): **2→2000, 3→2500, 4→3000, 6→4000, 8→5000** (source: `docs/BUSINESS_INFO.md`, 25 August 2026).
+- Extra bed is **₹500 per person per night**; total guests (billed occupancy + extra beds) must not exceed `max_occupancy` (8).
+- Seed is **idempotent**: re-running updates the room, upserts the five occupancy rows, and leaves an existing admin user alone (`npm run db:seed`).
 
-Do not seed competitor-like dummy rates (e.g. copying Coastal Pearl’s ₹2899).
+Do not invent rates or copy competitor tariffs. After seed, `GET /api/pricing` returns the published room + rates (not the “rates not published” 404).
 
 ### Public JSON shape (`GET /api/pricing`)
 
@@ -137,17 +139,17 @@ Do not seed competitor-like dummy rates (e.g. copying Coastal Pearl’s ₹2899)
     "extraBedRateInr": 500
   },
   "occupancyRates": [
-    { "occupancy": 2, "nightlyRateInr": 0 },
-    { "occupancy": 3, "nightlyRateInr": 0 },
-    { "occupancy": 4, "nightlyRateInr": 0 },
-    { "occupancy": 6, "nightlyRateInr": 0 },
-    { "occupancy": 8, "nightlyRateInr": 0 }
+    { "occupancy": 2, "nightlyRateInr": 2000 },
+    { "occupancy": 3, "nightlyRateInr": 2500 },
+    { "occupancy": 4, "nightlyRateInr": 3000 },
+    { "occupancy": 6, "nightlyRateInr": 4000 },
+    { "occupancy": 8, "nightlyRateInr": 5000 }
   ],
-  "updatedAt": "2026-08-24T00:00:00.000Z"
+  "updatedAt": "2026-08-25T00:00:00.000Z"
 }
 ```
 
-`0` above is illustrative of **shape**, not a live rate. Never commit a public fallback that uses those zeros as money.
+Amounts above match the owner-confirmed seed (25 August 2026). Public API still fail-closes (404 / enquire copy, **no invented ₹**) if `is_published` is false or any tier is missing / ≤ 0.
 
 ---
 
@@ -235,13 +237,13 @@ Scanned `src/` (excluding `*.test.ts`) for occupancy nightly rates, extra-bed ru
 
 | Location | Amount | Verdict |
 | -------- | ------ | ------- |
-| `scripts/seed.ts` | `extraBedRateInr: 500` | **Allowed.** Owner-supplied extra-bed figure, written into `rooms.extra_bed_rate_inr` at seed. Not imported by React. Occupancy nightly rates are **not** seeded. Room stays `is_published = false` until admin save. |
+| `scripts/seed.ts` | Occupancy 2000/2500/3000/4000/5000 + `extraBedRateInr: 500`, `isPublished: true` | **Allowed.** Owner-confirmed figures (25 Aug 2026), written into `rooms` / `occupancy_prices` at seed. Not imported by React. |
 | `src/lib/pricing/estimate.test.ts` | Fixture 2000/2500/3000/4000/5000 + extra 500 | **Allowed.** Unit-test math only; not shipped to the public UI. |
 | `src/lib/booking/whatsapp-message.test.ts` | `₹4,500` as a formatted label argument | **Allowed.** Asserts message formatting; the production builder never invents a total. |
 | Admin validation copy | `₹99,999` / `₹9,999` | **Allowed.** Upper bounds, not rack rates. |
 | Style guide glyph row | `₹ 0 1 2 3 4 5 6 7 8 9` | **Allowed.** Type specimen, not a price. |
 
-No occupancy nightly rate and no extra-bed rupee amount exist as a React default, JSX fallback, or `NEXT_PUBLIC_` env. Public components call `getPublicPricing()` / `GET /api/pricing` and render `—` / enquire copy when that returns null. Occupancy table fail-closes: `nightlyRateInr <= 0` → em dash; `extraBedRateInr <= 0` → “Not offered”.
+No occupancy nightly rate and no extra-bed rupee amount exist as a React default, JSX fallback, or `NEXT_PUBLIC_` env. Public components call `getPublicPricing()` / `GET /api/pricing` and render live ₹ when published; otherwise enquire copy / em dash (fail closed). Occupancy table fail-closes: `nightlyRateInr <= 0` → em dash; `extraBedRateInr <= 0` → “Not offered”.
 
 ### Same table, same columns
 

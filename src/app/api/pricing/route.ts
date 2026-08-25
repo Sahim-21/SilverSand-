@@ -11,7 +11,7 @@ export async function GET() {
         {
           error: "Pricing unavailable",
           message:
-            "Rates are not published yet. Please call or WhatsApp us for today's price.",
+            "Pricing unavailable. Please call or WhatsApp us for today's price.",
         },
         { status: 404 },
       );

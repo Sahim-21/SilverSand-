@@ -1,6 +1,7 @@
 import { BookingWidget } from "@/components/booking/booking-widget";
 import { Container } from "@/components/layout/container";
 import { Stack } from "@/components/layout/stack";
+import { HeroParallax } from "@/components/sections/hero-parallax";
 import { buttonVariants } from "@/components/ui/button";
 import { Heading, Text } from "@/components/ui/heading";
 import { TokenImage } from "@/components/ui/token-image";
@@ -17,21 +18,23 @@ export function HeroSection() {
   return (
     <section className="relative isolate overflow-hidden" data-ss-hero="">
       <div className="hero-media pointer-events-none absolute inset-0">
-        <TokenImage
-          src={heroCoast}
-          alt={HERO_ALT}
-          fill
-          priority
-          sizes="(max-width: 768px) 100vw, 100vw"
-          quality={85}
-          slotClassName="h-full w-full"
-          className="object-cover object-center"
-        />
-        {/* Mangrove / near-black wash so sand-tone copy and the booking CTAs stay readable */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-mangrove-deep/92 via-mangrove-deep/78 to-mangrove/55 dark:from-mangrove-deep/95 dark:via-mangrove-deep/84 dark:to-mangrove/68"
-        />
+        <HeroParallax>
+          <TokenImage
+            src={heroCoast}
+            alt={HERO_ALT}
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 100vw"
+            quality={85}
+            slotClassName="h-full w-full"
+            className="object-cover object-center"
+          />
+          {/* Mangrove / near-black wash so sand-tone copy and the booking CTAs stay readable */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-r from-mangrove-deep/92 via-mangrove-deep/78 to-mangrove/55 dark:from-mangrove-deep/95 dark:via-mangrove-deep/84 dark:to-mangrove/68"
+          />
+        </HeroParallax>
       </div>
 
       <Container className="relative z-10 py-section">

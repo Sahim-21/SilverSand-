@@ -17,7 +17,9 @@ test("hero entrance and reveals are gated on prefers-reduced-motion", () => {
   assert.ok(css.includes("@media (prefers-reduced-motion: reduce)"));
   assert.ok(css.includes(".hero-media"));
   assert.ok(css.includes(".hero-copy"));
+  assert.ok(css.includes(".hero-parallax"));
   assert.ok(css.includes(".reveal.is-pending"));
+  assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*hero-parallax/);
 });
 
 test("homepage hero does not delay the booking widget", () => {
@@ -66,6 +68,7 @@ test("interaction tokens are defined once and scoped to the public site", () => 
   assert.ok(css.includes("--ss-card-lift:"));
   assert.ok(css.includes("--ss-image-zoom: 1.04"));
   assert.ok(css.includes("--ss-lightbox-duration: 250ms"));
+  assert.ok(css.includes("--ss-hero-parallax-max: 96px"));
   assert.ok(css.includes(".public-site .ss-press"));
   assert.ok(css.includes(".public-site .ss-card-lift"));
   assert.ok(css.includes(".public-site .ss-link"));

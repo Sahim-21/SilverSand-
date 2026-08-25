@@ -234,6 +234,7 @@ Defined once in `:root` and reused. Do not hand-tune a second duration or easing
 | `--ss-image-zoom`        | `1.04`                           | Room and attraction photos on hover      |
 | `--ss-fab-pulse`         | `2.8s`                           | Slow WhatsApp FAB ring (not hover/press) |
 | `--ss-lightbox-duration` | `250ms`                          | Photo lightbox open/close (200–300ms)    |
+| `--ss-hero-parallax-max` | `96px`                           | Cap on hero photo translateY             |
 
 Scoped to `.public-site` (public layout + 404). **Admin (`.admin-shell`) does not use these** — dashboard stays colour-only `duration-150` on buttons/inputs, no scale or lift.
 
@@ -256,9 +257,10 @@ Contact FABs are gold (not WhatsApp green — in-flow WhatsApp buttons stay gree
 Not on `/rooms`, `/about`, `/gallery`, `/location`:
 
 1. **Hero entrance** — the photograph (and overlay) fades/scales in from `1.045`. Headline, subtext, then **Check dates** follow at 160 / 260 / 360ms. The last beat finishes by ~760ms. The booking widget is not part of this sequence and must stay visible and usable from first paint.
-2. **Scroll fade-up** — `IntersectionObserver` in `RevealOnScroll`. Same ease and 12px rise on Room & Pricing, Photos, About, Nearby Attractions, and FAQ. Content is in the DOM immediately; off-screen sections are only visually pending after mount.
+2. **Hero parallax** — on viewports `≥ 768px`, the photograph (inner `.hero-parallax`) translates on scroll at 62% of document speed (`translate3d`, rAF-coalesced, cap 96px). Headline, CTA, and the booking widget stay in normal flow. Below 768px the photo is static (mobile jank). Inner-page heroes are not included.
+3. **Scroll fade-up** — `IntersectionObserver` in `RevealOnScroll`. Same ease and 12px rise on Room & Pricing, Photos, About, Nearby Attractions, and FAQ. Content is in the DOM immediately; off-screen sections are only visually pending after mount.
 
-`prefers-reduced-motion: reduce` disables transform-based motion (hero scale, section fade-up, button scale, card lift, image zoom, FAB slide, WhatsApp FAB pulse, lightbox fade/scale) and the stay-total count-up (the final `formatInr` amount is shown immediately). Colour and opacity transitions may remain. Never use motion as a loading gate for prices or the widget.
+`prefers-reduced-motion: reduce` disables transform-based motion (hero scale, hero parallax, section fade-up, button scale, card lift, image zoom, FAB slide, WhatsApp FAB pulse, lightbox fade/scale) and the stay-total count-up (the final `formatInr` amount is shown immediately). Colour and opacity transitions may remain. Never use motion as a loading gate for prices or the widget.
 
 ---
 

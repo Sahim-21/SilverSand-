@@ -6,6 +6,40 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Subtle hero parallax (desktop only)
+
+### What
+
+- Homepage hero photograph lags the headline/CTA on scroll: background moves at **62%** of document speed (`translate3d` on an inner `.hero-parallax` layer, cap 96px). Copy, Check dates, and the booking widget stay in normal flow.
+- Scroll is coalesced to `requestAnimationFrame`. Offset comes from `window.scrollY` (no `getBoundingClientRect` per frame). `will-change` is set only while scrolling.
+- **Off below 768px** — static crop, no scroll listener. `prefers-reduced-motion: reduce` also keeps the photo static (CSS `transform: none` plus no JS).
+- The page-load entrance still runs on the outer `.hero-media` (scale/fade). Parallax is a nested transform, so the two do not overwrite each other.
+
+### Why
+
+A little depth as you leave the hero, without a motion library or a mobile scroll tax.
+
+### Scroll performance (estimate)
+
+|                                                 | Before                         | After (desktop ≥768px)                                                                                            | After (mobile / reduced motion)                               |
+| ----------------------------------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Scroll listeners on the hero                    | None                           | One **passive** listener, work only inside rAF                                                                    | **None** attached                                             |
+| Per-frame work while scrolling through the hero | 0                              | 1 rAF, 1 `scrollY` read, 1 `transform` write; skips if the 96px cap has not changed                               | 0                                                             |
+| Layout                                          | None from the hero             | None (`scrollY`, not `getBoundingClientRect`)                                                                     | None                                                          |
+| Compositor                                      | One-shot CSS entrance (~500ms) | Same entrance, plus one extra layer while the user is scrolling (will-change cleared 180ms after the last scroll) | Entrance skipped when reduced-motion; otherwise entrance only |
+
+Impact: desktop should stay compositor-bound (no extra layout/paint from this effect). Mobile scroll path is unchanged from before this change.
+
+### Rejected
+
+- `background-position` on every scroll frame.
+- Framer Motion / GSAP / a parallax library.
+- Applying parallax on viewports under 768px.
+- Parallax on inner-page heroes, section backgrounds, or the booking widget.
+- Site-wide / per-section parallax (still rejected — this is the homepage hero only).
+
+---
+
 ## 2026-08-25 — Photo lightbox for room and attraction sets
 
 ### What

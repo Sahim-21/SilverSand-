@@ -54,6 +54,7 @@
   --ss-image-zoom: 1.04;
   --ss-fab-pulse: 2.8s;
   --ss-lightbox-duration: 250ms;
+  --ss-hero-parallax-max: 96px;
 
   --background: var(--sand);
   --foreground: var(--ink);
@@ -165,6 +166,7 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .hero-media,
   .hero-copy,
+  .hero-parallax,
   .reveal,
   .reveal.is-pending,
   .reveal.is-in {
@@ -194,6 +196,23 @@ html {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/*
+  Inner photograph layer. Extra top bleed only when parallax is allowed so
+  translateY cannot show a gap. Mobile and reduced-motion keep inset: 0.
+*/
+.hero-parallax {
+  position: absolute;
+  inset: 0;
+}
+
+@media (min-width: 768px) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-parallax {
+      top: calc(-1 * var(--ss-hero-parallax-max));
+    }
   }
 }
 

@@ -4,6 +4,7 @@ import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { BUSINESS_NAME, SITE_URL } from "@/lib/business";
 import { PAGE_SEO } from "@/lib/seo/copy";
+import { OG_IMAGE } from "@/lib/seo/metadata";
 
 import "./globals.css";
 
@@ -31,11 +32,13 @@ export const metadata: Metadata = {
     siteName: BUSINESS_NAME,
     title: PAGE_SEO.home.absoluteTitle,
     description: PAGE_SEO.home.description,
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: PAGE_SEO.home.absoluteTitle,
     description: PAGE_SEO.home.description,
+    images: [OG_IMAGE.url],
   },
 };
 

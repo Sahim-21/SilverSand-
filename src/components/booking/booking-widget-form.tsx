@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useMemo, useState, useSyncExternalStore } from "react";
 
+import { AnimatedInr } from "@/components/booking/animated-inr";
 import { QuantityStepper } from "@/components/booking/quantity-stepper";
 import { useBookingEnquiry } from "@/components/booking/enquiry-context";
 import { buttonVariants } from "@/components/ui/button";
@@ -547,9 +548,7 @@ function EstimatePanel({
       </ul>
       {estimate && nights ? (
         <>
-          <p className="font-serif text-2xl font-semibold tabular-nums text-sand">
-            {formatInr(estimate.totalInr)}
-          </p>
+          <AnimatedInr amount={estimate.totalInr} />
           <Text size="xs" className="text-sand/70">
             {nights} {nights === 1 ? "night" : "nights"} ·{" "}
             {formatInr(nightly.nightlyTotalInr)} per night

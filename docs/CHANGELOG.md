@@ -6,6 +6,27 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Stay-total count-up on the booking widget
+
+### What
+
+- After dates and occupancy produce a stay total, the large rupee figure counts from ₹0 (or from the previous total) to the live estimate over 500ms with ease-out cubic.
+- The last frame is always `formatInr(estimate.totalInr)` — the same string WhatsApp and the estimate logic already use. Line items and the nightly `/ night` figure are not animated.
+- Changing occupancy or dates mid-count cancels the in-flight frame and starts from the currently displayed integer. `prefers-reduced-motion: reduce` skips the count and shows the final amount immediately.
+
+### Why
+
+The total should feel like it landed, without ever showing a differently rounded rupee amount once the motion finishes.
+
+### Rejected
+
+- Changing `estimateEnquiry` / `priceEnquiryNightly` or rounding the live estimate for display.
+- Queueing overlapping counts when the guest stepper is tapped quickly.
+- Animating occupancy line items or the `/ night` figure.
+- A motion library (Framer Motion / GSAP) or marketing-style hero count-up stats.
+
+---
+
 ## 2026-08-25 — Photos no longer hide behind the sand skeleton
 
 ### What

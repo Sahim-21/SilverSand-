@@ -208,7 +208,7 @@ Estimates use `GET /api/pricing` / `estimateEnquiry` only. If rates are unpublis
 - Homepage hero: Murudeshwar coastal photograph via `TokenImage` (`next/image`, `priority`, `placeholder="blur"` from the static import) with a mangrove-deep gradient overlay — alt describes the beach scene, not the property.
 - Deluxe AC Room occupancy photos: `TokenImage` from `public/Rooms/` (`2sharing.jpeg`, `3sharing.jpeg`, `4sharing.jpeg`, `6Sharing.jpeg`, `8sharing.jpeg`). Lazy-load (below the fold), unique `alt` per tier, 4:3 reserved slot (`aspect-[4/3]`) so the sand-deep skeleton cannot shift layout. Hover (or always-on for touch) reveals occupancy sharing plus the live nightly rate on a mangrove-deep bottom gradient.
 - Nearby attraction photos: same `TokenImage` slot from `public/tourist_places/`. Lazy-load, unique `alt` per place. The overlay caption is the attraction name. Do not publish walking times from these images.
-- Loading: `placeholder="blur"` (Next.js native). The slot is `bg-sand-deep` with a CSS shimmer (`--sand` highlight) *behind* the photo so a missed `onLoad` cannot hide it. `prefers-reduced-motion: reduce` keeps the slot static. Do not use a generic grey skeleton. Review avatars use the same reserved sand-deep circle (40×40) because they are remote Google URIs.
+- Loading: `placeholder="blur"` (Next.js native). The slot is `bg-sand-deep` with a CSS shimmer (`--sand` highlight) _behind_ the photo so a missed `onLoad` cannot hide it. `prefers-reduced-motion: reduce` keeps the slot static. Do not use a generic grey skeleton. Review avatars use the same reserved sand-deep circle (40×40) because they are remote Google URIs.
 - Owner property photos only, via `next/image` when they exist. Every `PhotoFrame` (and later image) has an `alt`.
 - Until remaining property photos exist (exterior, bathroom): `PhotoFrame` empty state with `role="img"` + `aria-label={alt}`, not Unsplash. Do not show empty frames for those categories.
 
@@ -216,7 +216,9 @@ Estimates use `GET /api/pricing` / `estimateEnquiry` only. If rates are unpublis
 
 ## Motion
 
-No hero carousels, no count-up stats, no animation library.
+No hero carousels, no marketing count-up stats, no animation library.
+
+The booking widget **stay total** is the only exception: `AnimatedInr` counts from the previous displayed integer (or ₹0 on first appearance) to the live `estimate.totalInr` over 500ms with ease-out cubic. The last frame is always `formatInr` of that exact integer — never a differently rounded estimate. Line items and the nightly `/ night` figure stay static. Rapid occupancy/date changes cancel the in-flight `requestAnimationFrame`; they do not queue. `prefers-reduced-motion: reduce` shows the final amount immediately.
 
 ### Interaction tokens (public site only)
 
@@ -255,7 +257,7 @@ Not on `/rooms`, `/about`, `/gallery`, `/location`:
 1. **Hero entrance** — the photograph (and overlay) fades/scales in from `1.045`. Headline, subtext, then **Check dates** follow at 160 / 260 / 360ms. The last beat finishes by ~760ms. The booking widget is not part of this sequence and must stay visible and usable from first paint.
 2. **Scroll fade-up** — `IntersectionObserver` in `RevealOnScroll`. Same ease and 12px rise on Room & Pricing, Photos, About, Nearby Attractions, and FAQ. Content is in the DOM immediately; off-screen sections are only visually pending after mount.
 
-`prefers-reduced-motion: reduce` disables transform-based motion (hero scale, section fade-up, button scale, card lift, image zoom, FAB slide, WhatsApp FAB pulse). Colour and opacity transitions may remain. Never use motion as a loading gate for prices or the widget.
+`prefers-reduced-motion: reduce` disables transform-based motion (hero scale, section fade-up, button scale, card lift, image zoom, FAB slide, WhatsApp FAB pulse) and the stay-total count-up (the final `formatInr` amount is shown immediately). Colour and opacity transitions may remain. Never use motion as a loading gate for prices or the widget.
 
 ---
 

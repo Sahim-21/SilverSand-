@@ -79,6 +79,7 @@ Must ship a **usable** booking path, not a platform.
 
 - [x] Owner occupancy rates entered (Phase 0) and room published via admin
 - [x] Interactive booking widget: dates (check-out after check-in), occupancy, extra beds capped at 8 guests, live estimate from API
+- [x] Stay-total display count-up (500ms ease-out; last frame = `formatInr` of the live estimate; reduced-motion instant)
 - [x] WhatsApp prefill with dates, guests, estimate, room name
 - [x] `LodgingBusiness` + `HotelRoom` JSON-LD **only with known facts** (`Offer` when rates are published; no geo/ratings)
 - [x] Unique titles, canonicals, OG/Twitter, sitemap, robots, breadcrumbs, 404

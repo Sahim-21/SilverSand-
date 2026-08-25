@@ -139,8 +139,9 @@ Estimates use `GET /api/pricing` / `estimateEnquiry` only. If rates are unpublis
 
 ## Imagery
 
-- Owner photos only, via `next/image` when they exist. Every `PhotoFrame` (and later `<img>`) has an `alt`.
-- Until then: `PhotoFrame` empty state with `role="img"` + `aria-label={alt}`, not Unsplash.
+- Homepage hero: Murudeshwar coastal photograph via `next/image` (`priority`, responsive `sizes`) with a mangrove-deep gradient overlay — alt describes the beach scene, not the property.
+- Owner property photos only for gallery/room frames, via `next/image` when they exist. Every `PhotoFrame` (and later `<img>`) has an `alt`.
+- Until property photos exist: `PhotoFrame` empty state with `role="img"` + `aria-label={alt}`, not Unsplash.
 
 ---
 

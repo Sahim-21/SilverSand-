@@ -6,6 +6,27 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Homepage hero: Murudeshwar coast photograph
+
+### What
+
+- Wired `public/images/hero-murudeshwar-coast.jpg` into `HeroSection` with `next/image` (`priority`, `fill`, responsive `sizes`, quality 85 → WebP/AVIF via Next).
+- Subtle mangrove-deep → mangrove gradient overlay so place line, H1, body copy, and the booking WhatsApp/Call CTAs stay readable.
+- Alt text describes the coastal Murudeshwar beach scene — not the homestay exterior.
+- `docs/TASKS.md`: homepage hero image marked resolved (room / property photos still open).
+
+### Why
+
+Above-the-fold LCP needs an eager, optimized photograph; a flat sand panel was only a stand-in until this asset arrived.
+
+### Rejected
+
+- Plain `<img>` or CSS `background-image`.
+- Lazy-loading the hero.
+- Alt text that implies the photo is of Silver Sand Beach Homestay itself.
+
+---
+
 ## 2026-08-25 — Live Maps Embed + published NAP / geo
 
 ### What

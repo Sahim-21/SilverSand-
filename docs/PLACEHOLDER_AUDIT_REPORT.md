@@ -180,15 +180,14 @@ Defined in `src/components/sections/faq-section.tsx` lines 10–15; each renders
 
 | Asset / component | File | Used on page(s) | Notes |
 |-------------------|------|-----------------|-------|
-| PhotoFrame (exterior) | photos-section.tsx:32–35 | /, /gallery, /rooms/deluxe-ac-room | Dashed box, no image file |
-| PhotoFrame (room) | photos-section.tsx:37–40 | same | same |
-| PhotoFrame (bathroom) | photos-section.tsx:42–45 | same | same |
+| **Homepage hero** | `public/images/hero-murudeshwar-coast.jpg` | `/` | **Resolved 25 Aug 2026** — `next/image` + mangrove overlay; coastal scene (not property exterior) |
+| PhotoFrame (room) | photos-section.tsx | /, /gallery, /rooms/deluxe-ac-room | Dashed box until owner room photo |
 | PhotoFrame default caption | photo-frame.tsx:18 | Any frame without custom caption | Photos coming from the family — WhatsApp us for recent pictures. |
-| Map embed box | map-section.tsx:35–39 | /, /location | Dashed 16:9 box, no iframe |
-| OG/Twitter image | opengraph-image.tsx | All pages (social) | Branded typography card, not a property photo |
+| Map embed | Map Embed API | /, /location | **Resolved** — live place iframe (see CHANGELOG) |
+| OG/Twitter image | opengraph-image.tsx | All pages (social) | Branded typography card is final |
 | Style-guide specimen | style-guide/page.tsx:202 | /style-guide | Design reference only |
 
-**No stock image files exist in the repository.**
+**Note:** Exterior/bathroom PhotoFrame slots were removed from the UI (empty boxes unwanted). Room PhotoFrame remains.
 
 ---
 

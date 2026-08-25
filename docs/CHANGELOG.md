@@ -12,7 +12,7 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 - Unique title tags and meta descriptions per public URL (`src/lib/seo/copy.ts`) plus Open Graph (`en_IN`) and Twitter `summary_large_image`. Canonicals via `pageMetadata()`. Home title is absolute so the brand is not doubled by the layout template.
 - `robots.ts` now advertises `sitemap.xml`. Sitemap still lists public URLs only (`/admin`, `/api`, `/style-guide` omitted).
-- Branded OG/Twitter image (`src/app/opengraph-image.tsx`) — wordmark card, not a stock villa.
+- Branded OG/Twitter image (`src/app/opengraph-image.tsx`) — wordmark card, not a stock villa. `openGraph.images` / `twitter.images` point at that route so an explicit `openGraph` object does not hide the file convention.
 - JSON-LD: `WebSite`, `LodgingBusiness` + nested `HotelRoom`, `Offer`/`priceRange` only from published `getPublicPricing()`, `FAQPage` from answered FAQs only, `BreadcrumbList` on inner pages. Builders in `src/lib/seo/json-ld.ts`. Public layout loads pricing for that graph; `getPublicPricing()` fail-closes to `null` if the database is unreachable so prerender does not 500.
 - Visible breadcrumbs on inner pages; `PhotoFrame` requires `alt` (`role="img"` while empty); `CardTitle` defaults to h3 so each public page keeps one H1; booking widget title is h2.
 - Custom `src/app/not-found.tsx` with Home + WhatsApp/Call.

@@ -28,7 +28,7 @@ export const PAGE_SEO = {
   },
   room: {
     title: `${ROOM_NAME} — occupancy pricing`,
-    description: `The ${ROOM_NAME} at ${BUSINESS_NAME}, Murudeshwar. Nightly rate depends on occupancy (2–8 sharing). Extra beds up to eight guests. Check dates on WhatsApp.`,
+    description: `The ${ROOM_NAME} at ${BUSINESS_NAME}, Murudeshwar. Bathroom available. Nightly rate depends on occupancy (2–8 sharing). Extra beds up to eight guests. Rates include GST.`,
     path: ROOM_PATH,
   },
   gallery: {
@@ -43,7 +43,7 @@ export const PAGE_SEO = {
   },
   location: {
     title: "Getting to Murudeshwar",
-    description: `${BUSINESS_NAME} at 1, Naveen Beach Rd, Murdeshwar, Mavalli, Karnataka 581350. Murdeshwar Railway Station is on the Konkan Railway. Live map pin on this page.`,
+    description: `${BUSINESS_NAME} at 1, Naveen Beach Rd, Murdeshwar, Mavalli, Karnataka 581350, 1 km from Murudeshwar bus stand. Murdeshwar Railway Station is on the Konkan Railway.`,
     path: "/location",
   },
   contact: {
@@ -58,7 +58,7 @@ export const PAGE_SEO = {
   },
   terms: {
     title: "Booking terms",
-    description: `Booking terms for ${BUSINESS_NAME}: WhatsApp or phone confirmation, ${ROOM_NAME} (air-conditioned), check-in 11:00 AM, non-cancellable bookings, no meals included. GST and house rules pending owner confirmation.`,
+    description: `Booking terms for ${BUSINESS_NAME}: WhatsApp or phone confirmation, ${ROOM_NAME} (air-conditioned, bathroom available), check-in 11:00 AM, non-cancellable bookings, no meals included. Rates include GST. Valid ID required at check-in.`,
     path: "/terms",
   },
   notFound: {

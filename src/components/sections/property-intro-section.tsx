@@ -5,7 +5,6 @@ import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
 import { Heading, Text } from "@/components/ui/heading";
 import { BUSINESS_NAME, ROOM_PATH } from "@/lib/business";
-import { TodoNotice } from "@/components/marketing/todo-notice";
 
 export function PropertyIntroSection() {
   return (
@@ -27,14 +26,9 @@ export function PropertyIntroSection() {
             your WhatsApp.
           </Text>
           <Text size="sm" tone="muted">
-            Bed layout, bathroom details, and amenity list are pending the owner&apos;s
-            confirmation and will be published here once verified — not copied from an
-            OTA mirror.
+            The room is air-conditioned and a bathroom is available. Nightly rates are
+            by occupancy and include GST.
           </Text>
-          <TodoNotice
-            item="bedsBath"
-            detail="Bed count and bathroom layout are not published yet (checklist #3)."
-          />
         </Stack>
       </Container>
     </Section>

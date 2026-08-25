@@ -563,6 +563,9 @@ function EstimatePanel({
       <Text size="xs" className="text-sand/70">
         *Estimate only, subject to availability
       </Text>
+      <Text size="xs" className="text-sand/70">
+        Rates include GST.
+      </Text>
     </div>
   );
 }

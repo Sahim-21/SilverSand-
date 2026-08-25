@@ -6,6 +6,28 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — GST, bathroom, ID, bus-stand landmark; remove public flags
+
+### What
+
+- Confirmed: listed occupancy and extra-bed rates **include GST**; a **bathroom is available**; **guest ID is required**; the homestay is **1 km from Murudeshwar bus stand**.
+- Published those facts as normal copy (occupancy table, room copy, About, Terms, Location, FAQs, JSON-LD `valueAddedTaxIncluded` + bathroom amenity).
+- Removed every public `TodoNotice` and remaining “pending owner / will be published” flags.
+- Booking widget still shows `*Estimate only, subject to availability` and now notes that rates include GST (no extra GST line on the total).
+
+### Why
+
+Owner confirmed these four facts on 25 August 2026. Yellow pending boxes for everything else were noise — unpublished facts (bed count, other distances, host name) are omitted, not boxed.
+
+### Rejected
+
+- Inventing bed count, attached vs shared bath, hot water, or beach/temple/railway distances.
+- Adding GST on top of occupancy/extra-bed estimates.
+- Hardcoding occupancy ₹ in React.
+- Keeping ID/GST/distance `TodoNotice` boxes after the facts landed.
+
+---
+
 ## 2026-08-25 — Remove stale “pending owner” copy for confirmed facts
 
 ### What

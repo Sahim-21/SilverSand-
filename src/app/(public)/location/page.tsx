@@ -8,10 +8,9 @@ import { MapSection } from "@/components/sections/map-section";
 import { MurudeshwarInfoSection } from "@/components/sections/murudeshwar-info-section";
 import { NearbyAttractionsSection } from "@/components/sections/nearby-attractions-section";
 import { FinalCtaSection } from "@/components/sections/final-cta-section";
-import { TodoNotice } from "@/components/marketing/todo-notice";
 import { Stack } from "@/components/layout/stack";
 import { Text } from "@/components/ui/heading";
-import { BUSINESS_NAME, FULL_ADDRESS } from "@/lib/business";
+import { BUSINESS_NAME, FULL_ADDRESS, LANDMARK_BUS_STAND } from "@/lib/business";
 import { PAGE_SEO } from "@/lib/seo/copy";
 import { pageMetadata } from "@/lib/seo/metadata";
 
@@ -22,7 +21,7 @@ export default function LocationPage() {
     <>
       <InnerPageHero
         title="Getting to Murudeshwar"
-        description={`${BUSINESS_NAME} is at ${FULL_ADDRESS}. Murdeshwar Railway Station is on the Konkan Railway.`}
+        description={`${BUSINESS_NAME} is at ${FULL_ADDRESS}, ${LANDMARK_BUS_STAND}. Murdeshwar Railway Station is on the Konkan Railway.`}
         crumbs={[
           { href: "/", label: "Home" },
           { href: "/location", label: "Location" },
@@ -39,13 +38,8 @@ export default function LocationPage() {
               run to most parts of town.
             </Text>
             <Text size="sm" tone="muted">
-              We have not published walking or driving times from our homestay to the
-              beach, temple, bus stand, or railway station.
+              The homestay is {LANDMARK_BUS_STAND}.
             </Text>
-            <TodoNotice
-              item="landmarkDistances"
-              detail="Distances to the beach, temple, bus stand, and railway station are not published yet (checklist #8)."
-            />
           </Stack>
         </Container>
       </Section>

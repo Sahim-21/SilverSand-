@@ -88,14 +88,14 @@ v1 admin UI does not need a history screen. The table exists so a bad save is re
 
 ### What is not modelled (on purpose)
 
-| Idea                             | Why later / never                                                                               |
-| -------------------------------- | ----------------------------------------------------------------------------------------------- |
-| Seasonal / weekend rates         | Brief is occupancy + extra bed only                                                             |
-| 5- and 7-person rows             | Owner has not defined the rule; handle in **application policy**, not extra rows, until they do |
-| Multiple rooms / units inventory | Unknown unit count                                                                              |
-| Taxes / GST %                    | Unknown; if later, add `tax_note` static copy first, not a tax engine                           |
-| Coupons                          | Out of scope                                                                                    |
-| Bookings table                   | Conversion is WhatsApp                                                                          |
+| Idea                             | Why later / never                                                                                                                                         |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Seasonal / weekend rates         | Brief is occupancy + extra bed only                                                                                                                       |
+| 5- and 7-person rows             | Owner has not defined the rule; handle in **application policy**, not extra rows, until they do                                                           |
+| Multiple rooms / units inventory | Unknown unit count                                                                                                                                        |
+| Taxes / GST %                    | **GST is included** in listed occupancy and extra-bed rates. Do not add a tax engine or a second GST line on estimates. Static copy: “Rates include GST.” |
+| Coupons                          | Out of scope                                                                                                                                              |
+| Bookings table                   | Conversion is WhatsApp                                                                                                                                    |
 
 ### Application policy for unpublished occupancies (confirm with owner)
 
@@ -117,7 +117,7 @@ line   = quantity * base + extra       // extra beds are per enquiry line, not �
 total  = nights * line                 // sum across room-type lines
 ```
 
-No GST unless owner supplies a rate. Label: “Estimate only, subject to availability.”
+Listed occupancy and extra-bed rates **include GST**. Do not add GST on top of the estimate. Label: “Estimate only, subject to availability.”
 
 ### Seed
 

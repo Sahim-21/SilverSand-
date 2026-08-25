@@ -36,11 +36,11 @@ export async function OccupancyPricing({ bookingHref }: OccupancyPricingProps) {
       <CardHeader>
         <CardTitle>{pricing.room.name} — per night by sharing</CardTitle>
         <Text size="sm" tone="muted">
-          Per night, by how many guests share the room. We confirm the total on
-          WhatsApp.
+          Per night, by how many guests share the room. Rates include GST. We confirm
+          the total on WhatsApp.
         </Text>
       </CardHeader>
-      <CardContent>
+      <CardContent className="gap-4">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {OCCUPANCY_TIERS.map((tier) => {
             const row = pricing.occupancyRates.find((r) => r.occupancy === tier);

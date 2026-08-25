@@ -25,8 +25,9 @@ export function RoomPageHero() {
               <Text tone="muted" className="mt-4 max-w-prose">
                 Our only room type, priced by occupancy — how many guests share the room
                 sets the nightly rate. Suitable for couples, families, and groups of up
-                to eight. The room is air-conditioned. An extra bed can be added up to
-                eight guests; the per-person nightly charge is in the booking widget.
+                to eight. The room is air-conditioned and a bathroom is available. An
+                extra bed can be added up to eight guests; the per-person nightly charge
+                is in the booking widget. Rates include GST.
               </Text>
             </div>
           </Stack>

@@ -48,5 +48,6 @@ test("WhatsApp message uses the formatted live estimate when provided", () => {
 
   assert.match(message, /Estimated total: ₹4,500/);
   assert.match(message, /\*Estimate only, subject to availability/);
+  assert.match(message, /Rates include GST/);
   assert.match(message, /1 extra bed/);
 });

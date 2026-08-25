@@ -21,10 +21,9 @@ export function RoomsListSection() {
             <CardHeader>
               <CardTitle>{ROOM_NAME}</CardTitle>
               <Text size="sm" tone="muted">
-                Air-conditioned. Priced per night by occupancy — 2, 3, 4, 6, or 8 guests
-                sharing. An extra bed can be added up to eight guests in the room; the
-                per-person charge is on this page. Bed layout and bathroom details are
-                pending owner confirmation.
+                Air-conditioned, with a bathroom. Priced per night by occupancy — 2, 3,
+                4, 6, or 8 guests sharing. An extra bed can be added up to eight guests
+                in the room; the per-person charge is on this page. Rates include GST.
               </Text>
             </CardHeader>
             <CardContent className="gap-6">

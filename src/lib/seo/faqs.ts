@@ -1,4 +1,4 @@
-import { DISPLAY_PHONE, ROOM_NAME } from "@/lib/business";
+import { DISPLAY_PHONE, LANDMARK_BUS_STAND, ROOM_NAME } from "@/lib/business";
 import { formatInr } from "@/lib/pricing/estimate";
 import type { PublicPricing } from "@/lib/pricing/types";
 
@@ -15,11 +15,11 @@ export const STATIC_FAQS: readonly FaqItem[] = [
   },
   {
     q: "Why is there no online payment?",
-    a: "We confirm bookings on WhatsApp and phone, not through an OTA checkout. Advance payment terms are set by the owner and will be published here once confirmed.",
+    a: "We confirm bookings on WhatsApp and phone, not through an OTA checkout. Any advance payment is agreed on WhatsApp when we confirm your dates.",
   },
   {
     q: "What room types are available?",
-    a: `One type: the ${ROOM_NAME}. It is air-conditioned and priced by how many guests share it — 2, 3, 4, 6, or 8. There are no other room categories at this homestay.`,
+    a: `One type: the ${ROOM_NAME}. It is air-conditioned, a bathroom is available, and it is priced by how many guests share it — 2, 3, 4, 6, or 8. There are no other room categories at this homestay.`,
   },
   {
     q: "How does occupancy pricing work?",
@@ -27,7 +27,7 @@ export const STATIC_FAQS: readonly FaqItem[] = [
   },
   {
     q: "Are the prices on this website final?",
-    a: "The rates on this page are the current occupancy rates. We confirm the total on WhatsApp before you travel — if rates have changed, we tell you.",
+    a: "The rates on this page are the current occupancy rates and include GST. We confirm the total on WhatsApp before you travel — if rates have changed, we tell you.",
   },
   {
     q: "Can I book for 5 or 7 guests?",
@@ -49,6 +49,22 @@ export const STATIC_FAQS: readonly FaqItem[] = [
     q: "What is your cancellation policy?",
     a: "Bookings are non-cancellable and non-refundable. Once your stay is confirmed, cancellations and refunds are not available.",
   },
+  {
+    q: "Do the rates include GST?",
+    a: "Yes. Occupancy and extra-bed rates on this website include GST.",
+  },
+  {
+    q: "Is a bathroom available?",
+    a: "Yes. A bathroom is available with the Deluxe AC Room.",
+  },
+  {
+    q: "Do I need to bring ID?",
+    a: "Yes. A valid ID is required at check-in.",
+  },
+  {
+    q: "How far is the homestay from Murudeshwar bus stand?",
+    a: `The homestay is ${LANDMARK_BUS_STAND}.`,
+  },
 ];
 
 export function extraBedFaq(pricing: PublicPricing | null): FaqItem | null {
@@ -56,7 +72,7 @@ export function extraBedFaq(pricing: PublicPricing | null): FaqItem | null {
   if (pricing.room.extraBedRateInr > 0) {
     return {
       q: "Is there an extra bed?",
-      a: `Yes. Extra beds are offered up to eight guests in the room. The current charge is ${formatInr(pricing.room.extraBedRateInr)} per person per night. Confirm on WhatsApp that an extra bed is available for your dates before including it in the total.`,
+      a: `Yes. Extra beds are offered up to eight guests in the room. The current charge is ${formatInr(pricing.room.extraBedRateInr)} per person per night and includes GST. Confirm on WhatsApp that an extra bed is available for your dates before including it in the total.`,
     };
   }
   return {
@@ -65,7 +81,7 @@ export function extraBedFaq(pricing: PublicPricing | null): FaqItem | null {
   };
 }
 
-/** FAQPage schema must use this list — pending owner questions are UI-only. */
+/** FAQPage schema must use this list — unanswered owner questions are omitted, not shown as placeholders. */
 export function getAnsweredFaqs(pricing: PublicPricing | null): FaqItem[] {
   const extra = extraBedFaq(pricing);
   return extra ? [...STATIC_FAQS, extra] : [...STATIC_FAQS];

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
-import { TodoNotice } from "@/components/marketing/todo-notice";
 import { buttonVariants } from "@/components/ui/button";
 import { Heading, Text } from "@/components/ui/heading";
 import { BUSINESS_NAME } from "@/lib/business";
@@ -36,17 +35,8 @@ export function AboutSection({ compact = false }: AboutSectionProps) {
                 house, a direct conversation, and a price based on your group size —
                 this is the right fit.
               </Text>
-              <Text size="sm" tone="muted">
-                The host&apos;s name, languages spoken, and the family story will be
-                added here once the owner confirms them. We won&apos;t invent a host
-                persona.
-              </Text>
             </>
           ) : null}
-          <TodoNotice
-            item="hostName"
-            detail="Host name(s) and languages spoken are not yet confirmed (checklist #20). Add them here when the owner provides them."
-          />
           {compact ? (
             <Link
               href="/about"

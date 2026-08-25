@@ -1,9 +1,9 @@
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
-import { TodoNotice } from "@/components/marketing/todo-notice";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heading, Text } from "@/components/ui/heading";
+import { BUSINESS_NAME, LANDMARK_BUS_STAND } from "@/lib/business";
 import { murudeshwarContext } from "@/lib/site-content";
 
 export function MurudeshwarInfoSection() {
@@ -41,10 +41,9 @@ export function MurudeshwarInfoSection() {
               </CardContent>
             </Card>
           </div>
-          <TodoNotice
-            item="landmarkDistances"
-            detail="We have not published the walking or driving distance from our homestay to the temple, beach, or bus stand (checklist #8)."
-          />
+          <Text size="sm" tone="muted">
+            {BUSINESS_NAME} is {LANDMARK_BUS_STAND}.
+          </Text>
         </Stack>
       </Container>
     </Section>

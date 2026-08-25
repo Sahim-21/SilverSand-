@@ -24,14 +24,14 @@ export default function TermsPage() {
             ]}
           />
           <Text tone="muted">
-            Bookings are confirmed by the host on WhatsApp or phone — not through an
-            OTA checkout. Prices on this website are estimates until the owner
-            confirms your dates and occupancy; we confirm the total on WhatsApp before
-            you travel.
+            Bookings are confirmed by the host on WhatsApp or phone — not through an OTA
+            checkout. Prices on this website are estimates until the owner confirms your
+            dates and occupancy; we confirm the total on WhatsApp before you travel.
           </Text>
           <Text tone="muted">
-            We offer one room type: the {ROOM_NAME}. All rooms are air-conditioned.
-            Meals are not included and are not offered at the homestay.
+            We offer one room type: the {ROOM_NAME}. All rooms are air-conditioned. A
+            bathroom is available. Meals are not included and are not offered at the
+            homestay.
           </Text>
           <Text tone="muted">
             Check-in is at 11:00 AM. Check-out is at 11:00 AM the following day.
@@ -40,11 +40,8 @@ export default function TermsPage() {
             Bookings are non-cancellable and non-refundable. Once your stay is
             confirmed, cancellations and refunds are not available.
           </Text>
-          <Text size="sm" tone="muted">
-            House rules (ID requirements, guest policies) and whether published
-            rates include GST or other taxes will be added here when the owner
-            confirms them.
-          </Text>
+          <Text tone="muted">Published occupancy and extra-bed rates include GST.</Text>
+          <Text tone="muted">A valid ID is required at check-in.</Text>
         </Stack>
       </Section>
     </Container>

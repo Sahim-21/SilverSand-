@@ -23,6 +23,20 @@ export type OccupancyTier = (typeof OCCUPANCY_TIERS)[number];
 /** Confirmed cap: occupancy + extra beds cannot exceed this (BUSINESS_INFO.md). */
 export const MAX_TOTAL_GUESTS = 8;
 
+/** Listed occupancy and extra-bed rates include GST (owner, 25 August 2026). */
+export const RATES_INCLUDE_GST = true;
+
+/** A bathroom is available with the Deluxe AC Room (owner, 25 August 2026). */
+export const BATHROOM_AVAILABLE = true;
+
+/** Valid guest ID is required at check-in (owner, 25 August 2026). */
+export const GUEST_ID_REQUIRED = true;
+
+/**
+ * Owner-confirmed landmark only. Do not invent beach, temple, or railway distances.
+ */
+export const LANDMARK_BUS_STAND = "1 km from Murudeshwar bus stand";
+
 /** Google Business / Maps Place ID — reviews + Embed API. */
 export const GOOGLE_PLACE_ID = "ChIJz7O6_zJHvDsRPrgj4nB9eiE";
 

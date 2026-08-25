@@ -10,10 +10,10 @@ Phased. Check a box only when the work is in the repo (or the owner has given th
 - [x] Confirm extra bed is **₹500 per person per night** (not per stay) and the **maximum extra beds**
 - [ ] Pricing rule for **5 and 7** guests (and for 1 guest, if allowed)
 - [ ] One physical Deluxe AC **unit** vs several units of the same type
-- [ ] Bed and bathroom layout (beds, extra mattresses, attached bath, hot water)
+- [x] Bed and bathroom layout (beds, extra mattresses, attached bath, hot water) — **bathroom available** (owner, 25 Aug 2026). Bed count / mattresses / attached vs shared / hot water still unpublished; **not flagged on the public site**
 - [x] Full postal address + PIN — 1, Naveen Beach Rd, Murdeshwar, Mavalli, Karnataka 581350
 - [x] Exact map coordinates (or a Google Maps pin the owner owns) — Place ID + Embed map; 14.1007798, 74.4874894
-- [ ] Walking/driving distance to Murudeshwar Beach, Murudeshwar Temple, bus stand, railway station — **owner-measured or maps-measured from the confirmed pin**, not guessed
+- [x] Walking/driving distance to Murudeshwar Beach, Murudeshwar Temple, bus stand, railway station — **1 km from Murudeshwar bus stand** (owner, 25 Aug 2026). Beach / temple / railway still unpublished; **not flagged on the public site**
 - [ ] Real photographs with permission to use — **homepage hero coast scene done** (`public/images/hero-murudeshwar-coast.jpg`); **Deluxe AC Room occupancy photos done** (`public/Rooms/` 2/3/4/6/8 sharing via `next/image`); **nearby attraction photos done** (`public/tourist_places/` temple, beach, jetty, Idagunji, Netrani); exterior, bathroom, and other property photos still open
 - [x] Homepage hero photograph (Murudeshwar coastal scene) — wired with `next/image` + mangrove overlay; not a property exterior shot
 - [x] Check-in / check-out times
@@ -21,14 +21,14 @@ Phased. Check a box only when the work is in the repo (or the owner has given th
 - [x] Parking (car / two-wheeler, on-site vs street)
 - [x] Wi-Fi (yes/no, where)
 - [x] Meals (none / on request / included) — not included, not offered
-- [ ] GST / tax: rates on site inclusive or exclusive
+- [x] GST / tax: rates on site inclusive or exclusive — **included** in listed occupancy and extra-bed rates
 - [x] Genuine reviews — live Google Places API `reviews` on Home (Place ID in `BUSINESS_INFO.md`); do not fabricate or hardcode quotes
 - [ ] Google Business Profile: exists? owner access? categories? photos?
 - [ ] Domain: registrar login, DNS, SSL
 - [ ] Legal name / homestay registration if they want it on the site
 - [ ] Owner display name for “hosted by”
 - [ ] Languages spoken
-- [ ] Unmarried couples / ID rules if they want them stated
+- [x] Unmarried couples / ID rules if they want them stated — **ID required** at check-in. Couples / police rules still unpublished; **not flagged on the public site**
 
 Full checklist with why each item matters: `BUSINESS_INFO.md`.
 
@@ -85,10 +85,10 @@ Must ship a **usable** booking path, not a platform.
 
 ## Phase 3 — Recommended pages and local SEO (after must-have pages are truthful)
 
-- [x] About the homestay (family/host story — from owner, not invented) — `/about` with TODOs for missing host facts
+- [x] About the homestay (family/host story — from owner, not invented) — `/about` with confirmed house rules (ID required); host name/languages unpublished and not flagged
 - [ ] Murudeshwar guide / how to reach (useful, not a doorway) — partial on `/location`; dedicated `/murudeshwar` deferred
-- [x] FAQ (only answered questions) — on Home; check-in, parking, Wi-Fi, meals, cancellation, extra bed; occupancy rates as confirmed copy (no “when published” scaffolding)
-- [x] Stale “pending owner / when published” copy removed for confirmed facts (AC, occupancy rates, extra-bed cap, meals, check-in/out, cancellation). Beds/bath, distances, host name, GST, ID rules still flagged.
+- [x] FAQ (only answered questions) — on Home; check-in, parking, Wi-Fi, meals, cancellation, extra bed, GST included, bathroom available, ID required, 1 km from Murudeshwar bus stand
+- [x] Public `TodoNotice` / “pending owner” flags removed. Confirmed copy for GST, bathroom available, ID required, and the bus-stand landmark. Remaining unpublished facts (bed count, other distances, host name) are omitted, not boxed.
 - [ ] NAP consistency: site, WhatsApp about, GBP, listed directories
 - [ ] GBP setup or cleanup (categories, photos, products/services, WhatsApp, booking link = this site)
 - [ ] Search Console + Bing Webmaster

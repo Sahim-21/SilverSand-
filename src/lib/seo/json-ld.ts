@@ -3,11 +3,13 @@ import {
   ADDRESS_LOCALITY,
   ADDRESS_REGION,
   BUSINESS_NAME,
+  BATHROOM_AVAILABLE,
   GEO_LATITUDE,
   GEO_LONGITUDE,
   OCCUPANCY_TIERS,
   PHONE_E164,
   POSTAL_CODE,
+  RATES_INCLUDE_GST,
   ROOM_NAME,
   ROOM_PATH,
   SITE_URL,
@@ -50,6 +52,12 @@ function occupancyOffers(pricing: PublicPricing): JsonLdObject[] {
       price: String(row.nightlyRateInr),
       priceCurrency: pricing.room.currency || "INR",
       unitText: "NIGHT",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: String(row.nightlyRateInr),
+        priceCurrency: pricing.room.currency || "INR",
+        valueAddedTaxIncluded: RATES_INCLUDE_GST,
+      },
     }));
 
   if (pricing.room.extraBedRateInr > 0) {
@@ -59,6 +67,12 @@ function occupancyOffers(pricing: PublicPricing): JsonLdObject[] {
       price: String(pricing.room.extraBedRateInr),
       priceCurrency: pricing.room.currency || "INR",
       unitText: "NIGHT",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: String(pricing.room.extraBedRateInr),
+        priceCurrency: pricing.room.currency || "INR",
+        valueAddedTaxIncluded: RATES_INCLUDE_GST,
+      },
     });
   }
 
@@ -76,6 +90,15 @@ function hotelRoomJsonLd(pricing: PublicPricing | null): JsonLdObject {
       minValue: OCCUPANCY_TIERS[0],
       maxValue: OCCUPANCY_TIERS[OCCUPANCY_TIERS.length - 1],
     },
+    ...(BATHROOM_AVAILABLE
+      ? {
+          amenityFeature: {
+            "@type": "LocationFeatureSpecification",
+            name: "Bathroom",
+            value: true,
+          },
+        }
+      : {}),
   };
 
   if (pricing) {

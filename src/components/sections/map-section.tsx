@@ -9,6 +9,7 @@ import {
   BUSINESS_PLACE,
   FULL_ADDRESS,
   GOOGLE_MAPS_PLACE_URL,
+  LANDMARK_BUS_STAND,
   googleMapsEmbedSrc,
 } from "@/lib/business";
 import { cn } from "@/lib/utils";
@@ -28,10 +29,11 @@ export function MapSection({ showLocationLink = true }: MapSectionProps) {
             Getting here
           </Heading>
           <Text tone="muted">
-            {FULL_ADDRESS}. The nearest railway station is{" "}
-            <strong>Murdeshwar Railway Station</strong> (MRDW) on the Konkan Railway —
-            trains from Mangalore, Goa, and Mumbai stop here. The nearest large city is
-            Hubli (~160 km east). Auto-rickshaws and taxis operate from the station.
+            {FULL_ADDRESS}. The homestay is {LANDMARK_BUS_STAND}. The nearest railway
+            station is <strong>Murdeshwar Railway Station</strong> (MRDW) on the Konkan
+            Railway — trains from Mangalore, Goa, and Mumbai stop here. The nearest
+            large city is Hubli (~160 km east). Auto-rickshaws and taxis operate from
+            the station.
           </Text>
           <Text size="sm" tone="muted">
             {BUSINESS_PLACE}. Open the map below for the live pin, or{" "}
@@ -60,8 +62,9 @@ export function MapSection({ showLocationLink = true }: MapSectionProps) {
           ) : (
             <div className="flex aspect-[16/9] flex-col items-center justify-center gap-3 rounded-lg border border-line bg-sand-deep px-4 text-center">
               <Text size="sm" tone="muted">
-                Map embed needs <code className="text-ink">NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY</code>{" "}
-                in the environment. Until then, open the place on Google Maps.
+                Map embed needs{" "}
+                <code className="text-ink">NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY</code> in
+                the environment. Until then, open the place on Google Maps.
               </Text>
               <a
                 href={GOOGLE_MAPS_PLACE_URL}

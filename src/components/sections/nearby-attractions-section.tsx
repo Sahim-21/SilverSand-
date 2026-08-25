@@ -5,6 +5,7 @@ import { AttractionPlaceImage } from "@/components/marketing/attraction-place-im
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heading, Text } from "@/components/ui/heading";
 import { ATTRACTION_IMAGES } from "@/lib/attractions/images";
+import { LANDMARK_BUS_STAND } from "@/lib/business";
 import { nearbyAttractions } from "@/lib/site-content";
 
 export function NearbyAttractionsSection() {
@@ -18,8 +19,7 @@ export function NearbyAttractionsSection() {
             </Heading>
             <Text tone="muted" className="mt-2">
               Most guests combine the temple and beach with one or two day trips. The
-              notes below describe each place — walking and driving times from the
-              homestay are not published yet.
+              notes below describe each place. The homestay is {LANDMARK_BUS_STAND}.
             </Text>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">

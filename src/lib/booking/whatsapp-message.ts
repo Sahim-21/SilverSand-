@@ -61,6 +61,7 @@ export function buildWhatsAppEnquiryMessage(input: WhatsAppEnquiryInput): string
   if (input.estimatedTotalLabel) {
     lines.push(`Estimated total: ${input.estimatedTotalLabel}`);
     lines.push("*Estimate only, subject to availability.");
+    lines.push("Rates include GST.");
   } else {
     lines.push("Please share today's rate for these dates.");
   }

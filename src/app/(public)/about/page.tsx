@@ -6,7 +6,6 @@ import { Section } from "@/components/layout/section";
 import { AboutSection } from "@/components/sections/about-section";
 import { InnerPageHero } from "@/components/sections/inner-page-hero";
 import { FinalCtaSection } from "@/components/sections/final-cta-section";
-import { TodoNotice } from "@/components/marketing/todo-notice";
 import { Stack } from "@/components/layout/stack";
 import { Text } from "@/components/ui/heading";
 import { BUSINESS_NAME } from "@/lib/business";
@@ -33,12 +32,8 @@ export default function AboutPage() {
             <Text tone="muted">
               Meals are not included and are not offered at the homestay. Check-in is at
               11:00 AM; check-out is at 11:00 AM the following day. Bookings are
-              non-cancellable and non-refundable.
+              non-cancellable and non-refundable. A valid ID is required at check-in.
             </Text>
-            <TodoNotice
-              item="houseRules"
-              detail="ID requirements and other guest house rules are not yet confirmed (checklist #21)."
-            />
             <ContactCta />
           </Stack>
         </Container>

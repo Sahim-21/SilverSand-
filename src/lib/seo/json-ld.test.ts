@@ -102,6 +102,9 @@ test("published LodgingBusiness emits Offer rows from DB rates only", () => {
     room.offers.every((offer) => !offer.name.toLowerCase().includes("wifi")),
     true,
   );
+  const json = JSON.stringify(node);
+  assert.ok(json.includes('"valueAddedTaxIncluded":true'));
+  assert.ok(json.includes('"name":"Bathroom"'));
 });
 
 test("FAQPage schema uses answered questions only", () => {
@@ -118,12 +121,19 @@ test("FAQPage schema uses answered questions only", () => {
     "Is parking available?",
     "Do you have Wi-Fi?",
     "What is your cancellation policy?",
+    "Do the rates include GST?",
+    "Is a bathroom available?",
+    "Do I need to bring ID?",
+    "How far is the homestay from Murudeshwar bus stand?",
   ];
   for (const q of confirmedPolicyFaqs) {
     assert.ok(blob.includes(q), `FAQPage must include: ${q}`);
   }
   assert.ok(blob.includes("11:00 AM"));
   assert.ok(blob.toLowerCase().includes("non-cancellable"));
+  assert.ok(blob.includes("include GST"));
+  assert.ok(blob.includes("1 km from Murudeshwar bus stand"));
+  assert.ok(blob.includes("valid ID"));
 });
 
 test("BreadcrumbList positions match the trail", () => {

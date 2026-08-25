@@ -1,6 +1,7 @@
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
+import { ReviewAvatar } from "@/components/marketing/review-avatar";
 import { Heading, Text } from "@/components/ui/heading";
 import { getGoogleReviews } from "@/lib/google-reviews/fetch";
 import type { GoogleReview } from "@/lib/google-reviews/types";
@@ -47,15 +48,7 @@ function AuthorLine({ review }: { review: GoogleReview }) {
   return (
     <div className="flex items-center gap-3">
       {review.author.photoUri ? (
-        // eslint-disable-next-line @next/next/no-img-element -- Google profile URIs; no next/image remote config needed
-        <img
-          src={review.author.photoUri}
-          alt=""
-          width={40}
-          height={40}
-          className="h-10 w-10 rounded-full object-cover"
-          referrerPolicy="no-referrer"
-        />
+        <ReviewAvatar src={review.author.photoUri} />
       ) : (
         <span
           className="flex h-10 w-10 items-center justify-center rounded-full bg-sand-deep text-sm font-medium text-muted"

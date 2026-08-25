@@ -27,6 +27,7 @@ const HEX = /#[0-9a-fA-F]{3,8}\b/;
 const ALLOWED_HEX_FILES = new Set([
   "src/app/opengraph-image.tsx",
   "src/app/(public)/style-guide/page.tsx",
+  "src/lib/images/placeholder.ts",
 ]);
 
 test("theme init script follows system then persists an explicit choice", () => {

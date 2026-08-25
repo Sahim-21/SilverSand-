@@ -1,30 +1,30 @@
-import Image from "next/image";
-
 import { BookingWidget } from "@/components/booking/booking-widget";
 import { Container } from "@/components/layout/container";
 import { Stack } from "@/components/layout/stack";
 import { buttonVariants } from "@/components/ui/button";
 import { Heading, Text } from "@/components/ui/heading";
+import { TokenImage } from "@/components/ui/token-image";
 import { BOOKING_HASH } from "@/lib/booking/anchor";
 import { BUSINESS_NAME, BUSINESS_PLACE } from "@/lib/business";
 import { cn } from "@/lib/utils";
 
-const HERO_IMAGE = {
-  src: "/images/hero-murudeshwar-coast.jpg",
-  alt: "A tranquil sunset over a tropical beach in Murudeshwar, with silhouetted palm trees leaning over a sandy shore, gentle waves, and a golden-orange sky",
-} as const;
+import heroCoast from "../../../public/images/hero-murudeshwar-coast.jpg";
+
+const HERO_ALT =
+  "A tranquil sunset over a tropical beach in Murudeshwar, with silhouetted palm trees leaning over a sandy shore, gentle waves, and a golden-orange sky";
 
 export function HeroSection() {
   return (
     <section className="relative isolate overflow-hidden">
       <div className="hero-media pointer-events-none absolute inset-0">
-        <Image
-          src={HERO_IMAGE.src}
-          alt={HERO_IMAGE.alt}
+        <TokenImage
+          src={heroCoast}
+          alt={HERO_ALT}
           fill
           priority
           sizes="(max-width: 768px) 100vw, 100vw"
           quality={85}
+          slotClassName="h-full w-full"
           className="object-cover object-center"
         />
         {/* Mangrove / near-black wash so sand-tone copy and the booking CTAs stay readable */}

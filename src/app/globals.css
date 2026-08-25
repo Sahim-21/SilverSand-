@@ -327,3 +327,54 @@ body {
     var(--sand-deep) var(--space-section-fade)
   );
 }
+
+/*
+  Image slot: sand-deep occupies the final box (no CLS).
+  Shimmer is CSS; reduced-motion keeps a static wash.
+*/
+.ss-image-skeleton {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-color: var(--sand-deep);
+  pointer-events: none;
+}
+
+.ss-image-skeleton.is-loaded {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ss-image-skeleton {
+    transition: opacity var(--ss-duration) var(--ss-ease);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ss-image-skeleton:not(.is-loaded)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      color-mix(in srgb, var(--sand) 42%, transparent) 50%,
+      transparent 100%
+    );
+    transform: translateX(-60%);
+    animation: ss-image-shimmer 1.4s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-image-skeleton::after {
+    content: none;
+    animation: none;
+  }
+}
+
+@keyframes ss-image-shimmer {
+  100% {
+    transform: translateX(60%);
+  }
+}

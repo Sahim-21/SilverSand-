@@ -205,9 +205,10 @@ Estimates use `GET /api/pricing` / `estimateEnquiry` only. If rates are unpublis
 
 ## Imagery
 
-- Homepage hero: Murudeshwar coastal photograph via `next/image` (`priority`, responsive `sizes`) with a mangrove-deep gradient overlay — alt describes the beach scene, not the property.
-- Deluxe AC Room occupancy photos: `next/image` from `public/Rooms/` (`2sharing.jpeg`, `3sharing.jpeg`, `4sharing.jpeg`, `6Sharing.jpeg`, `8sharing.jpeg`). Lazy-load (below the fold), unique `alt` per tier, 4:3 crop in `OccupancyRoomImage`. Do not use raw `<img>`.
-- Nearby attraction photos: `next/image` from `public/tourist_places/` (temple, beach, jetty, Idagunji, Netrani, Yana). Lazy-load, unique `alt` per place. Do not publish walking times from these images.
+- Homepage hero: Murudeshwar coastal photograph via `TokenImage` (`next/image`, `priority`, `placeholder="blur"` from the static import) with a mangrove-deep gradient overlay — alt describes the beach scene, not the property.
+- Deluxe AC Room occupancy photos: `TokenImage` from `public/Rooms/` (`2sharing.jpeg`, `3sharing.jpeg`, `4sharing.jpeg`, `6Sharing.jpeg`, `8sharing.jpeg`). Lazy-load (below the fold), unique `alt` per tier, 4:3 reserved slot (`aspect-[4/3]`) so the sand-deep skeleton cannot shift layout.
+- Nearby attraction photos: same `TokenImage` slot from `public/tourist_places/`. Lazy-load, unique `alt` per place. Do not publish walking times from these images.
+- Loading: `placeholder="blur"` (Next.js native). The slot is `bg-sand-deep` with a CSS shimmer (`--sand` highlight). `prefers-reduced-motion: reduce` keeps the slot static. Do not use a generic grey skeleton. Review avatars use the same reserved sand-deep circle (40×40) because they are remote Google URIs.
 - Owner property photos only, via `next/image` when they exist. Every `PhotoFrame` (and later image) has an `alt`.
 - Until remaining property photos exist (exterior, bathroom): `PhotoFrame` empty state with `role="img"` + `aria-label={alt}`, not Unsplash. Do not show empty frames for those categories.
 

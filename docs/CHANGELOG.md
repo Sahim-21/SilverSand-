@@ -6,6 +6,27 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Image skeletons on the reserved photo box
+
+### What
+
+- `TokenImage` wraps `next/image` with `placeholder="blur"` (static imports of hero, room, and attraction files so Next supplies the blur bitmap).
+- The slot is `bg-sand-deep` at the final aspect ratio (`fill` inside `aspect-[4/3]` for cards; `fill` of the hero frame). CSS shimmer uses `--sand` on `--sand-deep`; `prefers-reduced-motion: reduce` is a static wash.
+- String `src` fallback uses a sand-deep SVG `blurDataURL` (`src/lib/images/placeholder.ts`).
+- Google review avatars stay on a reserved 40×40 sand-deep circle with the same shimmer (remote URI, not `next/image`).
+
+### Why
+
+Photos were popping onto an empty box. The skeleton has to be our sand, not grey, and it has to be the same size as the loaded image so CLS stays flat.
+
+### Rejected
+
+- A custom spinner or grey pulse unrelated to the palette.
+- Animating width/height as the file arrives.
+- Ignoring `prefers-reduced-motion` on the shimmer.
+
+---
+
 ## 2026-08-25 — Homepage section bands (preview)
 
 ### What

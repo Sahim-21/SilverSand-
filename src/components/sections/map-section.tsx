@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import type { SectionBand } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
@@ -15,13 +16,14 @@ import { cn } from "@/lib/utils";
 
 type MapSectionProps = {
   showLocationLink?: boolean;
+  band?: SectionBand;
 };
 
-export function MapSection({ showLocationLink = true }: MapSectionProps) {
+export function MapSection({ showLocationLink = true, band }: MapSectionProps) {
   const embedSrc = googleMapsEmbedSrc();
 
   return (
-    <Section className="bg-surface">
+    <Section band={band} className={band ? undefined : "bg-surface"}>
       <Container>
         <Stack gap="md" className="max-w-3xl">
           <Heading as="h2" size="section">

@@ -81,3 +81,16 @@ test("interaction tokens are defined once and scoped to the public site", () => 
   const pub = readFileSync(join(process.cwd(), "src/app/(public)/layout.tsx"), "utf8");
   assert.ok(pub.includes("public-site"));
 });
+
+test("section bands alternate existing sand tokens without a wave SVG", () => {
+  const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+  assert.ok(css.includes("--space-section: 5.5rem"));
+  assert.ok(css.includes("--space-section-fade: 2.75rem"));
+  assert.ok(css.includes(".ss-band-canvas"));
+  assert.ok(css.includes(".ss-band-wash"));
+  assert.doesNotMatch(css, /<svg/);
+
+  const home = readFileSync(join(process.cwd(), "src/app/(public)/page.tsx"), "utf8");
+  assert.ok(home.includes('band="canvas"'));
+  assert.ok(home.includes('band="wash"'));
+});

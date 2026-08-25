@@ -34,20 +34,20 @@ export default async function HomePage() {
         <RoomPricingSection />
       </RevealOnScroll>
       <RevealOnScroll>
-        <PhotosSection />
+        <PhotosSection band="canvas" />
       </RevealOnScroll>
       <RevealOnScroll>
-        <AboutSection compact />
+        <AboutSection compact band="wash" />
       </RevealOnScroll>
       <ReviewsSection />
-      <MurudeshwarInfoSection />
+      <MurudeshwarInfoSection band="canvas" />
       <RevealOnScroll>
-        <NearbyAttractionsSection />
+        <NearbyAttractionsSection band="wash" />
       </RevealOnScroll>
       <RevealOnScroll>
         <FaqSection />
       </RevealOnScroll>
-      <MapSection />
+      <MapSection band="wash" />
       <FinalCtaSection />
     </>
   );

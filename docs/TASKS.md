@@ -67,6 +67,7 @@ Full checklist with why each item matters: `BUSINESS_INFO.md`.
 - [x] Dark mode: canvas/text token remap under `html.dark` (mangrove-deep + gold-mustard), header sun/moon toggle, system preference then `localStorage`, contrast tests
 - [x] Homepage motion: one hero entrance (image then copy stagger); IntersectionObserver fade-up on Room & Pricing, Photos, About, Nearby Attractions, FAQ; `prefers-reduced-motion` off-ramp
 - [x] Public micro-interactions: shared `--ss-duration` / `--ss-ease` on buttons, occupancy cards, nav links, room/attraction photos; admin dashboard excluded
+- [x] Homepage section bands: alternate canvas / sand-deep with a static fade join; `--space-section` 5.5rem (inner pages not rolled out yet)
 - [x] Marketing pages: Home (full section stack), `/rooms`, `/rooms/deluxe-ac-room`, `/gallery`, `/about`, `/location`, `/contact` — reusable section components; pricing from DB only
 
 ---

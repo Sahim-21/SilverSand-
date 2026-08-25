@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import type { SectionBand } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
@@ -14,14 +15,16 @@ import { cn } from "@/lib/utils";
 type PhotosSectionProps = {
   showGalleryLink?: boolean;
   bookingHref?: string;
+  band?: SectionBand;
 };
 
 export function PhotosSection({
   showGalleryLink = true,
   bookingHref = BOOKING_HASH,
+  band,
 }: PhotosSectionProps) {
   return (
-    <Section>
+    <Section band={band}>
       <Container>
         <Stack gap="lg">
           <div className="max-w-2xl">

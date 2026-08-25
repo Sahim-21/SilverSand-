@@ -41,7 +41,8 @@
 
   --space-gutter: 1rem;
   --space-gutter-md: 1.5rem;
-  --space-section: 3.5rem;
+  --space-section: 5.5rem;
+  --space-section-fade: 2.75rem;
   --space-form: 1.5rem;
 
   /* Interaction — one timing/easing for public hover/press. Do not retune per control. */
@@ -104,6 +105,7 @@ html.dark {
   --spacing-gutter: var(--space-gutter);
   --spacing-gutter-md: var(--space-gutter-md);
   --spacing-section: var(--space-section);
+  --spacing-section-fade: var(--space-section-fade);
   --spacing-form: var(--space-form);
 
   --ease-ss: var(--ss-ease);
@@ -296,4 +298,32 @@ body {
 ::selection {
   background: var(--mangrove);
   color: var(--sand);
+}
+
+/*
+  Section bands — one treatment: alternate canvas vs sand-deep.
+  A short static gradient at the top softens the join (no scroll-linked paints).
+*/
+.ss-band-canvas {
+  background-color: var(--background);
+}
+
+.ss-band-wash {
+  background-color: var(--sand-deep);
+}
+
+.ss-band-canvas.ss-band-fade {
+  background-image: linear-gradient(
+    to bottom,
+    var(--sand-deep) 0%,
+    var(--background) var(--space-section-fade)
+  );
+}
+
+.ss-band-wash.ss-band-fade {
+  background-image: linear-gradient(
+    to bottom,
+    var(--background) 0%,
+    var(--sand-deep) var(--space-section-fade)
+  );
 }

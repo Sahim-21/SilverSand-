@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import type { SectionBand } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
@@ -10,11 +11,12 @@ import { cn } from "@/lib/utils";
 
 type AboutSectionProps = {
   compact?: boolean;
+  band?: SectionBand;
 };
 
-export function AboutSection({ compact = false }: AboutSectionProps) {
+export function AboutSection({ compact = false, band }: AboutSectionProps) {
   return (
-    <Section className={compact ? undefined : "bg-surface"}>
+    <Section band={band} className={!band && !compact ? "bg-surface" : undefined}>
       <Container>
         <Stack gap="md" className="max-w-3xl">
           <Heading as="h2" size="section">

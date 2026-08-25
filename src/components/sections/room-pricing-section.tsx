@@ -10,7 +10,7 @@ import { ROOM_PATH } from "@/lib/business";
 
 export function RoomPricingSection() {
   return (
-    <Section className="bg-sand-deep/40">
+    <Section band="wash">
       <Container>
         <Stack gap="lg">
           <div className="max-w-2xl">

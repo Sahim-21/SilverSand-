@@ -16,7 +16,7 @@ const HERO_IMAGE = {
 
 export function HeroSection() {
   return (
-    <section className="relative isolate overflow-hidden border-b border-line">
+    <section className="relative isolate overflow-hidden">
       <div className="hero-media pointer-events-none absolute inset-0">
         <Image
           src={HERO_IMAGE.src}

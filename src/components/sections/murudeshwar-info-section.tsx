@@ -1,3 +1,4 @@
+import type { SectionBand } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
@@ -5,9 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heading, Text } from "@/components/ui/heading";
 import { murudeshwarContext } from "@/lib/site-content";
 
-export function MurudeshwarInfoSection() {
+export function MurudeshwarInfoSection({ band }: { band?: SectionBand }) {
   return (
-    <Section>
+    <Section band={band}>
       <Container>
         <Stack gap="lg">
           <div className="max-w-2xl">

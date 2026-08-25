@@ -11,7 +11,7 @@ export async function FaqSection() {
   const extra = extraBedFaq(pricing);
 
   return (
-    <Section>
+    <Section band="canvas">
       <Container>
         <Stack gap="lg">
           <Heading as="h2" size="section">

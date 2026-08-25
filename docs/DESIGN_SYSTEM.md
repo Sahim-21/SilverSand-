@@ -130,30 +130,45 @@ Scale (via `Heading` / `Text` in `src/components/ui/heading.tsx`):
 
 ## Spacing and radius
 
-| Token               | Value   | Use                            |
-| ------------------- | ------- | ------------------------------ |
-| `--space-gutter`    | 1rem    | `px-gutter` mobile             |
-| `--space-gutter-md` | 1.5rem  | `px-gutter-md` from md         |
-| `--space-form`      | 1.5rem  | `gap-form` between fields      |
-| `--space-section`   | 3.5rem  | `py-section`                   |
-| `--ss-radius-md`    | 0.5rem  | Inputs, buttons (`rounded-md`) |
-| `--ss-radius-lg`    | 0.75rem | Cards, photo frames            |
+| Token                  | Value   | Use                                          |
+| ---------------------- | ------- | -------------------------------------------- |
+| `--space-gutter`       | 1rem    | `px-gutter` mobile                           |
+| `--space-gutter-md`    | 1.5rem  | `px-gutter-md` from md                       |
+| `--space-form`         | 1.5rem  | `gap-form` between fields                    |
+| `--space-section`      | 5.5rem  | `py-section` — vertical padding of a section |
+| `--space-section-fade` | 2.75rem | Soft join at the top of a banded section     |
+| `--ss-radius-md`       | 0.5rem  | Inputs, buttons (`rounded-md`)               |
+| `--ss-radius-lg`       | 0.75rem | Cards, photo frames                          |
 
 Max content width: `Container` `page` = 72rem; `narrow` = 42rem; widget column = 24rem in `Split` / heroes.
 
 ---
 
+## Section bands
+
+One treatment for major blocks on Home (Hero → intro → Room & Pricing → Photos → About → … → FAQ → Footer). Not a gold hairline, not a template wave SVG.
+
+**Alternate two existing canvases:** `--background` (`.ss-band-canvas`) and `--sand-deep` (`.ss-band-wash`). Same pairing in dark mode (`mangrove-deep` / `#1A2420`). The mangrove final CTA and the surface footer stay the brand closer and closer chrome — they are not a third sand recipe.
+
+**Join:** a 2.75rem static linear gradient at the top of each band (`--space-section-fade`) so the colour eases rather than hard-cuts. No scroll-linked background cross-fade (extra paint on every frame for a difference you cannot see at this contrast).
+
+**Rhythm:** `--space-section` 5.5rem padding on every `Section`. The first band after the hero (`PropertyIntro`) does not fade — the photograph is already the break.
+
+`Section` `band="canvas" | "wash"` and `fade`. Homepage passes bands; reused sections on `/gallery`, `/about`, `/location` keep their previous surfaces until this direction is confirmed to roll out.
+
+---
+
 ## Layout components
 
-| Component     | File                                    | Job                                                       |
-| ------------- | --------------------------------------- | --------------------------------------------------------- |
-| `Container`   | `src/components/layout/container.tsx`   | Horizontal gutters + max width                            |
-| `Section`     | `src/components/layout/section.tsx`     | Vertical page rhythm                                      |
-| `Stack`       | `src/components/layout/stack.tsx`       | Vertical gaps including `gap-form`                        |
-| `Split`       | `src/components/layout/split.tsx`       | Story + sticky widget                                     |
-| `PageHeader`  | `src/components/layout/page-header.tsx` | Optional breadcrumbs + eyebrow + **one H1** + description |
-| `Breadcrumbs` | `src/components/layout/breadcrumbs.tsx` | Visible trail + `BreadcrumbList` JSON-LD                  |
-| `PhotoFrame`  | `src/components/ui/photo-frame.tsx`     | Honest empty photo; **required `alt`**                    |
+| Component     | File                                    | Job                                                         |
+| ------------- | --------------------------------------- | ----------------------------------------------------------- |
+| `Container`   | `src/components/layout/container.tsx`   | Horizontal gutters + max width                              |
+| `Section`     | `src/components/layout/section.tsx`     | Vertical page rhythm + optional `band` (`canvas` \| `wash`) |
+| `Stack`       | `src/components/layout/stack.tsx`       | Vertical gaps including `gap-form`                          |
+| `Split`       | `src/components/layout/split.tsx`       | Story + sticky widget                                       |
+| `PageHeader`  | `src/components/layout/page-header.tsx` | Optional breadcrumbs + eyebrow + **one H1** + description   |
+| `Breadcrumbs` | `src/components/layout/breadcrumbs.tsx` | Visible trail + `BreadcrumbList` JSON-LD                    |
+| `PhotoFrame`  | `src/components/ui/photo-frame.tsx`     | Honest empty photo; **required `alt`**                      |
 
 Public skeleton: **Sticky** header (wordmark, Rooms, Contact, **theme toggle**, WhatsApp, Call) → Main → Footer (NAP when known, phone, WhatsApp, Privacy, Terms). Phone is always `+91 99862 22892`. Booking widgets on Home and the room page use `lg:sticky lg:top-24` so they sit below the header.
 

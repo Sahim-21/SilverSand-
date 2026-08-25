@@ -1,3 +1,4 @@
+import type { SectionBand } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
@@ -7,9 +8,9 @@ import { Heading, Text } from "@/components/ui/heading";
 import { ATTRACTION_IMAGES } from "@/lib/attractions/images";
 import { nearbyAttractions } from "@/lib/site-content";
 
-export function NearbyAttractionsSection() {
+export function NearbyAttractionsSection({ band }: { band?: SectionBand }) {
   return (
-    <Section className="bg-sand-deep/40">
+    <Section band={band} className={band ? undefined : "bg-sand-deep/40"}>
       <Container>
         <Stack gap="lg">
           <div className="max-w-2xl">

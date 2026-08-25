@@ -107,7 +107,7 @@ export async function ReviewsSection() {
   if (!result || result.reviews.length === 0) return null;
 
   return (
-    <Section className="bg-sand-deep/40">
+    <Section band="wash" fade={false}>
       <Container>
         <Stack gap="lg">
           <div className="max-w-2xl">

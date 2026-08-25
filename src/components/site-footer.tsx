@@ -13,7 +13,7 @@ import { footerNav } from "@/lib/navigation";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-auto border-t border-line bg-surface">
+    <footer className="mt-auto bg-surface">
       <Container className="grid gap-8 py-10 md:grid-cols-2">
         <div>
           <p className="font-semibold text-mangrove-fg">{BUSINESS_NAME}</p>

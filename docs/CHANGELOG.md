@@ -6,6 +6,26 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Homepage section bands (preview)
+
+### What
+
+- One section-break pattern on Home: alternate `--background` and `--sand-deep`, with `--space-section` raised to 5.5rem and a 2.75rem static gradient at each join.
+- Hero no longer uses a `border-line` hairline. Occupancy/pricing, Photos, About, Nearby, FAQ follow the same two bands. Mangrove CTA and surface footer stay as the closer.
+- Inner pages that reuse Photos / About / attractions are unchanged until this direction is confirmed.
+
+### Why
+
+Major blocks were reading as one long sand column. A photography-first homestay should separate them with the existing palette, not a second chrome language.
+
+### Rejected
+
+- Gold or mangrove hairlines (a second divider language on top of the bands).
+- Curved/angled SVG “wave” breaks (generic template).
+- Scroll-linked background cross-fades (paint cost, little gain at this contrast).
+
+---
+
 ## 2026-08-25 — Public hover/press micro-interactions
 
 ### What

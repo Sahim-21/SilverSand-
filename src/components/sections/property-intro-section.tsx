@@ -8,7 +8,7 @@ import { BUSINESS_NAME, ROOM_PATH } from "@/lib/business";
 
 export function PropertyIntroSection() {
   return (
-    <Section>
+    <Section band="canvas" fade={false}>
       <Container>
         <Stack gap="md" className="max-w-3xl">
           <Heading as="h2" size="section">

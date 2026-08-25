@@ -30,7 +30,7 @@ export function RoomPageHero() {
               </Text>
             </div>
           </Stack>
-          <div className="lg:sticky lg:top-6">
+          <div className="lg:sticky lg:top-24">
             <BookingWidget />
           </div>
         </div>

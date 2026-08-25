@@ -104,7 +104,7 @@ Max content width: `Container` `page` = 72rem; `narrow` = 42rem; widget column =
 | `Breadcrumbs` | `src/components/layout/breadcrumbs.tsx` | Visible trail + `BreadcrumbList` JSON-LD                  |
 | `PhotoFrame`  | `src/components/ui/photo-frame.tsx`     | Honest empty photo; **required `alt`**                    |
 
-Public skeleton: Header (wordmark, Rooms, Contact, WhatsApp, Call) → Main → Footer (NAP when known, phone, WhatsApp, Privacy, Terms). Phone is always `+91 99862 22892`.
+Public skeleton: **Sticky** header (wordmark, Rooms, Contact, WhatsApp, Call) → Main → Footer (NAP when known, phone, WhatsApp, Privacy, Terms). Phone is always `+91 99862 22892`. Booking widgets on Home and the room page use `lg:sticky lg:top-24` so they sit below the header.
 
 Admin: no marketing header. Quiet sand/surface dashboard.
 
@@ -165,6 +165,6 @@ Colour transitions on buttons/inputs only (`duration-150`). No hero carousels, n
 
 - 375px: header CTAs usable, widget full width, no horizontal scroll
 - 768px: two-column starts on `Split`
-- 1280px: widget stays in the 24rem column, sticky on desktop
+- 1280px: widget stays in the 24rem column, sticky below the site header on desktop
 
 Verify on `/`, `/rooms/deluxe-ac-room`, `/contact`, and `/style-guide`.

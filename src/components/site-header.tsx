@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-line bg-surface/90 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b border-line bg-surface/90 backdrop-blur-sm">
       <Container className="flex items-center justify-between gap-4 py-4">
         <Link href="/" className="font-serif text-lg font-semibold text-mangrove">
           {BUSINESS_NAME}

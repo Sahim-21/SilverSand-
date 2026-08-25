@@ -6,6 +6,24 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Sticky site header
+
+### What
+
+- Public `SiteHeader` stays on screen while scrolling (`sticky top-0 z-50`, existing surface + blur).
+- Home and room-page booking panels use `lg:top-24` so they sit below the header instead of sliding under it.
+
+### Why
+
+Guests asked for the header to remain visible as they scroll so WhatsApp, Call, and nav stay in reach.
+
+### Rejected
+
+- A shrinking or hide-on-scroll header (extra JS, not asked).
+- Changing admin chrome.
+
+---
+
 ## 2026-08-25 — Yana rock photo on Nearby Attractions
 
 ### What

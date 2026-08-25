@@ -33,10 +33,7 @@ export function HeroSection() {
         <div className="grid gap-10 lg:grid-cols-[1fr_24rem] lg:items-start">
           <Stack gap="lg">
             <div>
-              <Text
-                size="sm"
-                className="font-medium tracking-wide text-gold-muted"
-              >
+              <Text size="sm" className="font-medium tracking-wide text-gold-muted">
                 {BUSINESS_PLACE}
               </Text>
               <Heading as="h1" size="display" className="mt-2 text-sand">
@@ -49,7 +46,7 @@ export function HeroSection() {
               </Text>
             </div>
           </Stack>
-          <div className="lg:sticky lg:top-6">
+          <div className="lg:sticky lg:top-24">
             <BookingWidget />
           </div>
         </div>

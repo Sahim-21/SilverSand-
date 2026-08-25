@@ -18,7 +18,7 @@ export function Split({ children, aside, className }: SplitProps) {
       )}
     >
       <div>{children}</div>
-      <div className="lg:sticky lg:top-6">{aside}</div>
+      <div className="lg:sticky lg:top-24">{aside}</div>
     </div>
   );
 }

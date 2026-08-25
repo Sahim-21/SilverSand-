@@ -23,8 +23,8 @@ export async function OccupancyPricing({ bookingHref }: OccupancyPricingProps) {
         <CardContent className="gap-4">
           <OccupancyImageGrid bookingHref={bookingHref} />
           <Text size="sm" tone="muted">
-            Occupancy rates aren&apos;t loading right now. Message us on WhatsApp for
-            today&apos;s rate — we don&apos;t show a guessed rupee amount.
+            Rates aren&apos;t loading right now. Message us on WhatsApp for today&apos;s
+            rate.
           </Text>
         </CardContent>
       </Card>
@@ -36,8 +36,8 @@ export async function OccupancyPricing({ bookingHref }: OccupancyPricingProps) {
       <CardHeader>
         <CardTitle>{pricing.room.name} — per night by sharing</CardTitle>
         <Text size="sm" tone="muted">
-          Per night, by how many guests share the room. Rates include GST. We confirm
-          the total on WhatsApp.
+          Per night, according to how many guests share the room. GST is included.
+          We&apos;ll confirm the total on WhatsApp.
         </Text>
       </CardHeader>
       <CardContent className="gap-4">

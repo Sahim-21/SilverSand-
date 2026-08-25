@@ -18,7 +18,7 @@ export const PAGE_SEO = {
   home: {
     title: "Homestay in Murudeshwar",
     absoluteTitle: `${BUSINESS_NAME} | Homestay in Murudeshwar`,
-    description: `${BUSINESS_NAME} — one Deluxe AC Room in Murudeshwar, Karnataka. Priced by occupancy (2–8 guests). Book direct on WhatsApp at ${DISPLAY_PHONE}. No OTA, no middleman.`,
+    description: `${BUSINESS_NAME} — one Deluxe AC Room in Murudeshwar, Karnataka. Priced by occupancy (2–8 guests). Book on WhatsApp at ${DISPLAY_PHONE}.`,
     path: "/",
   },
   rooms: {
@@ -28,7 +28,7 @@ export const PAGE_SEO = {
   },
   room: {
     title: `${ROOM_NAME} — occupancy pricing`,
-    description: `The ${ROOM_NAME} at ${BUSINESS_NAME}, Murudeshwar. Bathroom available. Nightly rate depends on occupancy (2–8 sharing). Extra beds up to eight guests. Rates include GST.`,
+    description: `The ${ROOM_NAME} at ${BUSINESS_NAME}, Murudeshwar. Air-conditioned, with a bathroom. Nightly rate for 2–8 guests sharing. Extra beds up to eight guests. GST included.`,
     path: ROOM_PATH,
   },
   gallery: {
@@ -38,7 +38,7 @@ export const PAGE_SEO = {
   },
   about: {
     title: "About Silver Sand Beach Homestay",
-    description: `${BUSINESS_NAME} is a family-run homestay in Murudeshwar with one Deluxe AC Room. Book directly with the host on WhatsApp — no OTA, no booking fee.`,
+    description: `${BUSINESS_NAME} is a family-run homestay in Murudeshwar with one Deluxe AC Room. Book on WhatsApp with the host — no booking site in between.`,
     path: "/about",
   },
   location: {

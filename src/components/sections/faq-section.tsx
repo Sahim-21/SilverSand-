@@ -48,8 +48,8 @@ export async function FaqSection() {
                 </CardHeader>
                 <CardContent>
                   <Text size="sm" tone="muted">
-                    Yes. Extra beds are offered up to eight guests in the room. Ask on
-                    WhatsApp for the per-person nightly charge for your dates.
+                    Yes. Extra beds can be added up to eight guests in the room. Ask on
+                    WhatsApp for the extra-bed charge for your dates.
                   </Text>
                 </CardContent>
               </Card>

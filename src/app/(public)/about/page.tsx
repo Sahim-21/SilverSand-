@@ -19,7 +19,7 @@ export default function AboutPage() {
     <>
       <InnerPageHero
         title={`About ${BUSINESS_NAME}`}
-        description="A family-run homestay in Murudeshwar with one Deluxe AC Room. Direct booking on WhatsApp — no OTA, no middleman."
+        description="A family-run homestay in Murudeshwar with one Deluxe AC Room. Book on WhatsApp with the host — no booking site in between."
         crumbs={[
           { href: "/", label: "Home" },
           { href: "/about", label: "About" },
@@ -30,9 +30,9 @@ export default function AboutPage() {
         <Container>
           <Stack gap="md" className="max-w-3xl">
             <Text tone="muted">
-              Meals are not included and are not offered at the homestay. Check-in is at
-              11:00 AM; check-out is at 11:00 AM the following day. Bookings are
-              non-cancellable and non-refundable. A valid ID is required at check-in.
+              We don&apos;t serve meals here. Check-in and check-out are both at 11:00
+              AM. Once a stay is confirmed, it can&apos;t be cancelled or refunded.
+              Please bring a valid ID to check in.
             </Text>
             <ContactCta />
           </Stack>

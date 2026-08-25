@@ -3,7 +3,6 @@ import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heading, Text } from "@/components/ui/heading";
-import { BUSINESS_NAME, LANDMARK_BUS_STAND } from "@/lib/business";
 import { murudeshwarContext } from "@/lib/site-content";
 
 export function MurudeshwarInfoSection() {
@@ -41,9 +40,6 @@ export function MurudeshwarInfoSection() {
               </CardContent>
             </Card>
           </div>
-          <Text size="sm" tone="muted">
-            {BUSINESS_NAME} is {LANDMARK_BUS_STAND}.
-          </Text>
         </Stack>
       </Container>
     </Section>

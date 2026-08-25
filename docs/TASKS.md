@@ -87,8 +87,8 @@ Must ship a **usable** booking path, not a platform.
 
 - [x] About the homestay (family/host story — from owner, not invented) — `/about` with confirmed house rules (ID required); host name/languages unpublished and not flagged
 - [ ] Murudeshwar guide / how to reach (useful, not a doorway) — partial on `/location`; dedicated `/murudeshwar` deferred
-- [x] FAQ (only answered questions) — on Home; check-in, parking, Wi-Fi, meals, cancellation, extra bed, GST included, bathroom available, ID required, 1 km from Murudeshwar bus stand
-- [x] Public `TodoNotice` / “pending owner” flags removed. Confirmed copy for GST, bathroom available, ID required, and the bus-stand landmark. Remaining unpublished facts (bed count, other distances, host name) are omitted, not boxed.
+- [x] FAQ (only answered questions) — on Home; guest-phrased Qs for check-in, parking, Wi-Fi, cancellation, extra bed, GST, bathroom, ID, bus-stand distance
+- [x] Public `TodoNotice` / “pending owner” flags removed. Guest-facing copy for GST, bathroom, ID, and the bus-stand landmark (no developer-note phrasing). Remaining unpublished facts omitted, not boxed.
 - [ ] NAP consistency: site, WhatsApp about, GBP, listed directories
 - [ ] GBP setup or cleanup (categories, photos, products/services, WhatsApp, booking link = this site)
 - [ ] Search Console + Bing Webmaster

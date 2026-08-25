@@ -23,7 +23,7 @@ export function RoomPricingSection() {
               <Link href={ROOM_PATH} className="text-mangrove underline">
                 See the full room page
               </Link>{" "}
-              for occupancy details and the booking widget.
+              for details and to check dates.
             </Text>
           </div>
           <OccupancyPricing bookingHref={BOOKING_HASH} />

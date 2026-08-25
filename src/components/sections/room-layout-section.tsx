@@ -15,10 +15,9 @@ export function RoomLayoutSection() {
               Occupancy pricing
             </Heading>
             <Text tone="muted" className="mt-2">
-              The rate below is per room per night, based on how many guests share it.
-              Higher occupancy means a lower cost per person — which is why the
-              2-sharing rate is not the same as the 8-sharing rate halved. A bathroom is
-              available. Occupancy and extra-bed rates include GST.
+              The rate is per room, per night, and depends on how many guests share it.
+              A larger group pays more for the room, but less per person. GST is
+              included.
             </Text>
           </div>
           <OccupancyPricing bookingHref={BOOKING_HASH} />

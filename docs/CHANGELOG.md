@@ -6,6 +6,26 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Guest-facing copy: drop developer-note phrasing
+
+### What
+
+- Rewrote Home, `/rooms`, `/rooms/deluxe-ac-room`, `/about`, and `/location` so confirmed facts read as host copy, not spec notes.
+- Replaced checklist lines (“a bathroom is available”, “booking widget”, “OTA scrapes”, “API returns”, env-var map fallback) with natural sentences.
+- Stopped repeating the bus-stand landmark on every Location subsection; it stays on the hero and map.
+- FAQs now ask the questions a guest would ask (bathroom, rates, ID) with the same confirmed answers.
+
+### Why
+
+Honest copy still sounded like internal documentation after the pending-owner flags came down. Guests should read a homestay, not a changelog.
+
+### Rejected
+
+- Inventing bed counts, beach/temple distances, or other unpublished facts to fill the gaps.
+- Softening cancellation, GST-included, or ID-required into vague language.
+
+---
+
 ## 2026-08-25 — GST, bathroom, ID, bus-stand landmark; remove public flags
 
 ### What

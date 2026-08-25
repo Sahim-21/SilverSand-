@@ -14,8 +14,8 @@ export function FinalCtaSection() {
           </Heading>
           <Text className="text-sand/85">
             Send us your travel dates and how many guests will share the room. We reply
-            on WhatsApp with availability and the rate for your group — no OTA fee, no
-            automated form, just the host.
+            on WhatsApp with availability and the rate for your group — no booking-site
+            fee, just the host.
           </Text>
           <ContactCta layout="stack" className="max-w-md" />
         </Stack>

@@ -13,7 +13,10 @@ import type { GoogleReview } from "@/lib/google-reviews/types";
 function RatingStars({ rating }: { rating: number }) {
   const filled = Math.max(0, Math.min(5, Math.floor(rating)));
   return (
-    <span className="inline-flex items-center gap-2" aria-label={`${rating} out of 5 stars`}>
+    <span
+      className="inline-flex items-center gap-2"
+      aria-label={`${rating} out of 5 stars`}
+    >
       <span className="inline-flex gap-0.5 text-gold" aria-hidden="true">
         {Array.from({ length: 5 }, (_, index) => (
           <span key={index} className={index < filled ? "opacity-100" : "opacity-25"}>
@@ -112,9 +115,7 @@ export async function ReviewsSection() {
               Guest reviews on Google
             </Heading>
             <Text tone="muted" className="mt-2">
-              Reviews below are loaded from Google Maps for this place. Google returns up
-              to five reviews, ordered by relevance — we show exactly what the API
-              returns and do not choose or invent ratings.
+              Guest reviews from Google Maps, shown as Google provides them.
             </Text>
           </div>
 

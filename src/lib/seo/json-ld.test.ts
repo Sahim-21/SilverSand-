@@ -122,7 +122,7 @@ test("FAQPage schema uses answered questions only", () => {
     "Do you have Wi-Fi?",
     "What is your cancellation policy?",
     "Do the rates include GST?",
-    "Is a bathroom available?",
+    "Does the room have a bathroom?",
     "Do I need to bring ID?",
     "How far is the homestay from Murudeshwar bus stand?",
   ];

@@ -21,9 +21,9 @@ export function RoomsListSection() {
             <CardHeader>
               <CardTitle>{ROOM_NAME}</CardTitle>
               <Text size="sm" tone="muted">
-                Air-conditioned, with a bathroom. Priced per night by occupancy — 2, 3,
-                4, 6, or 8 guests sharing. An extra bed can be added up to eight guests
-                in the room; the per-person charge is on this page. Rates include GST.
+                Air-conditioned, with a bathroom. Nightly rate for 2, 3, 4, 6, or 8
+                guests sharing — GST included. Extra beds can be added up to eight
+                guests in total; the per-person charge is below.
               </Text>
             </CardHeader>
             <CardContent className="gap-6">
@@ -31,7 +31,7 @@ export function RoomsListSection() {
               <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <BookNowButton href={ROOM_BOOKING_HREF} />
                 <Link href={ROOM_PATH} className={cn(buttonVariants(), "w-fit")}>
-                  Room details and booking widget
+                  Room details and dates
                 </Link>
               </div>
             </CardContent>

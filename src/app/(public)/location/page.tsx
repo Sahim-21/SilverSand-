@@ -21,7 +21,7 @@ export default function LocationPage() {
     <>
       <InnerPageHero
         title="Getting to Murudeshwar"
-        description={`${BUSINESS_NAME} is at ${FULL_ADDRESS}, ${LANDMARK_BUS_STAND}. Murdeshwar Railway Station is on the Konkan Railway.`}
+        description={`${BUSINESS_NAME} is at ${FULL_ADDRESS} — ${LANDMARK_BUS_STAND}. Murdeshwar Railway Station is on the Konkan Railway.`}
         crumbs={[
           { href: "/", label: "Home" },
           { href: "/location", label: "Location" },
@@ -33,12 +33,9 @@ export default function LocationPage() {
           <Stack gap="md" className="max-w-3xl">
             <Text tone="muted">
               Murudeshwar is on the Konkan Railway — the quickest route from most major
-              cities. Nearest airport is Hubli (roughly 3–4 hours by road) or Mangalore
-              (roughly 2 hours). Once you arrive at Murdeshwar station, auto-rickshaws
-              run to most parts of town.
-            </Text>
-            <Text size="sm" tone="muted">
-              The homestay is {LANDMARK_BUS_STAND}.
+              cities. The nearest airports are Hubli (roughly 3–4 hours by road) and
+              Mangalore (roughly 2 hours). From Murdeshwar station, autos run to most
+              parts of town.
             </Text>
           </Stack>
         </Container>

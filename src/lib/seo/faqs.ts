@@ -11,27 +11,27 @@ export type FaqItem = {
 export const STATIC_FAQS: readonly FaqItem[] = [
   {
     q: "How do I book?",
-    a: `Send us a WhatsApp message or call ${DISPLAY_PHONE} with your travel dates and how many guests will share the room. We reply with availability and the rate for your group. There is no instant checkout — we confirm every booking ourselves.`,
+    a: `Send us a WhatsApp message or call ${DISPLAY_PHONE} with your travel dates and how many guests will share the room. We reply with availability and the rate for your group. There's no pay-now button on this site — we confirm every booking ourselves.`,
   },
   {
     q: "Why is there no online payment?",
-    a: "We confirm bookings on WhatsApp and phone, not through an OTA checkout. Any advance payment is agreed on WhatsApp when we confirm your dates.",
+    a: "We confirm bookings on WhatsApp and phone, not through an online checkout. Any advance payment is agreed on WhatsApp when we confirm your dates.",
   },
   {
-    q: "What room types are available?",
-    a: `One type: the ${ROOM_NAME}. It is air-conditioned, a bathroom is available, and it is priced by how many guests share it — 2, 3, 4, 6, or 8. There are no other room categories at this homestay.`,
+    q: "What rooms do you have?",
+    a: `Just one: the ${ROOM_NAME}. It's air-conditioned, has a bathroom, and is priced for 2, 3, 4, 6, or 8 guests sharing.`,
   },
   {
     q: "How does occupancy pricing work?",
-    a: "The nightly rate changes with the number of guests sharing the room. A couple (2 sharing) pays one rate; a family of six (6 sharing) pays a different, higher rate for the same room. The per-person cost is lower for larger groups.",
+    a: "The nightly rate depends on how many guests share the room. A couple pays one rate; a family of six pays more for the same room, but less per person.",
   },
   {
-    q: "Are the prices on this website final?",
-    a: "The rates on this page are the current occupancy rates and include GST. We confirm the total on WhatsApp before you travel — if rates have changed, we tell you.",
+    q: "Are these the rates I'll pay?",
+    a: "These are our current nightly rates, GST included. We'll confirm the total on WhatsApp before you travel — if rates have changed, we tell you.",
   },
   {
     q: "Can I book for 5 or 7 guests?",
-    a: "The published occupancy tiers are 2, 3, 4, 6, and 8. If your group is 5 or 7, WhatsApp us — the owner will confirm whether that occupancy is accepted and at which rate.",
+    a: "We publish rates for 2, 3, 4, 6, and 8 guests. If you're a group of 5 or 7, WhatsApp us and we'll confirm the rate.",
   },
   {
     q: "What are check-in and check-out times?",
@@ -39,11 +39,11 @@ export const STATIC_FAQS: readonly FaqItem[] = [
   },
   {
     q: "Is parking available?",
-    a: "Yes — parking is available on-site.",
+    a: "Yes — parking is on-site.",
   },
   {
     q: "Do you have Wi-Fi?",
-    a: "Yes, free Wi-Fi is available for guests.",
+    a: "Yes, guests have free Wi-Fi.",
   },
   {
     q: "What is your cancellation policy?",
@@ -51,19 +51,19 @@ export const STATIC_FAQS: readonly FaqItem[] = [
   },
   {
     q: "Do the rates include GST?",
-    a: "Yes. Occupancy and extra-bed rates on this website include GST.",
+    a: "Yes. The occupancy and extra-bed rates include GST.",
   },
   {
-    q: "Is a bathroom available?",
-    a: "Yes. A bathroom is available with the Deluxe AC Room.",
+    q: "Does the room have a bathroom?",
+    a: "Yes. The Deluxe AC Room has a bathroom.",
   },
   {
     q: "Do I need to bring ID?",
-    a: "Yes. A valid ID is required at check-in.",
+    a: "Yes — please bring a valid ID to check in.",
   },
   {
     q: "How far is the homestay from Murudeshwar bus stand?",
-    a: `The homestay is ${LANDMARK_BUS_STAND}.`,
+    a: `We're ${LANDMARK_BUS_STAND}.`,
   },
 ];
 
@@ -72,12 +72,12 @@ export function extraBedFaq(pricing: PublicPricing | null): FaqItem | null {
   if (pricing.room.extraBedRateInr > 0) {
     return {
       q: "Is there an extra bed?",
-      a: `Yes. Extra beds are offered up to eight guests in the room. The current charge is ${formatInr(pricing.room.extraBedRateInr)} per person per night and includes GST. Confirm on WhatsApp that an extra bed is available for your dates before including it in the total.`,
+      a: `Yes. Extra beds can be added up to eight guests in the room. The charge is ${formatInr(pricing.room.extraBedRateInr)} per person per night, GST included. Ask on WhatsApp if you need one for your dates.`,
     };
   }
   return {
     q: "Is there an extra bed?",
-    a: "No extra bed is offered at the current published rate. Ask on WhatsApp if you need one — the owner may accommodate it for certain dates.",
+    a: "Extra beds aren't listed right now. Ask on WhatsApp if you need one.",
   };
 }
 

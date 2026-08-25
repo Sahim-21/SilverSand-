@@ -6,7 +6,6 @@ import { Stack } from "@/components/layout/stack";
 import { buttonVariants } from "@/components/ui/button";
 import { Heading, Text } from "@/components/ui/heading";
 import {
-  BUSINESS_PLACE,
   FULL_ADDRESS,
   GOOGLE_MAPS_PLACE_URL,
   LANDMARK_BUS_STAND,
@@ -29,21 +28,20 @@ export function MapSection({ showLocationLink = true }: MapSectionProps) {
             Getting here
           </Heading>
           <Text tone="muted">
-            {FULL_ADDRESS}. The homestay is {LANDMARK_BUS_STAND}. The nearest railway
-            station is <strong>Murdeshwar Railway Station</strong> (MRDW) on the Konkan
-            Railway — trains from Mangalore, Goa, and Mumbai stop here. The nearest
-            large city is Hubli (~160 km east). Auto-rickshaws and taxis operate from
-            the station.
+            We&apos;re at {FULL_ADDRESS}, {LANDMARK_BUS_STAND}. Murdeshwar Railway
+            Station (MRDW) on the Konkan Railway is the nearest station — trains from
+            Mangalore, Goa, and Mumbai stop here. Hubli is about 160 km east. Autos and
+            taxis run from the station.
           </Text>
           <Text size="sm" tone="muted">
-            {BUSINESS_PLACE}. Open the map below for the live pin, or{" "}
+            The map shows our location. You can also{" "}
             <a
               href={GOOGLE_MAPS_PLACE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="text-mangrove underline"
             >
-              view the place on Google Maps
+              open it on Google Maps
             </a>
             .
           </Text>
@@ -62,9 +60,7 @@ export function MapSection({ showLocationLink = true }: MapSectionProps) {
           ) : (
             <div className="flex aspect-[16/9] flex-col items-center justify-center gap-3 rounded-lg border border-line bg-sand-deep px-4 text-center">
               <Text size="sm" tone="muted">
-                Map embed needs{" "}
-                <code className="text-ink">NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY</code> in
-                the environment. Until then, open the place on Google Maps.
+                The map isn&apos;t loading here. Open Google Maps for directions.
               </Text>
               <a
                 href={GOOGLE_MAPS_PLACE_URL}

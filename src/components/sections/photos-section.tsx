@@ -29,10 +29,7 @@ export function PhotosSection({
               Photos
             </Heading>
             <Text tone="muted" className="mt-2">
-              Photographs of the Deluxe AC Room by occupancy. We do not use stock images
-              or unverified OTA scrapes. Exterior, bathroom, and other property photos
-              will be added in a later step — we do not show empty placeholder boxes for
-              those.
+              The Deluxe AC Room as it looks for 2, 3, 4, 6, and 8 guests sharing.
             </Text>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

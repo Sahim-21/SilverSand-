@@ -58,7 +58,7 @@ export const PAGE_SEO = {
   },
   terms: {
     title: "Booking terms",
-    description: `Booking terms for ${BUSINESS_NAME}: WhatsApp or phone confirmation by the host, occupancy estimates from published rates, and house rules once the owner publishes them.`,
+    description: `Booking terms for ${BUSINESS_NAME}: WhatsApp or phone confirmation, ${ROOM_NAME} (air-conditioned), check-in 11:00 AM, non-cancellable bookings, no meals included. GST and house rules pending owner confirmation.`,
     path: "/terms",
   },
   notFound: {

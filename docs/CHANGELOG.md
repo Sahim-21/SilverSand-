@@ -6,6 +6,24 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Booking terms page: confirmed policies published
+
+### What
+
+- `/terms` now states owner-confirmed booking terms: check-in 11:00 AM, check-out 11:00 AM next day, non-cancellable/non-refundable bookings, no meals, and the single air-conditioned Deluxe AC Room type.
+- Provisional “will be published once the owner provides them” language removed for those items only; house rules (ID, guest policies) and GST/tax inclusion remain marked as pending.
+- Terms meta description in `src/lib/seo/copy.ts` updated to match.
+
+### Why
+
+These policies were confirmed on 25 August 2026 (`BUSINESS_INFO.md`) and already appear in FAQs — the terms page should not lag behind with placeholder copy.
+
+### Rejected
+
+- Publishing ID/couples rules or GST treatment before the owner confirms them.
+
+---
+
 ## 2026-08-25 — FAQ: check-in, parking, Wi-Fi, cancellation confirmed
 
 ### What

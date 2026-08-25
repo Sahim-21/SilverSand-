@@ -141,6 +141,7 @@ Estimates use `GET /api/pricing` / `estimateEnquiry` only. If rates are unpublis
 
 - Homepage hero: Murudeshwar coastal photograph via `next/image` (`priority`, responsive `sizes`) with a mangrove-deep gradient overlay — alt describes the beach scene, not the property.
 - Deluxe AC Room occupancy photos: `next/image` from `public/Rooms/` (`2sharing.jpeg`, `3sharing.jpeg`, `4sharing.jpeg`, `6Sharing.jpeg`, `8sharing.jpeg`). Lazy-load (below the fold), unique `alt` per tier, 4:3 crop in `OccupancyRoomImage`. Do not use raw `<img>`.
+- Nearby attraction photos: `next/image` from `public/tourist_places/` (temple, beach, jetty, Idagunji, Netrani). Lazy-load, unique `alt` per place. Yana stays text-only until a photo exists. Do not publish walking times from these images.
 - Owner property photos only, via `next/image` when they exist. Every `PhotoFrame` (and later image) has an `alt`.
 - Until remaining property photos exist (exterior, bathroom): `PhotoFrame` empty state with `role="img"` + `aria-label={alt}`, not Unsplash. Do not show empty frames for those categories.
 

@@ -20,6 +20,7 @@ export const murudeshwarContext = {
  * Attractions visitors commonly pair with a Murudeshwar stay.
  * Travel times from Silver Sand are intentionally omitted — no confirmed pin.
  * Notes state what makes each place worth visiting, not invented distances.
+ * Photographs live in `src/lib/attractions/images.ts` (Yana has none yet).
  */
 export const nearbyAttractions = [
   {
@@ -47,3 +48,5 @@ export const nearbyAttractions = [
     note: "The fishing jetty near the beach is active in the early morning. If you're staying on the coast, watching the boats return and the catch come in is a genuine local experience, not a scheduled tour.",
   },
 ] as const;
+
+export type NearbyAttractionName = (typeof nearbyAttractions)[number]["name"];

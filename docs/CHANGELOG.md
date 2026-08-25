@@ -6,6 +6,27 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Nearby attraction photographs
+
+### What
+
+- Wired owner photos in `public/tourist_places/` to the existing Nearby Attractions cards on Home and `/location` via `next/image` (lazy, unique alt, intrinsic width/height).
+- Files: `murudeshwar_temple.jpg`, `beach.jpg`, `murudeshwar_jetty.jpg`, `idagunji_temple.jpg` (renamed from `idagunji temple.jpg`), `Netrani.jpg`.
+- Attraction notes and the unpublished walking-distance copy in `src/lib/site-content.ts` are unchanged. Yana stays text-only (no photo yet).
+- `docs/TASKS.md`: attraction images marked added; checklist #8 (distances from the homestay) still open.
+
+### Why
+
+The owner supplied photographs of the temple, beach, jetty, Idagunji, and Netrani. Guests should see those places on the attraction cards without us inventing travel times from Silver Sand.
+
+### Rejected
+
+- Raw `<img>` tags.
+- Publishing walking or driving times from these photos.
+- A PhotoFrame empty slot on Yana.
+
+---
+
 ## 2026-08-25 — Deluxe AC Room occupancy photos + Book Now
 
 ### What

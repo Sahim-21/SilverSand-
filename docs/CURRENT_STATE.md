@@ -5,29 +5,29 @@
 
 ## What exists
 
-| Area                              | Status                                                                                                                                          |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| Documentation (10 files)          | Complete — `START_HERE.md` + nine files under `docs/`                                                                                           |
-| Cursor rules                      | `.cursor/rules/` (silver-sand, pricing, docs)                                                                                                   |
-| Next.js App Router app            | Scaffolded — TypeScript, Tailwind 4, token-based UI primitives                                                                                  |
-| Design system                     | Tokens in `globals.css`; layout + primitives; rendered at **`/style-guide`** (`noindex`)                                                        |
-| Public pages                      | Home (full section stack), `/rooms`, `/rooms/deluxe-ac-room`, `/gallery`, `/about`, `/location`, `/contact`, Privacy, Terms                     |
-| Marketing sections                | Reusable components under `src/components/sections/` and `src/components/marketing/`                                                            |
-| Admin                             | `/admin/login`, `/admin` pricing dashboard (JWT + `admin_users`)                                                                                |
-| API                               | `GET /api/pricing`, `PATCH /api/admin/pricing`, Auth.js routes                                                                                  |
-| Database schema                   | Drizzle — `rooms`, `occupancy_prices`, `admin_users`, `price_audit_log`                                                                         |
-| Seed script                       | `scripts/seed.ts` — room (unpublished) + admin; **no occupancy ₹ invented**                                                                     |
-| Tooling                           | `lint`, `typecheck`, `format`, `format:check`, `db:*`, GitHub Actions CI                                                                        |
-| `.env.example`                    | All required variables documented                                                                                                               |
-| Booking widget                    | Interactive mangrove panel — occupancy dropdown, quantity, extra beds, dates, live estimate from `GET /api/pricing`, WhatsApp prefill + Call us |
-| Admin login                       | `/admin/login` — Auth.js Credentials + JWT session cookie, rate limiting, constant-time compare, design-system form                             |
-| Admin dashboard                   | `/admin` — server-loaded prices, per-field validation, dirty tracking, IST timestamp, published badge, Sign out                                 |
-| Hardcoded-price guardrail         | `npm test` scans `src/` for literal occupancy/extra-bed rupees; admin write + public read share `rooms` / `occupancy_prices`                    |
-| Technical SEO                     | Unique titles/descriptions, canonicals, OG+Twitter, sitemap+robots, 404, breadcrumbs, JSON-LD (known fields only), alt on every photo frame     |
-| `getAdminPricing()`               | Server-only admin fetch — no `is_published` gate, no tag cache                                                                                  |
-| Domain `silversandhomestay.com`   | Intended. DNS not configured in this repo.                                                                                                      |
-| Owner occupancy rates (2/3/4/6/8) | **Still missing** — room stays `is_published: false` until owner saves rates in admin                                                           |
-| Address, photos, amenities, GBP   | Address + map live. **Room occupancy photos live** (`public/Rooms/`). Exterior/bathroom still missing; `TodoNotice` for remaining gaps          |
+| Area                              | Status                                                                                                                                                                                                    |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Documentation (10 files)          | Complete — `START_HERE.md` + nine files under `docs/`                                                                                                                                                     |
+| Cursor rules                      | `.cursor/rules/` (silver-sand, pricing, docs)                                                                                                                                                             |
+| Next.js App Router app            | Scaffolded — TypeScript, Tailwind 4, token-based UI primitives                                                                                                                                            |
+| Design system                     | Tokens in `globals.css`; layout + primitives; rendered at **`/style-guide`** (`noindex`)                                                                                                                  |
+| Public pages                      | Home (full section stack), `/rooms`, `/rooms/deluxe-ac-room`, `/gallery`, `/about`, `/location`, `/contact`, Privacy, Terms                                                                               |
+| Marketing sections                | Reusable components under `src/components/sections/` and `src/components/marketing/`                                                                                                                      |
+| Admin                             | `/admin/login`, `/admin` pricing dashboard (JWT + `admin_users`)                                                                                                                                          |
+| API                               | `GET /api/pricing`, `PATCH /api/admin/pricing`, Auth.js routes                                                                                                                                            |
+| Database schema                   | Drizzle — `rooms`, `occupancy_prices`, `admin_users`, `price_audit_log`                                                                                                                                   |
+| Seed script                       | `scripts/seed.ts` — room (unpublished) + admin; **no occupancy ₹ invented**                                                                                                                               |
+| Tooling                           | `lint`, `typecheck`, `format`, `format:check`, `db:*`, GitHub Actions CI                                                                                                                                  |
+| `.env.example`                    | All required variables documented                                                                                                                                                                         |
+| Booking widget                    | Interactive mangrove panel — occupancy dropdown, quantity, extra beds, dates, live estimate from `GET /api/pricing`, WhatsApp prefill + Call us                                                           |
+| Admin login                       | `/admin/login` — Auth.js Credentials + JWT session cookie, rate limiting, constant-time compare, design-system form                                                                                       |
+| Admin dashboard                   | `/admin` — server-loaded prices, per-field validation, dirty tracking, IST timestamp, published badge, Sign out                                                                                           |
+| Hardcoded-price guardrail         | `npm test` scans `src/` for literal occupancy/extra-bed rupees; admin write + public read share `rooms` / `occupancy_prices`                                                                              |
+| Technical SEO                     | Unique titles/descriptions, canonicals, OG+Twitter, sitemap+robots, 404, breadcrumbs, JSON-LD (known fields only), alt on every photo frame                                                               |
+| `getAdminPricing()`               | Server-only admin fetch — no `is_published` gate, no tag cache                                                                                                                                            |
+| Domain `silversandhomestay.com`   | Intended. DNS not configured in this repo.                                                                                                                                                                |
+| Owner occupancy rates (2/3/4/6/8) | **Still missing** — room stays `is_published: false` until owner saves rates in admin                                                                                                                     |
+| Address, photos, amenities, GBP   | Address + map live. **Room occupancy photos live** (`public/Rooms/`). **Nearby attraction photos live** (`public/tourist_places/`). Exterior/bathroom still missing; landmark distances still unpublished |
 
 ## How to run locally
 

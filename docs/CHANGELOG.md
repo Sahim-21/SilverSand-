@@ -6,6 +6,26 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Live Maps Embed + published NAP / geo
+
+### What
+
+- Replaced the dashed map placeholder with Google Maps **Embed API** (`mode=place`, Place ID `ChIJz7O6_zJHvDsRPrgj4nB9eiE`) on Home and `/location` — 16:9 iframe, `loading="lazy"`.
+- Env: `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY` in `.env.example` (referrer-restricted; public by design). Fallback link to Google Maps if unset.
+- Confirmed address and coordinates in `docs/BUSINESS_INFO.md` and `src/lib/business.ts`: **1, Naveen Beach Rd, Murdeshwar, Mavalli, Karnataka 581350, India**; lat **14.1007798**, lng **74.4874894**.
+- Footer, contact, location copy, and `lodgingBusinessJsonLd` now emit full `PostalAddress` + `GeoCoordinates`. Checklist #1 and #11 marked done.
+
+### Why
+
+Owner-supplied Place ID resolves to this NAP on Google Maps; embed gives a live pin without the JS Maps SDK.
+
+### Rejected
+
+- Full JavaScript Maps API / custom markers for v1.
+- Publishing landmark walking times without owner-measured distances (#8 still open).
+
+---
+
 ## 2026-08-25 — Homepage Google reviews via Places API (New)
 
 ### What

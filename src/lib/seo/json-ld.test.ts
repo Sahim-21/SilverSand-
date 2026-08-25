@@ -63,23 +63,30 @@ test("WebSite JSON-LD has name + url and no SearchAction", () => {
   assert.equal(json.includes("SearchAction"), false);
 });
 
-test("unpublished LodgingBusiness omits Offers, priceRange, geo, ratings", () => {
+test("unpublished LodgingBusiness includes NAP + geo, omits Offers and ratings", () => {
   const node = lodgingBusinessJsonLd(null);
   const types = collectTypes(node);
   assert.ok(types.has("LodgingBusiness"));
   assert.ok(types.has("HotelRoom"));
+  assert.ok(types.has("GeoCoordinates"));
   assert.equal(types.has("Hotel"), false);
   assert.equal(types.has("BedAndBreakfast"), false);
   assert.equal(types.has("Offer"), false);
   assert.equal(types.has("AggregateRating"), false);
   assert.equal(types.has("Review"), false);
-  assert.equal(types.has("GeoCoordinates"), false);
   assert.equal(node.priceRange, undefined);
-  assert.equal(hasKeyDeep(node, "geo"), false);
-  assert.equal(hasKeyDeep(node, "streetAddress"), false);
   assert.equal(hasKeyDeep(node, "image"), false);
-  const address = node.address as { addressLocality?: string };
-  assert.equal(address.addressLocality, "Murudeshwar");
+  const address = node.address as {
+    streetAddress?: string;
+    addressLocality?: string;
+    postalCode?: string;
+  };
+  assert.equal(address.streetAddress, "1, Naveen Beach Rd");
+  assert.equal(address.addressLocality, "Mavalli");
+  assert.equal(address.postalCode, "581350");
+  const geo = node.geo as { latitude?: number; longitude?: number };
+  assert.equal(typeof geo.latitude, "number");
+  assert.equal(typeof geo.longitude, "number");
 });
 
 test("published LodgingBusiness emits Offer rows from DB rates only", () => {

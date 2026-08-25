@@ -3,8 +3,9 @@ import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import {
   BUSINESS_NAME,
-  BUSINESS_PLACE,
   DISPLAY_PHONE,
+  FULL_ADDRESS,
+  GOOGLE_MAPS_PLACE_URL,
   TEL_URL,
   WHATSAPP_URL,
 } from "@/lib/business";
@@ -16,17 +17,15 @@ export function SiteFooter() {
       <Container className="grid gap-8 py-10 md:grid-cols-2">
         <div>
           <p className="font-semibold text-mangrove">{BUSINESS_NAME}</p>
-          <p className="mt-1 text-sm text-muted">{BUSINESS_PLACE}</p>
-          <p className="mt-2 text-sm text-muted">
-            Full address pending — see{" "}
-            <Link href="/location" className="text-mangrove underline">
-              Location
-            </Link>{" "}
-            or{" "}
-            <Link href="/contact" className="text-mangrove underline">
-              Contact
-            </Link>
-            .
+          <p className="mt-1 text-sm text-muted">
+            <a
+              href={GOOGLE_MAPS_PLACE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-mangrove hover:underline"
+            >
+              {FULL_ADDRESS}
+            </a>
           </p>
           <div className="mt-4 flex flex-col gap-1 text-sm">
             <a href={TEL_URL} className="text-mangrove hover:underline">

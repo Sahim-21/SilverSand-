@@ -43,7 +43,7 @@ export const PAGE_SEO = {
   },
   location: {
     title: "Getting to Murudeshwar",
-    description: `${BUSINESS_NAME} is in Murudeshwar, Karnataka on the Konkan coast. Murdeshwar Railway Station is on the Konkan Railway. Street address and map pin will be added when confirmed.`,
+    description: `${BUSINESS_NAME} at 1, Naveen Beach Rd, Murdeshwar, Mavalli, Karnataka 581350. Murdeshwar Railway Station is on the Konkan Railway. Live map pin on this page.`,
     path: "/location",
   },
   contact: {

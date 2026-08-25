@@ -11,8 +11,8 @@ Phased. Check a box only when the work is in the repo (or the owner has given th
 - [ ] Pricing rule for **5 and 7** guests (and for 1 guest, if allowed)
 - [ ] One physical Deluxe AC **unit** vs several units of the same type
 - [ ] Bed and bathroom layout (beds, extra mattresses, attached bath, hot water)
-- [ ] Full postal address + PIN
-- [ ] Exact map coordinates (or a Google Maps pin the owner owns)
+- [x] Full postal address + PIN — 1, Naveen Beach Rd, Murdeshwar, Mavalli, Karnataka 581350
+- [x] Exact map coordinates (or a Google Maps pin the owner owns) — Place ID + Embed map; 14.1007798, 74.4874894
 - [ ] Walking/driving distance to Murudeshwar Beach, Murudeshwar Temple, bus stand, railway station — **owner-measured or maps-measured from the confirmed pin**, not guessed
 - [ ] Real photographs with permission to use — **room image still pending** (one `PhotoFrame` placeholder on site); exterior, bathroom, and other property photos still open (empty placeholders removed from UI until owner supplies them)
 - [x] Check-in / check-out times

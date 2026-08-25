@@ -29,9 +29,12 @@ Last reviewed: 25 August 2026.
 | Check-out                     | 11:00 AM the next day                                                                                                                               |
 | Cancellation                  | Not available — bookings are **non-cancellable / non-refundable**                                                                                   |
 | Social share image            | Branded wordmark OG/Twitter card is **final** — no owner photograph required for social sharing                                                     |
-| Google Place ID               | `ChIJz7O6_zJHvDsRPrgj4nB9eiE` — used server-side for Place Details `reviews` only                                                                  |
+| Google Place ID               | `ChIJz7O6_zJHvDsRPrgj4nB9eiE` — reviews (Places API) + map embed (Maps Embed API)                                                                |
+| Full postal address           | 1, Naveen Beach Rd, Murdeshwar, Mavalli, Karnataka 581350, India (from Google Maps for the Place ID above)                                          |
+| Map coordinates (WGS84)       | Latitude `14.1007798`, longitude `74.4874894` (Google Maps place pin for the Place ID)                                                              |
 
 _Source for rows added 25 August 2026: owner confirmation (this brief)._
+_Address / geo: confirmed via owner-supplied Place ID on Google Maps, 25 August 2026._
 
 ### Occupancy rates (2 / 3 / 4 / 6 / 8)
 
@@ -49,11 +52,24 @@ Do not copy Coastal Pearl, Kamath, Amani, or Nestle Sahyadri tariffs — these a
 
 ### Address
 
-**Not provided by the owner.**
+**Confirmed** (25 August 2026) via owner-supplied Google Place ID `ChIJz7O6_zJHvDsRPrgj4nB9eiE`:
 
-### Photos, GBP, coordinates
+**1, Naveen Beach Rd, Murdeshwar, Mavalli, Karnataka 581350, India**
 
-**Not provided by the owner** (photos for the site; GBP login; map coordinates).
+Previously listed only on third-party OTA mirrors — now treated as NAP because it matches the Place ID pin on Google Maps (same phone as confirmed WhatsApp).
+
+### Photos and GBP login
+
+**Not provided by the owner** (site photographs; GBP admin login / primary category cleanup).
+
+### Map coordinates
+
+**Confirmed** (25 August 2026) from the Google Maps pin for the Place ID above:
+
+- Latitude: **14.1007798**
+- Longitude: **74.4874894**
+
+Used in `LodgingBusiness` `GeoCoordinates` and the Maps Embed API place map. Checklist #11.
 
 ### Guest reviews
 
@@ -69,15 +85,16 @@ These appeared on **third-party** pages when researched on 24 August 2026. They 
 
 | Claim                                                                                                       | Where it showed up                                                              | Action                                                         |
 | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| Naveen Beach Road / Mavalli / PIN 581350                                                                    | Casai, EaseMyTrip, Hotels.com.au-style mirrors for “Silver Sand Beach Homestay” | Confirm full address                                           |
-| “Murudeshwara Beach is a few steps away” / sea view / terrace / garden / continental breakfast              | Same class of OTA mirrors                                                       | Confirm each amenity separately                                |
+| “Murudeshwara Beach is a few steps away” / sea view / terrace / garden / continental breakfast              | OTA mirrors                                                                     | Confirm each amenity / distance separately                     |
 | No front desk; private entrance; check-in from 12:00; min age 18                                            | Hotels.com.au-style listing                                                     | Confirm house rules                                            |
 | Listed on MakeMyTrip, Agoda, Goibibo, etc.                                                                  | Search snippets for the name                                                    | Confirm which OTAs to **compete with**, not which to advertise |
 | “2.0-star” / “2 room types”                                                                                 | Low-quality mirrors (e.g. myservice.pk)                                         | Ignore until owner lists units                                 |
 
+**Resolved from Place ID (25 August 2026):** Naveen Beach Road / Mavalli / PIN 581350 now matches Google Maps for `ChIJz7O6_zJHvDsRPrgj4nB9eiE` — published as NAP.
+
 **Owner-confirmed separately (25 August 2026):** free Wi-Fi and no meals — do not treat the OTA mirror lines above as the source for those facts.
 
-**Amani Beach Homestay** also lists **Naveen Beach Road, Murdeshwar, 581350**. If Silver Sand is on the same road, that is a **direct geographic competitor** — still not a reason to copy their address onto our site.
+**Amani Beach Homestay** also lists **Naveen Beach Road, Murdeshwar, 581350**. Same road ≠ same property; our NAP comes from our Place ID, not from copying Amani.
 
 ---
 
@@ -104,11 +121,18 @@ MAX_TOTAL_GUESTS=8
 CHECK_IN=11:00
 CHECK_OUT=11:00
 GOOGLE_PLACE_ID=ChIJz7O6_zJHvDsRPrgj4nB9eiE
+STREET_ADDRESS=1, Naveen Beach Rd
+ADDRESS_LOCALITY=Mavalli
+POSTAL_CODE=581350
+GEO_LATITUDE=14.1007798
+GEO_LONGITUDE=74.4874894
 ```
 
 `wa.me` URL: `https://wa.me/919986222892`
 
 `GOOGLE_PLACES_API_KEY` is server-only (never `NEXT_PUBLIC_`). Place Details requests use field mask `reviews` only.
+
+`NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY` is the Maps **Embed** API key (appears in the iframe URL by design). Restrict HTTP referrers to `silversandhomestay.com` (and preview hosts) in Google Cloud Console. Do not reuse the Places server key as a wide-open browser key.
 
 ---
 
@@ -120,17 +144,17 @@ Exactly what is still required, plus a few items the original list omitted becau
 
 | #   | Collect                                                                                               | Why it is blocking                                                 | Status |
 | --- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | ------ |
-| 1   | **Full postal address** (house/building, road, locality, PIN)                                         | NAP, Maps, schema `PostalAddress`, footer, GBP match               | ☐      |
+| 1   | **Full postal address** (house/building, road, locality, PIN)                                         | NAP, Maps, schema `PostalAddress`, footer, GBP match               | ☑ 1, Naveen Beach Rd, Murdeshwar, Mavalli, Karnataka 581350 (Place ID / Maps, 25 Aug 2026) |
 | 2   | **Real photographs** (exterior, room, bathroom, any view) with usage permission                       | Trust; competitors with weak copy still convert on photos          | ☐      |
 | 3   | **Bed and bathroom details** (how many beds, extra mattresses, attached bath, hot water, AC coverage) | 6- and 8-sharing is otherwise an empty claim                       | ☐ AC confirmed; beds/bath still open |
 | 4   | **Check-in and check-out times**                                                                      | FAQ, WhatsApp, house rules                                         | ☑ 11:00 AM check-in; 11:00 AM next-day check-out (owner, 25 Aug 2026) |
 | 5   | **Cancellation / payment policy** (advance, UPI, cash, refund)                                        | Reduces back-and-forth on WhatsApp                                 | ☑ Non-cancellable / non-refundable (owner, 25 Aug 2026). Advance payment method still open. |
 | 6   | **Parking** (car, two-wheeler, on-site vs street)                                                     | Family/group intent; Coastal Pearl pushes parking/EV               | ☑ On-site (owner, 25 Aug 2026) |
 | 7   | **Wi-Fi** (yes/no, where)                                                                             | Standard filter; do not tick it from OTA text                      | ☑ Yes, free (owner, 25 Aug 2026) |
-| 8   | **Nearby landmark distances** (beach, temple, bus stand, railway, highway)                            | “Homestay near Murudeshwar beach” page is unethical without this   | ☐      |
+| 8   | **Nearby landmark distances** (beach, temple, bus stand, railway, highway)                            | “Homestay near Murudeshwar beach” page is unethical without this   | ☐ Pin known; measured distances still open |
 | 9   | **Genuine reviews** (Google links, or written permission to quote)                                    | Amani/Kamath show quotes of mixed quality; we will not invent ours | ☑ Live Google Places `reviews` on Home (Place ID above; API cap 5; no manual quotes) |
-| 10  | **Google Business Profile** (exists? login? primary category? hours? photos? WhatsApp?)               | Local pack vs Agoda/Google Travel                                  | ☐      |
-| 11  | **Exact map coordinates** (or owner-controlled Maps pin)                                              | Schema `GeoCoordinates`, embed, “how to reach”                     | ☐      |
+| 10  | **Google Business Profile** (exists? login? primary category? hours? photos? WhatsApp?)               | Local pack vs Agoda/Google Travel                                  | ☐ Place ID known; GBP login / cleanup still open |
+| 11  | **Exact map coordinates** (or owner-controlled Maps pin)                                              | Schema `GeoCoordinates`, embed, “how to reach”                     | ☑ 14.1007798, 74.4874894 + Embed API place map (25 Aug 2026) |
 
 ### Extra items this brief still needs (not optional)
 

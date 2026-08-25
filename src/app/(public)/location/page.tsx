@@ -11,7 +11,7 @@ import { FinalCtaSection } from "@/components/sections/final-cta-section";
 import { TodoNotice } from "@/components/marketing/todo-notice";
 import { Stack } from "@/components/layout/stack";
 import { Text } from "@/components/ui/heading";
-import { BUSINESS_NAME, BUSINESS_PLACE } from "@/lib/business";
+import { BUSINESS_NAME, FULL_ADDRESS } from "@/lib/business";
 import { PAGE_SEO } from "@/lib/seo/copy";
 import { pageMetadata } from "@/lib/seo/metadata";
 
@@ -22,7 +22,7 @@ export default function LocationPage() {
     <>
       <InnerPageHero
         title="Getting to Murudeshwar"
-        description={`${BUSINESS_NAME} is in ${BUSINESS_PLACE}. Murdeshwar Railway Station is on the Konkan Railway. Street address and map pin will be added when the owner confirms them.`}
+        description={`${BUSINESS_NAME} is at ${FULL_ADDRESS}. Murdeshwar Railway Station is on the Konkan Railway.`}
         crumbs={[
           { href: "/", label: "Home" },
           { href: "/location", label: "Location" },
@@ -40,16 +40,12 @@ export default function LocationPage() {
             </Text>
             <Text size="sm" tone="muted">
               We have not published walking or driving times from our homestay to the
-              beach, temple, bus stand, or railway station — those distances require the
-              owner to confirm a map pin first.
+              beach, temple, bus stand, or railway station — those distances still need
+              owner confirmation even though the map pin is live.
             </Text>
             <TodoNotice
-              item="address"
-              detail="Full street address is not yet confirmed (checklist #1). Do not publish OTA-mirror addresses — they may refer to a different property."
-            />
-            <TodoNotice
               item="landmarkDistances"
-              detail="Distances to the beach, temple, bus stand, and railway station require a confirmed map pin (checklist #8)."
+              detail="Distances to the beach, temple, bus stand, and railway station are not published yet (checklist #8)."
             />
           </Stack>
         </Container>

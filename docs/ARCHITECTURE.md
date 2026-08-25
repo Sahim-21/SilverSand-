@@ -139,7 +139,7 @@ No tables for pages, media, menus, guests, or invoices.
 - **JWT sessions** in httpOnly, Secure, SameSite=Lax cookie. DB sessions require the adapter which does not work with Credentials — documented in CHANGELOG.
 - **Rate limit:** 5 failed attempts per email in 15 min (in-process Map; bcrypt cost is the primary defense in serverless).
 - 2FA optional v1; HTTPS mandatory (Vercel default).
-- Env: `AUTH_SECRET`, `DATABASE_URL`, `ADMIN_EMAIL` (seed only), `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID`. Never `NEXT_PUBLIC_` for prices or the Places API key.
+- Env: `AUTH_SECRET`, `DATABASE_URL`, `ADMIN_EMAIL` (seed only), `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID`, `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY`. Never `NEXT_PUBLIC_` for prices or the Places **server** key.
 
 Forgot-password: v1 — SSH/dashboard reset hash. Do not build email recovery without a transactional mailer.
 
@@ -169,6 +169,13 @@ No WYSIWYG, no image upload, no "pages".
 - **Display:** author name (and profile link/photo when Google returns them), star rating as returned, review text as returned, `relativePublishTimeDescription`, link to the review on Google Maps when `googleMapsUri` is present. Cap is **5** reviews; fewer is fine. Section omitted if unset/failed/empty.
 - **Attribution:** “Powered by Google” near the list; ordering notice (relevance) in section copy. Do **not** invent `AggregateRating` / `Review` JSON-LD from this feed unless product policy changes.
 - **UI:** `ReviewsSection` on Home only (`src/components/sections/reviews-section.tsx`).
+
+### Google Maps Embed (location map)
+
+- **API:** Maps Embed API iframe — `https://www.google.com/maps/embed/v1/place?key=…&q=place_id:{GOOGLE_PLACE_ID}` (mode=place). No JavaScript Maps SDK.
+- **Env:** `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY` (public by design). Restrict HTTP referrers in Cloud Console. Prefer a separate key from the Places server key.
+- **UI:** `MapSection` on Home and `/location` — 16:9, `loading="lazy"`. If the embed key is missing, show a Google Maps place link fallback (no dashed placeholder).
+- **Static NAP / geo:** street address + lat/lng live in `src/lib/business.ts` / `docs/BUSINESS_INFO.md` and feed footer + `lodgingBusinessJsonLd` (`PostalAddress` + `GeoCoordinates`).
 
 ### Deployment
 

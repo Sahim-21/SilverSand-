@@ -1,10 +1,17 @@
 import {
+  ADDRESS_COUNTRY,
+  ADDRESS_LOCALITY,
+  ADDRESS_REGION,
   BUSINESS_NAME,
+  GEO_LATITUDE,
+  GEO_LONGITUDE,
   OCCUPANCY_TIERS,
   PHONE_E164,
+  POSTAL_CODE,
   ROOM_NAME,
   ROOM_PATH,
   SITE_URL,
+  STREET_ADDRESS,
 } from "@/lib/business";
 import { formatInr } from "@/lib/pricing/estimate";
 import type { PublicPricing } from "@/lib/pricing/types";
@@ -92,8 +99,8 @@ function priceRangeFromPricing(pricing: PublicPricing): string | undefined {
 }
 
 /**
- * LodgingBusiness with only confirmed fields.
- * No street address, geo, image, ratings, breakfast, or Hotel type.
+ * LodgingBusiness with confirmed NAP + geo from BUSINESS_INFO / Place ID pin.
+ * No invented ratings, breakfast, Hotel type, or image until owner photos exist.
  * Offers and priceRange appear only when occupancy rates are published.
  */
 export function lodgingBusinessJsonLd(pricing: PublicPricing | null): JsonLdObject {
@@ -111,9 +118,16 @@ export function lodgingBusinessJsonLd(pricing: PublicPricing | null): JsonLdObje
     },
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Murudeshwar",
-      addressRegion: "Karnataka",
-      addressCountry: "IN",
+      streetAddress: STREET_ADDRESS,
+      addressLocality: ADDRESS_LOCALITY,
+      addressRegion: ADDRESS_REGION,
+      postalCode: POSTAL_CODE,
+      addressCountry: ADDRESS_COUNTRY,
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: GEO_LATITUDE,
+      longitude: GEO_LONGITUDE,
     },
     containsPlace: hotelRoomJsonLd(pricing),
   };

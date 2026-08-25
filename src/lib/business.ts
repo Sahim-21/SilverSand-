@@ -19,3 +19,40 @@ export const ROOM_NAME = "Deluxe AC Room";
 
 export const OCCUPANCY_TIERS = [2, 3, 4, 6, 8] as const;
 export type OccupancyTier = (typeof OCCUPANCY_TIERS)[number];
+
+/** Google Business / Maps Place ID — reviews + Embed API. */
+export const GOOGLE_PLACE_ID = "ChIJz7O6_zJHvDsRPrgj4nB9eiE";
+
+/**
+ * Postal address from Google Maps for the Place ID above
+ * (owner-confirmed via Place ID, 25 August 2026).
+ */
+export const STREET_ADDRESS = "1, Naveen Beach Rd";
+export const ADDRESS_LOCALITY = "Mavalli";
+export const ADDRESS_SUBLOCALITY = "Murdeshwar";
+export const ADDRESS_REGION = "Karnataka";
+export const POSTAL_CODE = "581350";
+export const ADDRESS_COUNTRY = "IN";
+export const FULL_ADDRESS =
+  "1, Naveen Beach Rd, Murdeshwar, Mavalli, Karnataka 581350, India";
+
+/** WGS84 from the Google Maps place pin for GOOGLE_PLACE_ID. */
+export const GEO_LATITUDE = 14.1007798;
+export const GEO_LONGITUDE = 74.4874894;
+
+export const GOOGLE_MAPS_PLACE_URL = `https://www.google.com/maps/place/?q=place_id:${GOOGLE_PLACE_ID}`;
+
+/**
+ * Maps Embed API iframe src (mode=place). Key is public by design —
+ * restrict HTTP referrers in Google Cloud Console.
+ */
+export function googleMapsEmbedSrc(): string | null {
+  const key = process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY?.trim();
+  if (!key) return null;
+  const placeId = process.env.GOOGLE_PLACE_ID?.trim() || GOOGLE_PLACE_ID;
+  const params = new URLSearchParams({
+    key,
+    q: `place_id:${placeId}`,
+  });
+  return `https://www.google.com/maps/embed/v1/place?${params.toString()}`;
+}

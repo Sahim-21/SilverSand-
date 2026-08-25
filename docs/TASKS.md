@@ -77,8 +77,9 @@ Must ship a **usable** booking path, not a platform.
 - [x] WhatsApp prefill with dates, guests, estimate, room name
 - [x] `LodgingBusiness` + `HotelRoom` JSON-LD **only with known facts** (`Offer` when rates are published; no geo/ratings)
 - [x] Unique titles, canonicals, OG/Twitter, sitemap, robots, breadcrumbs, 404
-- [ ] Deploy to Vercel + Neon; domain DNS
-- [ ] README verified against production setup
+- [x] Production deploy **runbook** — `DEPLOYMENT.md`, `.env.example`, `vercel.json` (`sin1`), Neon pooled + `DATABASE_URL_UNPOOLED`, Hobby/Free cost
+- [ ] **Live** Vercel project + Neon (`aws-ap-southeast-1`) + `silversandhomestay.com` DNS (owner dashboards; not provisioned from this repo)
+- [x] README points at `DEPLOYMENT.md` (live hostname still unverified until DNS exists)
 
 ---
 

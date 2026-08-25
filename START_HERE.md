@@ -59,17 +59,18 @@ Until the owner answers the checklist in `docs/BUSINESS_INFO.md`, copy must stay
 
 ## Current state (summary)
 
-**Phase 1 (project scaffold) is complete.** Documentation (Phase 0) and the runnable Next.js repo are in place. Phase 2 remaining: owner occupancy rates and deploy. Technical SEO (titles, canonicals, JSON-LD with known facts) is live.
+**Phase 1 (project scaffold) is complete.** Phase 2 product code (widget, SEO, occupancy seed) is in the repo. **Production deploy runbook** is in [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md). Live Vercel + Neon + DNS are still owner dashboard work.
 
 - Full status: [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
 - Work remaining: [`docs/TASKS.md`](docs/TASKS.md)
 - Facts vs unknowns: [`docs/BUSINESS_INFO.md`](docs/BUSINESS_INFO.md)
+- Redeploy: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)
 
 ## Current task
 
-**Done:** Phase 0 documentation; Phase 1 scaffold; marketing pages; **interactive booking widget** (live estimate + WhatsApp prefill).
+**Done:** Phase 0 documentation; Phase 1 scaffold; marketing pages; **interactive booking widget** (live estimate + WhatsApp prefill); occupancy rates in seed/admin; deploy **runbook**.
 
-**Next (Phase 2 remaining):** owner occupancy rates in admin; deploy to Vercel. Street address/geo can extend LodgingBusiness JSON-LD when confirmed.
+**Next:** first-time Vercel Hobby + Neon Free + `silversandhomestay.com` DNS (see `docs/DEPLOYMENT.md`). The public hostname is not live from this repository alone.
 
 **Do not do without owner facts:** invented beach distance, amenities, review quotes, or hardcoded occupancy ₹.
 
@@ -92,7 +93,7 @@ Until the owner answers the checklist in `docs/BUSINESS_INFO.md`, copy must stay
 
 ## How to continue (for a second developer in Cursor)
 
-1. Read this file, then the rest of `docs/` in this order: `CURRENT_STATE` → `BUSINESS_INFO` → `ARCHITECTURE` → `DATABASE` → `SEO_STRATEGY` → `DESIGN_SYSTEM` → `DEVELOPMENT_RULES` → `TASKS` → `CHANGELOG`.
+1. Read this file, then the rest of `docs/` in this order: `CURRENT_STATE` → `BUSINESS_INFO` → `ARCHITECTURE` → `DATABASE` → `SEO_STRATEGY` → `DESIGN_SYSTEM` → `DEVELOPMENT_RULES` → `TASKS` → `CHANGELOG` → `DEPLOYMENT` (when shipping or redeploying).
 2. Follow `.cursor/rules/` — they encode the same constraints.
 3. If a fact is not in `BUSINESS_INFO.md`, it is unknown. Ask; do not fill the gap with OTA scrapes presented as truth.
 4. After significant work: update `CURRENT_STATE.md`, tick `TASKS.md`, and write _what and why_ in `CHANGELOG.md`.

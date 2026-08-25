@@ -19,21 +19,13 @@ npm run dev
 - Site: http://localhost:43123
 - Admin: http://localhost:43123/admin/login
 
-After seeding, log in and enter all five occupancy rates (2/3/4/6/8) plus extra-bed ₹. The room is unpublished until you save valid rates.
+After seeding, occupancy rates are already in Postgres (published). Use `/admin` to change them — do not hardcode ₹ in React.
 
-## Production auth (Vercel Production)
+## Production
 
-Set these in the Vercel project (Production environment only — not Preview):
+**[docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)** — env vars, Neon pooled vs direct URI, `silversandhomestay.com` DNS, and how a second developer redeploys after pulling.
 
-| Variable                         | Value                                                           |
-| -------------------------------- | --------------------------------------------------------------- |
-| `DATABASE_URL`                   | Production Neon (not the local `ci` database)                   |
-| `AUTH_SECRET`                    | `openssl rand -base64 32` — not the local CI placeholder        |
-| `AUTH_URL`                       | `https://silversandhomestay.com`                                |
-| `NEXT_PUBLIC_SITE_URL`           | `https://silversandhomestay.com`                                |
-| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Owner login — seed once; **not** `local-dev-password-change-me` |
-
-Preview deployments hide `/admin` unless `ALLOW_ADMIN_ON_PREVIEW=true` and the database is a non-production branch.
+Hobby Vercel + Neon Free. Functions region `sin1` (see `vercel.json`). Preview hides `/admin` unless `ALLOW_ADMIN_ON_PREVIEW=true` on a **non-production** database. The apex hostname is **not live** until someone completes the first-time dashboard steps in that doc.
 
 ## Scripts
 
@@ -58,6 +50,7 @@ Read **[START_HERE.md](./START_HERE.md)** first, then `docs/CURRENT_STATE.md` an
 | [docs/SEO_STRATEGY.md](./docs/SEO_STRATEGY.md)           | Topics, local SEO, competitors      |
 | [docs/BUSINESS_INFO.md](./docs/BUSINESS_INFO.md)         | Confirmed facts and owner checklist |
 | [docs/DEVELOPMENT_RULES.md](./docs/DEVELOPMENT_RULES.md) | Hard rules for contributors         |
+| [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)               | Vercel + Neon + domain; redeploy    |
 
 ## Contact (confirmed)
 

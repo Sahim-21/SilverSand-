@@ -19,9 +19,12 @@ import pg from "pg";
 import { adminUsers, occupancyPrices, rooms } from "../src/db/schema";
 import {
   isForbiddenProductionPassword,
+  isLocalDevAdminPassword,
+  isAuthSecretTooWeak,
   isProductionAuthSecretWeak,
 } from "../src/lib/auth/deployment";
 import { OCCUPANCY_TIERS, ROOM_NAME, ROOM_SLUG } from "../src/lib/business";
+import { getPoolConfig, isLocalDatabaseUrl } from "../src/lib/db-pool";
 
 /** Owner-confirmed nightly rates — source of truth: docs/BUSINESS_INFO.md */
 const OCCUPANCY_NIGHTLY_INR: Record<(typeof OCCUPANCY_TIERS)[number], number> = {
@@ -43,9 +46,20 @@ async function main() {
   if (!url || !email || !password) {
     throw new Error("Set DATABASE_URL, ADMIN_EMAIL, and ADMIN_PASSWORD");
   }
+  const remoteDb = !isLocalDatabaseUrl(url);
+  if (isLocalDevAdminPassword(password) && remoteDb) {
+    throw new Error(
+      "ADMIN_PASSWORD is the local-dev placeholder. Set a unique production password before seeding Neon / Vercel production.",
+    );
+  }
   if (isForbiddenProductionPassword(password)) {
     throw new Error(
       "ADMIN_PASSWORD is the local-dev placeholder. Set a unique production password before seeding Vercel production.",
+    );
+  }
+  if (isAuthSecretTooWeak(process.env.AUTH_SECRET) && remoteDb) {
+    throw new Error(
+      "AUTH_SECRET is missing, too short, or the CI placeholder. Set a unique production secret before seeding a remote database.",
     );
   }
   if (isProductionAuthSecretWeak(process.env.AUTH_SECRET)) {
@@ -54,7 +68,7 @@ async function main() {
     );
   }
 
-  const pool = new pg.Pool({ connectionString: url });
+  const pool = new pg.Pool(getPoolConfig(url));
   const db = drizzle(pool);
   const now = new Date();
 

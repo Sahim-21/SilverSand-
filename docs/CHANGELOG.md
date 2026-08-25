@@ -6,6 +6,33 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Production deploy runbook (Vercel Hobby + Neon Free)
+
+### What
+
+- Added `docs/DEPLOYMENT.md`: env vars from `.env.example` (Production vs Preview vs local), `silversandhomestay.com` DNS, Neon pooled vs direct URIs, and how a second developer redeploys after `git pull`.
+- `vercel.json` pins Functions to **`sin1`** (Singapore). Neon project region recorded as **`aws-ap-southeast-1`**. Mumbai is not a Neon region.
+- App/seed use `src/lib/db-pool.ts`: TLS (`rejectUnauthorized`) off localhost; `max: 1` when `VERCEL` is set. `drizzle.config.ts` prefers `DATABASE_URL_UNPOOLED` for DDL.
+- Seed against a non-localhost URL rejects the local-dev admin password and a weak `AUTH_SECRET` even when `VERCEL_ENV` is unset (laptop → Neon).
+- README / START_HERE / ARCHITECTURE / DATABASE / TASKS / CURRENT_STATE point at the runbook.
+
+### Status
+
+Runbook and connection code are in the repo. **No live Vercel project, Neon database, or DNS** was created from this environment (no vendor tokens; local `DATABASE_URL` is localhost). `silversandhomestay.com` is not serving this app until the first-time dashboard steps are done.
+
+### Why
+
+ARCHITECTURE.md: Vercel + Neon, apex + `www`, env in the host not git, Preview admin lock, low operating cost. Hobby + Neon Free is enough for one homestay. Functions must sit next to Postgres (Singapore), not the Vercel default `iad1`.
+
+### Rejected
+
+- Vercel Pro / Neon Launch for v1 (no traffic or always-on requirement).
+- Claiming the public domain is live.
+- GitHub Actions deploy (Vercel git integration is the Hobby path; extra CI deploy would duplicate cost and secrets).
+- Pinning Functions to `bom1` while the database is in Singapore (adds RTT on every pricing read).
+
+---
+
 ## 2026-08-25 — Production-based admin auth
 
 ### What

@@ -3,7 +3,9 @@ import { test } from "node:test";
 
 import {
   isAdminDisabled,
+  isAuthSecretTooWeak,
   isForbiddenProductionPassword,
+  isLocalDevAdminPassword,
   isProductionAuthSecretWeak,
   LOCAL_DEV_ADMIN_PASSWORD,
   shouldUseSecureAuthCookies,
@@ -89,4 +91,15 @@ test("CI AUTH_SECRET placeholder is weak on Vercel production", () => {
       false,
     );
   });
+});
+
+test("remote seed helpers reject local-dev credentials without Vercel env", () => {
+  assert.equal(isLocalDevAdminPassword(LOCAL_DEV_ADMIN_PASSWORD), true);
+  assert.equal(isLocalDevAdminPassword("owner-only-password"), false);
+  assert.equal(isAuthSecretTooWeak(undefined), true);
+  assert.equal(isAuthSecretTooWeak("ci-build-secret-min-32-chars-long-xx"), true);
+  assert.equal(
+    isAuthSecretTooWeak("this-is-a-long-enough-random-production-secret"),
+    false,
+  );
 });

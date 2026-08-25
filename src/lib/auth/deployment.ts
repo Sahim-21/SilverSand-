@@ -31,13 +31,22 @@ export function shouldUseSecureAuthCookies(): boolean {
   return isVercelProduction();
 }
 
+export function isLocalDevAdminPassword(password: string): boolean {
+  return password === LOCAL_DEV_ADMIN_PASSWORD;
+}
+
+/** True when AUTH_SECRET is missing, short, or the CI placeholder. */
+export function isAuthSecretTooWeak(secret: string | undefined): boolean {
+  if (!secret || secret.length < 32) return true;
+  return secret.includes(LOCAL_DEV_SECRET_MARKER);
+}
+
 export function isForbiddenProductionPassword(password: string): boolean {
   if (!isVercelProduction()) return false;
-  return password === LOCAL_DEV_ADMIN_PASSWORD;
+  return isLocalDevAdminPassword(password);
 }
 
 export function isProductionAuthSecretWeak(secret: string | undefined): boolean {
   if (!isVercelProduction()) return false;
-  if (!secret || secret.length < 32) return true;
-  return secret.includes(LOCAL_DEV_SECRET_MARKER);
+  return isAuthSecretTooWeak(secret);
 }

@@ -180,16 +180,17 @@ No WYSIWYG, no image upload, no "pages".
 
 ### Deployment
 
-| Piece   | Where                                                                                                                                                          |
-| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| App     | Vercel, project bound to this git repo                                                                                                                         |
-| DB      | Neon (or Vercel Postgres) in `ap-southeast-1` / `ap-south-1` if available — pick the region closest to India that the vendor offers and record it in CHANGELOG |
-| Domain  | `silversandhomestay.com` + `www` → Vercel                                                                                                                      |
-| TLS     | Vercel default                                                                                                                                                 |
-| Backups | Neon point-in-time; do not store prices only in Vercel’s ephemeral FS                                                                                          |
-| Env     | Vercel project settings, never committed                                                                                                                       |
+Operational runbook (env vars, DNS, Neon strings, second-developer redeploy): **`DEPLOYMENT.md`**.
 
-Preview deployments: admin is **disabled** when `VERCEL_ENV=preview` (middleware + `authorize()` + PATCH). Use a separate Neon branch if you must test admin on Preview (`ALLOW_ADMIN_ON_PREVIEW=true`). Production Vercel env: set `AUTH_SECRET` (≥32 chars), `AUTH_URL=https://silversandhomestay.com`, `DATABASE_URL` (production Neon), and seed `ADMIN_EMAIL` / `ADMIN_PASSWORD` that are not the local-dev placeholders.
+| Piece   | Where                                                                                                                                                      |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| App     | Vercel **Hobby**, git-connected. Functions region **`sin1`** (`vercel.json`) — next to Neon, not the US default `iad1`                                     |
+| DB      | Neon **Free**, region **`aws-ap-southeast-1` (Singapore)**. Neon does not offer Mumbai (`aws-ap-south-1`) as of this writing. Pooled URI in `DATABASE_URL` |
+| Domain  | `silversandhomestay.com` (canonical apex) + `www` → Vercel; TLS is Vercel default                                                                          |
+| Backups | Neon point-in-time (Free window is short); do not store prices only in Vercel’s ephemeral FS                                                               |
+| Env     | Vercel project settings, never committed. Names and Production vs Preview split: `.env.example` + `DEPLOYMENT.md`                                          |
+
+Preview deployments: admin is **disabled** when `VERCEL_ENV=preview` (middleware + `authorize()` + PATCH). Use a separate Neon branch if you must test admin on Preview (`ALLOW_ADMIN_ON_PREVIEW=true`). Production Vercel env: set `AUTH_SECRET` (≥32 chars), `AUTH_URL=https://silversandhomestay.com`, `DATABASE_URL` (production Neon pooled), and seed `ADMIN_EMAIL` / `ADMIN_PASSWORD` that are not the local-dev placeholders.
 
 ### Observability (minimal)
 

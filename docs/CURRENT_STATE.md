@@ -1,13 +1,13 @@
 # Current state
 
 **Date of this snapshot:** 25 August 2026  
-**Phase:** 1 complete — scaffold + design system + marketing pages + booking widget + admin pricing panel + **technical SEO (metadata, sitemap/robots, JSON-LD, breadcrumbs)**. Remaining Phase 2 work: owner occupancy rates, deploy.
+**Phase:** 2 code complete for booking, SEO, and the **production deploy runbook**. Remaining: **live** Vercel project + Neon + DNS (owner dashboards — not provisioned from this environment).
 
 ## What exists
 
 | Area                              | Status                                                                                                                                                                                                    |
 | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Documentation (10 files)          | Complete — `START_HERE.md` + nine files under `docs/`                                                                                                                                                     |
+| Documentation                     | Complete — `START_HERE.md` + files under `docs/` including **`DEPLOYMENT.md`**                                                                                                                            |
 | Cursor rules                      | `.cursor/rules/` (silver-sand, pricing, docs)                                                                                                                                                             |
 | Next.js App Router app            | Scaffolded — TypeScript, Tailwind 4, token-based UI primitives                                                                                                                                            |
 | Design system                     | Tokens in `globals.css`; layout + primitives; rendered at **`/style-guide`** (`noindex`)                                                                                                                  |
@@ -16,17 +16,19 @@
 | Admin                             | `/admin/login`, `/admin` — JWT + `admin_users`. **Production:** HTTPS Secure cookies, preview lock, local-dev password rejected                                                                           |
 | API                               | `GET /api/pricing`, `PATCH /api/admin/pricing`, Auth.js routes                                                                                                                                            |
 | Database schema                   | Drizzle — `rooms`, `occupancy_prices`, `admin_users`, `price_audit_log`                                                                                                                                   |
-| Seed script                       | `scripts/seed.ts` — room (unpublished) + admin; **no occupancy ₹ invented**                                                                                                                               |
+| Seed script                       | `scripts/seed.ts` — published Deluxe AC Room + owner occupancy ₹ (2/3/4/6/8) + extra bed ₹500 + admin user                                                                                                |
 | Tooling                           | `lint`, `typecheck`, `format`, `format:check`, `db:*`, GitHub Actions CI                                                                                                                                  |
-| `.env.example`                    | All required variables documented                                                                                                                                                                         |
+| `.env.example`                    | All required variables documented, including Neon pooled vs `DATABASE_URL_UNPOOLED`                                                                                                                       |
 | Booking widget                    | Interactive mangrove panel — occupancy dropdown, quantity, extra beds, dates, live estimate from `GET /api/pricing`, WhatsApp prefill + Call us                                                           |
 | Admin login                       | `/admin/login` — Auth.js Credentials + JWT session cookie, rate limiting, constant-time compare, design-system form                                                                                       |
 | Admin dashboard                   | `/admin` — server-loaded prices, per-field validation, dirty tracking, IST timestamp, published badge, Sign out                                                                                           |
 | Hardcoded-price guardrail         | `npm test` scans `src/` for literal occupancy/extra-bed rupees; admin write + public read share `rooms` / `occupancy_prices`                                                                              |
 | Technical SEO                     | Unique titles/descriptions, canonicals, OG+Twitter, sitemap+robots, 404, breadcrumbs, JSON-LD (known fields only), alt on every photo frame                                                               |
 | `getAdminPricing()`               | Server-only admin fetch — no `is_published` gate, no tag cache                                                                                                                                            |
-| Domain `silversandhomestay.com`   | Intended. DNS not configured in this repo.                                                                                                                                                                |
-| Owner occupancy rates (2/3/4/6/8) | **Still missing** — room stays `is_published: false` until owner saves rates in admin                                                                                                                     |
+| Production DB connection          | `src/lib/db-pool.ts` — TLS on non-localhost URLs; `max: 1` on Vercel; drizzle-kit prefers `DATABASE_URL_UNPOOLED`                                                                                         |
+| Vercel region                     | `vercel.json` → Functions **`sin1`** (Singapore), next to Neon `aws-ap-southeast-1`                                                                                                                       |
+| Domain `silversandhomestay.com`   | Intended canonical apex. **DNS / Vercel domain / Neon project: not live.** Steps in `DEPLOYMENT.md`.                                                                                                      |
+| Owner occupancy rates (2/3/4/6/8) | **In seed and admin** — 2000 / 2500 / 3000 / 4000 / 5000 INR/night; extra bed ₹500; cap 8 guests                                                                                                          |
 | Address, photos, amenities, GBP   | Address + map live. **Room occupancy photos live** (`public/Rooms/`). **Nearby attraction photos live** (`public/tourist_places/`). Exterior/bathroom still missing; landmark distances still unpublished |
 
 ## How to run locally
@@ -37,6 +39,8 @@
 4. `npm run dev` → http://localhost:43123
 5. Owner admin → http://localhost:43123/admin/login
 
+Production redeploy (second developer): **`docs/DEPLOYMENT.md`**.
+
 ## Single source of truth for prices
 
 ```
@@ -45,11 +49,22 @@ Owner → /admin login → dashboard → edit occupancy + extra-bed rates
      → public pages / booking widget → WhatsApp estimate
 ```
 
-Rates are **not** hardcoded in React. Until the owner enters all five occupancy tiers, `GET /api/pricing` returns 404 and the site shows enquire-only CTAs without ₹ totals.
+Rates are **not** hardcoded in React. Until the five occupancy tiers are published in Postgres, `GET /api/pricing` returns 404 and the site shows enquire-only CTAs without ₹ totals. Seed writes the owner-confirmed rates and sets `is_published: true`.
+
+## Deployment status (honest)
+
+| Item                                                           | Status                                                            |
+| -------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Runbook (`DEPLOYMENT.md`), env names, Hobby + Neon Free choice | **Done**                                                          |
+| `vercel.json` region `sin1`; Neon region recorded as Singapore | **Done** (code/docs)                                              |
+| Production Pool TLS + serverless `max: 1`                      | **Done**                                                          |
+| Vercel project linked to git                                   | **Not done** — no Vercel token in this environment                |
+| Neon production database created                               | **Not done** — no Neon token; local `DATABASE_URL` is `localhost` |
+| `silversandhomestay.com` DNS + TLS                             | **Not done** — registrar/DNS is an owner action                   |
+| Site serving guests at the apex hostname                       | **Not live**                                                      |
 
 ## Blockers before public launch
 
-1. Occupancy rates from the owner (admin is ready to accept them).
-2. Address or map pin, real photos, honest amenities/policies.
-3. Domain DNS → Vercel (or chosen host).
-4. Street address / map pin so `LodgingBusiness` can add `geo` and `streetAddress` (locality-only address is already in JSON-LD).
+1. Owner (or first developer) completes first-time Neon + Vercel + DNS steps in `DEPLOYMENT.md`.
+2. Exterior / bathroom photographs; walking/driving distances from the pin (still unpublished).
+3. GBP / Search Console (Phase 3) — not required for the first HTTPS response, required for local SEO.

@@ -14,6 +14,7 @@ This file includes the room-pricing schema and the owner admin flow end to end.
 - Amounts are **integer INR** (`NUMERIC(10,0)` or `INTEGER`). No floats.
 - Every price change writes an **audit row**. Rates are money.
 - No CMS tables.
+- Production: Neon pooled `DATABASE_URL` for the app; `DATABASE_URL_UNPOOLED` for `drizzle-kit`. Full steps in **`DEPLOYMENT.md`**.
 
 ---
 
@@ -235,23 +236,23 @@ Scanned `src/` (excluding `*.test.ts`) for occupancy nightly rates, extra-bed ru
 
 ### What we found
 
-| Location | Amount | Verdict |
-| -------- | ------ | ------- |
-| `scripts/seed.ts` | Occupancy 2000/2500/3000/4000/5000 + `extraBedRateInr: 500`, `isPublished: true` | **Allowed.** Owner-confirmed figures (25 Aug 2026), written into `rooms` / `occupancy_prices` at seed. Not imported by React. |
-| `src/lib/pricing/estimate.test.ts` | Fixture 2000/2500/3000/4000/5000 + extra 500 | **Allowed.** Unit-test math only; not shipped to the public UI. |
-| `src/lib/booking/whatsapp-message.test.ts` | `₹4,500` as a formatted label argument | **Allowed.** Asserts message formatting; the production builder never invents a total. |
-| Admin validation copy | `₹99,999` / `₹9,999` | **Allowed.** Upper bounds, not rack rates. |
-| Style guide glyph row | `₹ 0 1 2 3 4 5 6 7 8 9` | **Allowed.** Type specimen, not a price. |
+| Location                                   | Amount                                                                           | Verdict                                                                                                                       |
+| ------------------------------------------ | -------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `scripts/seed.ts`                          | Occupancy 2000/2500/3000/4000/5000 + `extraBedRateInr: 500`, `isPublished: true` | **Allowed.** Owner-confirmed figures (25 Aug 2026), written into `rooms` / `occupancy_prices` at seed. Not imported by React. |
+| `src/lib/pricing/estimate.test.ts`         | Fixture 2000/2500/3000/4000/5000 + extra 500                                     | **Allowed.** Unit-test math only; not shipped to the public UI.                                                               |
+| `src/lib/booking/whatsapp-message.test.ts` | `₹4,500` as a formatted label argument                                           | **Allowed.** Asserts message formatting; the production builder never invents a total.                                        |
+| Admin validation copy                      | `₹99,999` / `₹9,999`                                                             | **Allowed.** Upper bounds, not rack rates.                                                                                    |
+| Style guide glyph row                      | `₹ 0 1 2 3 4 5 6 7 8 9`                                                          | **Allowed.** Type specimen, not a price.                                                                                      |
 
 No occupancy nightly rate and no extra-bed rupee amount exist as a React default, JSX fallback, or `NEXT_PUBLIC_` env. Public components call `getPublicPricing()` / `GET /api/pricing` and render live ₹ when published; otherwise enquire copy / em dash (fail closed). Occupancy table fail-closes: `nightlyRateInr <= 0` → em dash; `extraBedRateInr <= 0` → “Not offered”.
 
 ### Same table, same columns
 
-| Path | Code | Table.column |
-| ---- | ---- | ------------ |
-| Admin save | `PATCH /api/admin/pricing` | `UPDATE rooms.extra_bed_rate_inr`; upsert `occupancy_prices.nightly_rate_inr` per occupancy 2/3/4/6/8; insert `price_audit_log` |
-| Admin load | `getAdminPricing()` | `SELECT` those same columns (no `is_published` gate) |
-| Public load | `getPublicPricing()` → `GET /api/pricing`, occupancy table, booking widget, FAQ extra-bed line | `SELECT rooms.extra_bed_rate_inr` + `occupancy_prices.nightly_rate_inr` (requires `is_published` and all five tiers `> 0`) |
+| Path        | Code                                                                                           | Table.column                                                                                                                    |
+| ----------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Admin save  | `PATCH /api/admin/pricing`                                                                     | `UPDATE rooms.extra_bed_rate_inr`; upsert `occupancy_prices.nightly_rate_inr` per occupancy 2/3/4/6/8; insert `price_audit_log` |
+| Admin load  | `getAdminPricing()`                                                                            | `SELECT` those same columns (no `is_published` gate)                                                                            |
+| Public load | `getPublicPricing()` → `GET /api/pricing`, occupancy table, booking widget, FAQ extra-bed line | `SELECT rooms.extra_bed_rate_inr` + `occupancy_prices.nightly_rate_inr` (requires `is_published` and all five tiers `> 0`)      |
 
 After save, `revalidateTag("pricing")` drops the public cache so the next Home / room / widget fetch reads Postgres again. No redeploy.
 
@@ -261,4 +262,3 @@ After save, `revalidateTag("pricing")` drops the public cache so the next Home /
 
 1. Walks `src/**/*.ts(x)` excluding tests and fails on literal `nightlyRateInr` / `extraBedRateInr` numbers, named `RATE_*` constants, or unexpected `₹` amounts.
 2. Asserts the admin PATCH, `getAdminPricing()`, and `getPublicPricing()` all import `@/db/schema` and reference `rooms`, `occupancyPrices`, `extraBedRateInr`, and `nightlyRateInr`.
-

@@ -6,8 +6,8 @@ Phased. Check a box only when the work is in the repo (or the owner has given th
 
 ## Phase 0 — Owner facts (blocks honest copy and pricing)
 
-- [ ] Occupancy nightly rates for **2, 3, 4, 6, 8** sharing (INR, per room per night unless owner says otherwise)
-- [ ] Confirm extra bed is **₹500 per person per night** (not per stay) and the **maximum extra beds**
+- [x] Occupancy nightly rates for **2, 3, 4, 6, 8** sharing (INR, per room per night unless owner says otherwise)
+- [x] Confirm extra bed is **₹500 per person per night** (not per stay) and the **maximum extra beds**
 - [ ] Pricing rule for **5 and 7** guests (and for 1 guest, if allowed)
 - [ ] One physical Deluxe AC **unit** vs several units of the same type
 - [ ] Bed and bathroom layout (beds, extra mattresses, attached bath, hot water)
@@ -15,11 +15,11 @@ Phased. Check a box only when the work is in the repo (or the owner has given th
 - [ ] Exact map coordinates (or a Google Maps pin the owner owns)
 - [ ] Walking/driving distance to Murudeshwar Beach, Murudeshwar Temple, bus stand, railway station — **owner-measured or maps-measured from the confirmed pin**, not guessed
 - [ ] Real photographs (exterior, room, bath, view) with permission to use
-- [ ] Check-in / check-out times
-- [ ] Cancellation / advance-payment policy
-- [ ] Parking (car / two-wheeler, on-site vs street)
-- [ ] Wi-Fi (yes/no, where)
-- [ ] Meals (none / on request / included) — do not assume homestay food
+- [x] Check-in / check-out times
+- [x] Cancellation / advance-payment policy — cancellation confirmed (non-refundable); advance payment method still open
+- [x] Parking (car / two-wheeler, on-site vs street)
+- [x] Wi-Fi (yes/no, where)
+- [x] Meals (none / on request / included) — not included, not offered
 - [ ] GST / tax: rates on site inclusive or exclusive
 - [ ] Genuine reviews to feature (Google URLs or written permission) — **do not fabricate**
 - [ ] Google Business Profile: exists? owner access? categories? photos?
@@ -71,7 +71,7 @@ Full checklist with why each item matters: `BUSINESS_INFO.md`.
 
 Must ship a **usable** booking path, not a platform.
 
-- [ ] Owner occupancy rates entered (Phase 0) and room published via admin
+- [x] Owner occupancy rates entered (Phase 0) and room published via admin
 - [x] Interactive booking widget: dates, occupancy, extra beds, live estimate from API
 - [x] WhatsApp prefill with dates, guests, estimate, room name
 - [x] `LodgingBusiness` + `HotelRoom` JSON-LD **only with known facts** (`Offer` when rates are published; no geo/ratings)
@@ -85,7 +85,7 @@ Must ship a **usable** booking path, not a platform.
 
 - [x] About the homestay (family/host story — from owner, not invented) — `/about` with TODOs for missing host facts
 - [ ] Murudeshwar guide / how to reach (useful, not a doorway) — partial on `/location`; dedicated `/murudeshwar` deferred
-- [x] FAQ (only answered questions) — on Home; pending answers marked TODO
+- [x] FAQ (only answered questions) — on Home; check-in, parking, Wi-Fi, and cancellation now answered; extra bed when rates published
 - [ ] NAP consistency: site, WhatsApp about, GBP, listed directories
 - [ ] GBP setup or cleanup (categories, photos, products/services, WhatsApp, booking link = this site)
 - [ ] Search Console + Bing Webmaster

@@ -6,6 +6,29 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — FAQ: check-in, parking, Wi-Fi, cancellation confirmed
+
+### What
+
+- Moved four owner-confirmed answers from `TodoNotice` placeholders into `STATIC_FAQS` (`src/lib/seo/faqs.ts`):
+  - Check-in 11:00 AM; check-out 11:00 AM the next day.
+  - On-site parking.
+  - Free Wi-Fi.
+  - Non-cancellable, non-refundable bookings (stated plainly).
+- `FaqSection` no longer renders pending-owner cards for those four questions.
+- `FAQPage` JSON-LD now includes these Q&As (`json-ld.test.ts` updated).
+- `docs/TASKS.md` Phase 0 items checked off for check-in/out, cancellation, parking, Wi-Fi, and meals.
+
+### Why
+
+Owner confirmed these policies on 25 August 2026 (`BUSINESS_INFO.md`). Schema and on-page FAQs must only use answers we can stand behind — no more `TodoNotice` for settled facts.
+
+### Rejected
+
+- Softening cancellation copy into vague “contact us” language.
+
+---
+
 ## 2026-08-25 — Live occupancy rates seeded and published
 
 ### What

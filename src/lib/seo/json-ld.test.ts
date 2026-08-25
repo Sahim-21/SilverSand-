@@ -105,11 +105,18 @@ test("FAQPage schema uses answered questions only", () => {
   );
   const withRates = getAnsweredFaqs(published);
   assert.ok(withRates.some((item) => item.q === "Is there an extra bed?"));
-  const pending = ["parking", "Wi-Fi", "check-in", "cancellation"];
   const blob = JSON.stringify(faqPageJsonLd(unanswered));
-  for (const word of pending) {
-    assert.equal(blob.toLowerCase().includes(word.toLowerCase()), false, word);
+  const confirmedPolicyFaqs = [
+    "What are check-in and check-out times?",
+    "Is parking available?",
+    "Do you have Wi-Fi?",
+    "What is your cancellation policy?",
+  ];
+  for (const q of confirmedPolicyFaqs) {
+    assert.ok(blob.includes(q), `FAQPage must include: ${q}`);
   }
+  assert.ok(blob.includes("11:00 AM"));
+  assert.ok(blob.toLowerCase().includes("non-cancellable"));
 });
 
 test("BreadcrumbList positions match the trail", () => {

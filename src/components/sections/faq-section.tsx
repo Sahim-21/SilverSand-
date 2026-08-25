@@ -7,13 +7,6 @@ import { Heading, Text } from "@/components/ui/heading";
 import { extraBedFaq, STATIC_FAQS } from "@/lib/seo/faqs";
 import { getPublicPricing } from "@/lib/pricing/fetch";
 
-const pendingFaq = [
-  { q: "What are check-in and check-out times?", item: "checkInOut" as const, n: 4 },
-  { q: "Is parking available?", item: "parking" as const, n: 6 },
-  { q: "Do you have Wi-Fi?", item: "wifi" as const, n: 7 },
-  { q: "What is your cancellation policy?", item: "cancellation" as const, n: 5 },
-];
-
 export async function FaqSection() {
   const pricing = await getPublicPricing();
   const extra = extraBedFaq(pricing);
@@ -64,19 +57,6 @@ export async function FaqSection() {
                 </CardContent>
               </Card>
             )}
-            {pendingFaq.map((item) => (
-              <Card key={item.q}>
-                <CardHeader>
-                  <CardTitle className="text-base">{item.q}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <TodoNotice
-                    item={item.item}
-                    detail={`Answer pending owner input (checklist #${item.n}).`}
-                  />
-                </CardContent>
-              </Card>
-            ))}
           </div>
         </Stack>
       </Container>

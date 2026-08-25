@@ -33,6 +33,22 @@ export const STATIC_FAQS: readonly FaqItem[] = [
     q: "Can I book for 5 or 7 guests?",
     a: "The published occupancy tiers are 2, 3, 4, 6, and 8. If your group is 5 or 7, WhatsApp us — the owner will confirm whether that occupancy is accepted and at which rate.",
   },
+  {
+    q: "What are check-in and check-out times?",
+    a: "Check-in is at 11:00 AM. Check-out is at 11:00 AM the following day.",
+  },
+  {
+    q: "Is parking available?",
+    a: "Yes — parking is available on-site.",
+  },
+  {
+    q: "Do you have Wi-Fi?",
+    a: "Yes, free Wi-Fi is available for guests.",
+  },
+  {
+    q: "What is your cancellation policy?",
+    a: "Bookings are non-cancellable and non-refundable. Once your stay is confirmed, cancellations and refunds are not available.",
+  },
 ];
 
 export function extraBedFaq(pricing: PublicPricing | null): FaqItem | null {

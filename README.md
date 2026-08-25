@@ -21,6 +21,20 @@ npm run dev
 
 After seeding, log in and enter all five occupancy rates (2/3/4/6/8) plus extra-bed ₹. The room is unpublished until you save valid rates.
 
+## Production auth (Vercel Production)
+
+Set these in the Vercel project (Production environment only — not Preview):
+
+| Variable                         | Value                                                           |
+| -------------------------------- | --------------------------------------------------------------- |
+| `DATABASE_URL`                   | Production Neon (not the local `ci` database)                   |
+| `AUTH_SECRET`                    | `openssl rand -base64 32` — not the local CI placeholder        |
+| `AUTH_URL`                       | `https://silversandhomestay.com`                                |
+| `NEXT_PUBLIC_SITE_URL`           | `https://silversandhomestay.com`                                |
+| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Owner login — seed once; **not** `local-dev-password-change-me` |
+
+Preview deployments hide `/admin` unless `ALLOW_ADMIN_ON_PREVIEW=true` and the database is a non-production branch.
+
 ## Scripts
 
 | Command                           | Purpose                                          |

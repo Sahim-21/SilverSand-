@@ -1,11 +1,20 @@
 import type { NextAuthConfig } from "next-auth";
 
+import { shouldUseSecureAuthCookies } from "@/lib/auth/deployment";
+
 /**
  * Edge-safe Auth.js config (no DB / bcrypt / pg imports).
  * Middleware uses this alone; full Credentials + DB live in `auth.ts`.
  */
 export const authConfig = {
-  session: { strategy: "jwt" },
+  secret: process.env.AUTH_SECRET,
+  trustHost: true,
+  useSecureCookies: shouldUseSecureAuthCookies(),
+  session: {
+    strategy: "jwt",
+    maxAge: 60 * 60 * 24 * 7,
+    updateAge: 60 * 60 * 24,
+  },
   pages: {
     signIn: "/admin/login",
   },
@@ -35,5 +44,4 @@ export const authConfig = {
       return session;
     },
   },
-  trustHost: true,
 } satisfies NextAuthConfig;

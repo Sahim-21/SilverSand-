@@ -136,10 +136,11 @@ No tables for pages, media, menus, guests, or invoices.
 
 - **One owner account**, created by seed or CLI, not a register form.
 - **Auth.js Credentials** + bcrypt password hash. Constant-time compare even for missing emails.
-- **JWT sessions** in httpOnly, Secure, SameSite=Lax cookie. DB sessions require the adapter which does not work with Credentials — documented in CHANGELOG.
+- **JWT sessions** in httpOnly, SameSite=Lax cookie; **Secure** when `AUTH_URL` is https or `VERCEL_ENV=production`. DB sessions require the adapter which does not work with Credentials — documented in CHANGELOG.
 - **Rate limit:** 5 failed attempts per email in 15 min (in-process Map; bcrypt cost is the primary defense in serverless).
 - 2FA optional v1; HTTPS mandatory (Vercel default).
-- Env: `AUTH_SECRET`, `DATABASE_URL`, `ADMIN_EMAIL` (seed only), `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID`, `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY`. Never `NEXT_PUBLIC_` for prices or the Places **server** key.
+- **Preview:** `/admin` and `/api/admin/*` are disabled when `VERCEL_ENV=preview` (override only with `ALLOW_ADMIN_ON_PREVIEW=true` and a non-production database). Production rejects the local-dev password and the CI `AUTH_SECRET` placeholder.
+- Env: `AUTH_SECRET`, `AUTH_URL` (production https origin), `DATABASE_URL`, `ADMIN_EMAIL` / `ADMIN_PASSWORD` (seed only), `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID`, `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY`. Never `NEXT_PUBLIC_` for prices or the Places **server** key.
 
 Forgot-password: v1 — SSH/dashboard reset hash. Do not build email recovery without a transactional mailer.
 
@@ -188,7 +189,7 @@ No WYSIWYG, no image upload, no "pages".
 | Backups | Neon point-in-time; do not store prices only in Vercel’s ephemeral FS                                                                                          |
 | Env     | Vercel project settings, never committed                                                                                                                       |
 
-Preview deployments: admin must not be usable with production credentials. Use a separate Neon branch or disable admin on Preview.
+Preview deployments: admin is **disabled** when `VERCEL_ENV=preview` (middleware + `authorize()` + PATCH). Use a separate Neon branch if you must test admin on Preview (`ALLOW_ADMIN_ON_PREVIEW=true`). Production Vercel env: set `AUTH_SECRET` (≥32 chars), `AUTH_URL=https://silversandhomestay.com`, `DATABASE_URL` (production Neon), and seed `ADMIN_EMAIL` / `ADMIN_PASSWORD` that are not the local-dev placeholders.
 
 ### Observability (minimal)
 

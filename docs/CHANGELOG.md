@@ -6,6 +6,26 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Production-based admin auth
+
+### What
+
+- Auth.js uses `AUTH_SECRET`, 7-day JWT, and **Secure** cookies when `AUTH_URL` is https or `VERCEL_ENV=production`.
+- Vercel Preview disables `/admin` and `PATCH /api/admin/pricing` by default (`ALLOW_ADMIN_ON_PREVIEW=true` only with a non-prod DB).
+- Vercel Production rejects the local-dev password and the CI `AUTH_SECRET` placeholder (login + seed).
+- `.env.example` documents `AUTH_URL` for production.
+
+### Why
+
+Architecture: preview must not use production admin; production must not ship with `.env.local` placeholders.
+
+### Rejected
+
+- OAuth / magic-link (still one owner, Credentials).
+- Secure cookies on every `NODE_ENV=production` run (would break `next start` on http://127.0.0.1).
+
+---
+
 ## 2026-08-25 — Booking widget date `min` hydration
 
 ### What

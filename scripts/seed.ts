@@ -17,6 +17,10 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import pg from "pg";
 
 import { adminUsers, occupancyPrices, rooms } from "../src/db/schema";
+import {
+  isForbiddenProductionPassword,
+  isProductionAuthSecretWeak,
+} from "../src/lib/auth/deployment";
 import { OCCUPANCY_TIERS, ROOM_NAME, ROOM_SLUG } from "../src/lib/business";
 
 /** Owner-confirmed nightly rates — source of truth: docs/BUSINESS_INFO.md */
@@ -38,6 +42,16 @@ async function main() {
 
   if (!url || !email || !password) {
     throw new Error("Set DATABASE_URL, ADMIN_EMAIL, and ADMIN_PASSWORD");
+  }
+  if (isForbiddenProductionPassword(password)) {
+    throw new Error(
+      "ADMIN_PASSWORD is the local-dev placeholder. Set a unique production password before seeding Vercel production.",
+    );
+  }
+  if (isProductionAuthSecretWeak(process.env.AUTH_SECRET)) {
+    throw new Error(
+      "AUTH_SECRET is missing, too short, or the CI placeholder. Set a unique production secret.",
+    );
   }
 
   const pool = new pg.Pool({ connectionString: url });

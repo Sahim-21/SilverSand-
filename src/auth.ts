@@ -5,6 +5,11 @@ import Credentials from "next-auth/providers/credentials";
 
 import { authConfig } from "@/auth.config";
 import { adminUsers } from "@/db/schema";
+import {
+  isAdminDisabled,
+  isForbiddenProductionPassword,
+  isProductionAuthSecretWeak,
+} from "@/lib/auth/deployment";
 import { getDb, isDatabaseConfigured } from "@/lib/db";
 
 /**
@@ -62,11 +67,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
+        if (isAdminDisabled()) return null;
+        if (isProductionAuthSecretWeak(process.env.AUTH_SECRET)) return null;
         if (!isDatabaseConfigured()) return null;
 
         const email = credentials?.email?.toString().trim().toLowerCase();
         const password = credentials?.password?.toString();
         if (!email || !password) return null;
+        if (isForbiddenProductionPassword(password)) return null;
 
         // Layer 1: per-email rate limit (in-process; see note above).
         if (isRateLimited(email)) return null;

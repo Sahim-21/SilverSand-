@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useState, useSyncExternalStore } from "react";
 
 import { QuantityStepper } from "@/components/booking/quantity-stepper";
 import { buttonVariants } from "@/components/ui/button";
@@ -53,6 +53,18 @@ function newLineId(): string {
   return `line-${Math.random().toString(36).slice(2)}`;
 }
 
+function subscribeToday(): () => void {
+  return () => {};
+}
+
+function getTodaySnapshot(): string {
+  return todayIso();
+}
+
+function getServerTodaySnapshot(): string {
+  return "";
+}
+
 function defaultLine(pricing: PublicPricing | null, id = "line-0"): RoomLine {
   const catalog = catalogFromPricing(pricing);
   const room = catalog[0];
@@ -76,14 +88,12 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
   const [phone, setPhone] = useState("");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
-  // Set after mount so SSR HTML and the first client render match. Server "today"
-  // (UTC / VM clock) and the guest's local calendar often differ.
-  const [minCheckIn, setMinCheckIn] = useState("");
+  const minCheckIn = useSyncExternalStore(
+    subscribeToday,
+    getTodaySnapshot,
+    getServerTodaySnapshot,
+  );
   const [lines, setLines] = useState<RoomLine[]>(() => [defaultLine(initialPricing)]);
-
-  useEffect(() => {
-    setMinCheckIn(todayIso());
-  }, []);
 
   useEffect(() => {
     let cancelled = false;

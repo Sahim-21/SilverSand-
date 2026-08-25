@@ -4,11 +4,16 @@ import { NextResponse } from "next/server";
 
 import { auth } from "@/auth";
 import { occupancyPrices, priceAuditLog, rooms } from "@/db/schema";
+import { isAdminDisabled } from "@/lib/auth/deployment";
 import { getDb } from "@/lib/db";
 import { ROOM_SLUG } from "@/lib/business";
 import { adminPricingPatchSchema } from "@/lib/pricing/validation";
 
 export async function PATCH(request: Request) {
+  if (isAdminDisabled()) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

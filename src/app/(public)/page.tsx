@@ -9,6 +9,7 @@ import { MurudeshwarInfoSection } from "@/components/sections/murudeshwar-info-s
 import { NearbyAttractionsSection } from "@/components/sections/nearby-attractions-section";
 import { PhotosSection } from "@/components/sections/photos-section";
 import { PropertyIntroSection } from "@/components/sections/property-intro-section";
+import { ReviewsSection } from "@/components/sections/reviews-section";
 import { RoomPricingSection } from "@/components/sections/room-pricing-section";
 import { JsonLd } from "@/components/seo/json-ld";
 import { getPublicPricing } from "@/lib/pricing/fetch";
@@ -31,6 +32,7 @@ export default async function HomePage() {
       <RoomPricingSection />
       <PhotosSection />
       <AboutSection compact />
+      <ReviewsSection />
       <MurudeshwarInfoSection />
       <NearbyAttractionsSection />
       <FaqSection />

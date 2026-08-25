@@ -29,6 +29,7 @@ Last reviewed: 25 August 2026.
 | Check-out                     | 11:00 AM the next day                                                                                                                               |
 | Cancellation                  | Not available — bookings are **non-cancellable / non-refundable**                                                                                   |
 | Social share image            | Branded wordmark OG/Twitter card is **final** — no owner photograph required for social sharing                                                     |
+| Google Place ID               | `ChIJz7O6_zJHvDsRPrgj4nB9eiE` — used server-side for Place Details `reviews` only                                                                  |
 
 _Source for rows added 25 August 2026: owner confirmation (this brief)._
 
@@ -50,9 +51,13 @@ Do not copy Coastal Pearl, Kamath, Amani, or Nestle Sahyadri tariffs — these a
 
 **Not provided by the owner.**
 
-### Photos, GBP, coordinates, reviews
+### Photos, GBP, coordinates
 
-**Not provided by the owner.**
+**Not provided by the owner** (photos for the site; GBP login; map coordinates).
+
+### Guest reviews
+
+**Resolved via live Google Places API (New)** — Place ID `ChIJz7O6_zJHvDsRPrgj4nB9eiE`, server-side Place Details with field mask `reviews` only. Homepage shows whatever Google returns (max 5, ordered by relevance). We do **not** invent, cherry-pick, or hardcode review text. Checklist #9.
 
 Bed and bathroom layout (bed count, mattresses, attached bath, hot water) is still **not** confirmed.
 
@@ -98,9 +103,12 @@ EXTRA_BED_UNIT=per_person_per_night
 MAX_TOTAL_GUESTS=8
 CHECK_IN=11:00
 CHECK_OUT=11:00
+GOOGLE_PLACE_ID=ChIJz7O6_zJHvDsRPrgj4nB9eiE
 ```
 
 `wa.me` URL: `https://wa.me/919986222892`
+
+`GOOGLE_PLACES_API_KEY` is server-only (never `NEXT_PUBLIC_`). Place Details requests use field mask `reviews` only.
 
 ---
 
@@ -120,7 +128,7 @@ Exactly what is still required, plus a few items the original list omitted becau
 | 6   | **Parking** (car, two-wheeler, on-site vs street)                                                     | Family/group intent; Coastal Pearl pushes parking/EV               | ☑ On-site (owner, 25 Aug 2026) |
 | 7   | **Wi-Fi** (yes/no, where)                                                                             | Standard filter; do not tick it from OTA text                      | ☑ Yes, free (owner, 25 Aug 2026) |
 | 8   | **Nearby landmark distances** (beach, temple, bus stand, railway, highway)                            | “Homestay near Murudeshwar beach” page is unethical without this   | ☐      |
-| 9   | **Genuine reviews** (Google links, or written permission to quote)                                    | Amani/Kamath show quotes of mixed quality; we will not invent ours | ☐      |
+| 9   | **Genuine reviews** (Google links, or written permission to quote)                                    | Amani/Kamath show quotes of mixed quality; we will not invent ours | ☑ Live Google Places `reviews` on Home (Place ID above; API cap 5; no manual quotes) |
 | 10  | **Google Business Profile** (exists? login? primary category? hours? photos? WhatsApp?)               | Local pack vs Agoda/Google Travel                                  | ☐      |
 | 11  | **Exact map coordinates** (or owner-controlled Maps pin)                                              | Schema `GeoCoordinates`, embed, “how to reach”                     | ☐      |
 

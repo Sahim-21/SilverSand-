@@ -6,6 +6,27 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Homepage Google reviews via Places API (New)
+
+### What
+
+- Server-side Place Details fetch for reviews only (`X-Goog-FieldMask: reviews`) using `GOOGLE_PLACES_API_KEY` + `GOOGLE_PLACE_ID` (`ChIJz7O6_zJHvDsRPrgj4nB9eiE`).
+- `getGoogleReviews()` cached 24h (`unstable_cache` tag `google-reviews`); `GET /api/reviews` exposes the same payload without leaking the key.
+- Homepage `ReviewsSection`: author, rating, text, relative date, Maps link — exactly as returned (0–5 reviews). “Powered by Google” attribution + relevance ordering note.
+- `.env.example`, `docs/BUSINESS_INFO.md` checklist #9, and `docs/ARCHITECTURE.md` updated. Unit tests for response normalization.
+
+### Why
+
+Owner supplied the Place ID so we can show genuine Google reviews without inventing quotes. Server-only key + daily cache keeps cost and exposure under control.
+
+### Rejected
+
+- Client-side Places calls or `NEXT_PUBLIC_` API keys.
+- Inventing, rounding, or cherry-picking reviews; fabricating `AggregateRating` JSON-LD from this feed.
+- Empty placeholder review cards when the API returns nothing (section stays hidden).
+
+---
+
 ## 2026-08-25 — Photos section: remove exterior and bathroom placeholders
 
 ### What

@@ -118,6 +118,7 @@ Keep the API surface small.
 | Method  | Path                 | Auth          | Purpose                                                                                |
 | ------- | -------------------- | ------------- | -------------------------------------------------------------------------------------- |
 | `GET`   | `/api/pricing`       | public        | Current room, occupancy rates, extra-bed rate, currency, `updatedAt`                   |
+| `GET`   | `/api/reviews`       | public        | Google Place reviews (server-fetched; key never exposed). Empty/503 if unset or fail   |
 | `PATCH` | `/api/admin/pricing` | admin session | Replace occupancy rates + extra-bed rate; write audit rows; `revalidateTag('pricing')` |
 | `POST`  | `/api/auth/*`        | Auth.js       | Login / logout                                                                         |
 
@@ -138,7 +139,7 @@ No tables for pages, media, menus, guests, or invoices.
 - **JWT sessions** in httpOnly, Secure, SameSite=Lax cookie. DB sessions require the adapter which does not work with Credentials — documented in CHANGELOG.
 - **Rate limit:** 5 failed attempts per email in 15 min (in-process Map; bcrypt cost is the primary defense in serverless).
 - 2FA optional v1; HTTPS mandatory (Vercel default).
-- Env: `AUTH_SECRET`, `DATABASE_URL`, `ADMIN_EMAIL` (seed only). Never `NEXT_PUBLIC_` for prices.
+- Env: `AUTH_SECRET`, `DATABASE_URL`, `ADMIN_EMAIL` (seed only), `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID`. Never `NEXT_PUBLIC_` for prices or the Places API key.
 
 Forgot-password: v1 — SSH/dashboard reset hash. Do not build email recovery without a transactional mailer.
 
@@ -159,6 +160,15 @@ No WYSIWYG, no image upload, no "pages".
 - Tag public pricing reads with `pricing`.
 - After PATCH, `revalidateTag('pricing')` so Home and Room update without a rebuild.
 - Do not ISR-cache prices for hours; a homestay owner expects the new rate on the next refresh.
+- Google Place reviews (`getGoogleReviews`) are tagged `google-reviews` and revalidated every **24 hours** to limit Places API cost. Home RSC and `GET /api/reviews` share that cache. The API key stays in `GOOGLE_PLACES_API_KEY` (server-only).
+
+### Google Places reviews (homepage)
+
+- **API:** Places API (New) Place Details — `GET https://places.googleapis.com/v1/places/{GOOGLE_PLACE_ID}` with `X-Goog-FieldMask: reviews` only.
+- **Env:** `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID` (see `.env.example`). Never `NEXT_PUBLIC_*` for the key.
+- **Display:** author name (and profile link/photo when Google returns them), star rating as returned, review text as returned, `relativePublishTimeDescription`, link to the review on Google Maps when `googleMapsUri` is present. Cap is **5** reviews; fewer is fine. Section omitted if unset/failed/empty.
+- **Attribution:** “Powered by Google” near the list; ordering notice (relevance) in section copy. Do **not** invent `AggregateRating` / `Review` JSON-LD from this feed unless product policy changes.
+- **UI:** `ReviewsSection` on Home only (`src/components/sections/reviews-section.tsx`).
 
 ### Deployment
 

@@ -21,7 +21,7 @@ Phased. Check a box only when the work is in the repo (or the owner has given th
 - [x] Wi-Fi (yes/no, where)
 - [x] Meals (none / on request / included) — not included, not offered
 - [ ] GST / tax: rates on site inclusive or exclusive
-- [ ] Genuine reviews to feature (Google URLs or written permission) — **do not fabricate**
+- [x] Genuine reviews — live Google Places API `reviews` on Home (Place ID in `BUSINESS_INFO.md`); do not fabricate or hardcode quotes
 - [ ] Google Business Profile: exists? owner access? categories? photos?
 - [ ] Domain: registrar login, DNS, SSL
 - [ ] Legal name / homestay registration if they want it on the site

@@ -23,28 +23,18 @@ export function PhotosSection({ showGalleryLink = true }: PhotosSectionProps) {
               Photos
             </Heading>
             <Text tone="muted" className="mt-2">
-              Owner-supplied photographs will appear here. These placeholders will be
-              replaced with real images of the room, bathroom, and property exterior —
-              we do not use stock images or unverified OTA scrapes.
+              A photograph of the Deluxe AC Room will appear here when the owner
+              supplies it. We do not use stock images or unverified OTA scrapes.
+              Exterior, bathroom, and other property photos will be added in a
+              later step — we do not show empty placeholder boxes for those.
             </Text>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <PhotoFrame
-              ratio="wide"
-              alt="Exterior of Silver Sand Beach Homestay in Murudeshwar — photograph pending from the owner"
-              caption="Exterior — pending owner photos (#2)"
-            />
-            <PhotoFrame
-              ratio="room"
-              alt="Deluxe AC Room interior at Silver Sand Beach Homestay — photograph pending from the owner"
-              caption="Deluxe AC Room — pending (#2)"
-            />
-            <PhotoFrame
-              ratio="room"
-              alt="Bathroom of the Deluxe AC Room — photograph pending from the owner"
-              caption="Bathroom — pending (#2)"
-            />
-          </div>
+          <PhotoFrame
+            ratio="room"
+            className="max-w-xl"
+            alt="Deluxe AC Room interior at Silver Sand Beach Homestay — photograph pending from the owner"
+            caption="Deluxe AC Room — pending (#2)"
+          />
           <TodoNotice item="photos" />
           {showGalleryLink ? (
             <Link

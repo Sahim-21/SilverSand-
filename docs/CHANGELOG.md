@@ -6,6 +6,24 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Photos section: remove exterior and bathroom placeholders
+
+### What
+
+- `PhotosSection` no longer renders empty dashed `PhotoFrame` slots for the property exterior or bathroom on `/`, `/gallery`, or `/rooms/deluxe-ac-room`.
+- One room-photo `PhotoFrame` placeholder remains until the owner supplies a Deluxe AC Room image.
+- Section copy updated: no empty boxes for exterior/bathroom; those photos come in a later step.
+
+### Why
+
+The owner does not want visible empty placeholder frames for categories where photos are not ready yet. A single room slot is enough until real images arrive.
+
+### Rejected
+
+- Stock or OTA-scraped images as stand-ins.
+
+---
+
 ## 2026-08-25 — Booking terms page: confirmed policies published
 
 ### What

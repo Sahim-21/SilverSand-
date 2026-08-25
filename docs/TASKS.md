@@ -14,7 +14,7 @@ Phased. Check a box only when the work is in the repo (or the owner has given th
 - [ ] Full postal address + PIN
 - [ ] Exact map coordinates (or a Google Maps pin the owner owns)
 - [ ] Walking/driving distance to Murudeshwar Beach, Murudeshwar Temple, bus stand, railway station — **owner-measured or maps-measured from the confirmed pin**, not guessed
-- [ ] Real photographs (exterior, room, bath, view) with permission to use
+- [ ] Real photographs with permission to use — **room image still pending** (one `PhotoFrame` placeholder on site); exterior, bathroom, and other property photos still open (empty placeholders removed from UI until owner supplies them)
 - [x] Check-in / check-out times
 - [x] Cancellation / advance-payment policy — cancellation confirmed (non-refundable); advance payment method still open
 - [x] Parking (car / two-wheeler, on-site vs street)

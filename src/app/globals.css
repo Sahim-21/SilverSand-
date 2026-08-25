@@ -53,6 +53,7 @@
   --ss-card-lift: -0.25rem;
   --ss-image-zoom: 1.04;
   --ss-fab-pulse: 2.8s;
+  --ss-lightbox-duration: 250ms;
 
   --background: var(--sand);
   --foreground: var(--ink);
@@ -525,5 +526,136 @@ body {
 @keyframes ss-image-shimmer {
   100% {
     transform: translateX(60%);
+  }
+}
+
+/*
+  Photo lightbox — room set and attraction set are separate (never mixed).
+  Open/close 250ms fade+scale; reduced motion shows/hides instantly.
+*/
+.ss-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: max(4.25rem, env(safe-area-inset-top, 0px))
+    max(3.25rem, env(safe-area-inset-right, 0px))
+    max(2.5rem, env(safe-area-inset-bottom, 0px))
+    max(3.25rem, env(safe-area-inset-left, 0px));
+  outline: none;
+}
+
+.ss-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: color-mix(in srgb, var(--mangrove-deep) 88%, #000);
+}
+
+.ss-lightbox-chrome {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ss-lightbox-control {
+  pointer-events: auto;
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-on-dark);
+  background: color-mix(in srgb, var(--mangrove-deep) 70%, transparent);
+  color: var(--sand);
+}
+
+.ss-lightbox-control:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.ss-lightbox-close {
+  top: max(0.75rem, env(safe-area-inset-top, 0px));
+  right: max(0.75rem, env(safe-area-inset-right, 0px));
+}
+
+.ss-lightbox-prev,
+.ss-lightbox-next {
+  top: 50%;
+  margin-top: -1.375rem;
+}
+
+.ss-lightbox-prev {
+  left: max(0.5rem, env(safe-area-inset-left, 0px));
+}
+
+.ss-lightbox-next {
+  right: max(0.5rem, env(safe-area-inset-right, 0px));
+}
+
+.ss-lightbox-stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  max-width: 100%;
+  touch-action: none;
+  user-select: none;
+}
+
+.ss-lightbox-caption {
+  position: relative;
+  z-index: 1;
+  margin-top: 0.75rem;
+  max-width: min(92vw, 40rem);
+  text-align: center;
+  color: var(--sand);
+  font-size: 0.875rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ss-lightbox.is-entered {
+    animation: ss-lightbox-in var(--ss-lightbox-duration) var(--ss-ease) both;
+  }
+
+  .ss-lightbox.is-exiting {
+    animation: ss-lightbox-out var(--ss-lightbox-duration) var(--ss-ease) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-lightbox.is-entered,
+  .ss-lightbox.is-exiting {
+    animation: none;
+  }
+}
+
+@keyframes ss-lightbox-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ss-lightbox-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.98);
   }
 }

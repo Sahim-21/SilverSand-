@@ -3,6 +3,7 @@ import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
 import { AttractionPlaceImage } from "@/components/marketing/attraction-place-image";
+import { AttractionPhotoGallery } from "@/components/media/attraction-photo-gallery";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heading, Text } from "@/components/ui/heading";
 import { ATTRACTION_IMAGES } from "@/lib/attractions/images";
@@ -21,26 +22,32 @@ export function NearbyAttractionsSection({ band }: { band?: SectionBand }) {
               Most guests combine the temple and beach with one or two day trips.
             </Text>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {nearbyAttractions.map((place) => {
-              const image = ATTRACTION_IMAGES[place.name];
-              return (
-                <Card key={place.name} className="overflow-hidden">
-                  {image ? (
-                    <AttractionPlaceImage image={image} label={place.name} />
-                  ) : null}
-                  <CardHeader>
-                    <CardTitle className="text-base">{place.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <Text size="sm" tone="muted">
-                      {place.note}
-                    </Text>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+          <AttractionPhotoGallery>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {nearbyAttractions.map((place, index) => {
+                const image = ATTRACTION_IMAGES[place.name];
+                return (
+                  <Card key={place.name} className="overflow-hidden">
+                    {image ? (
+                      <AttractionPlaceImage
+                        image={image}
+                        label={place.name}
+                        index={index}
+                      />
+                    ) : null}
+                    <CardHeader>
+                      <CardTitle className="text-base">{place.name}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <Text size="sm" tone="muted">
+                        {place.note}
+                      </Text>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </AttractionPhotoGallery>
         </Stack>
       </Container>
     </Section>

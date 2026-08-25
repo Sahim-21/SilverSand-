@@ -6,6 +6,7 @@ import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
 import { BookNowButton } from "@/components/marketing/book-now-button";
 import { OccupancyRoomImage } from "@/components/marketing/occupancy-room-image";
+import { RoomPhotoGallery } from "@/components/media/room-photo-gallery";
 import { buttonVariants } from "@/components/ui/button";
 import { Heading, Text } from "@/components/ui/heading";
 import { BOOKING_HASH } from "@/lib/booking/anchor";
@@ -38,20 +39,22 @@ export async function PhotosSection({
               The Deluxe AC Room as it looks for 2, 3, 4, 6, and 8 guests sharing.
             </Text>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {OCCUPANCY_TIERS.map((tier) => {
-              const nightlyRateInr =
-                pricing?.occupancyRates.find((row) => row.occupancy === tier)
-                  ?.nightlyRateInr ?? null;
-              return (
-                <OccupancyRoomImage
-                  key={tier}
-                  occupancy={tier}
-                  nightlyRateInr={nightlyRateInr}
-                />
-              );
-            })}
-          </div>
+          <RoomPhotoGallery>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {OCCUPANCY_TIERS.map((tier) => {
+                const nightlyRateInr =
+                  pricing?.occupancyRates.find((row) => row.occupancy === tier)
+                    ?.nightlyRateInr ?? null;
+                return (
+                  <OccupancyRoomImage
+                    key={tier}
+                    occupancy={tier}
+                    nightlyRateInr={nightlyRateInr}
+                  />
+                );
+              })}
+            </div>
+          </RoomPhotoGallery>
           <div className="flex flex-wrap items-center gap-3">
             <BookNowButton href={bookingHref} />
             {showGalleryLink ? (

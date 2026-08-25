@@ -206,8 +206,8 @@ Estimates use `GET /api/pricing` / `estimateEnquiry` only. If rates are unpublis
 ## Imagery
 
 - Homepage hero: Murudeshwar coastal photograph via `TokenImage` (`next/image`, `priority`, `placeholder="blur"` from the static import) with a mangrove-deep gradient overlay — alt describes the beach scene, not the property.
-- Deluxe AC Room occupancy photos: `TokenImage` from `public/Rooms/` (`2sharing.jpeg`, `3sharing.jpeg`, `4sharing.jpeg`, `6Sharing.jpeg`, `8sharing.jpeg`). Lazy-load (below the fold), unique `alt` per tier, 4:3 reserved slot (`aspect-[4/3]`) so the sand-deep skeleton cannot shift layout. Hover (or always-on for touch) reveals occupancy sharing plus the live nightly rate on a mangrove-deep bottom gradient.
-- Nearby attraction photos: same `TokenImage` slot from `public/tourist_places/`. Lazy-load, unique `alt` per place. The overlay caption is the attraction name. Do not publish walking times from these images.
+- Deluxe AC Room occupancy photos: `TokenImage` from `public/Rooms/` (`2sharing.jpeg`, `3sharing.jpeg`, `4sharing.jpeg`, `6Sharing.jpeg`, `8sharing.jpeg`). Lazy-load (below the fold), unique `alt` per tier, 4:3 reserved slot (`aspect-[4/3]`) so the sand-deep skeleton cannot shift layout. Hover (or always-on for touch) reveals occupancy sharing plus the live nightly rate on a mangrove-deep bottom gradient. Click opens a lightbox that cycles **only** those occupancy photos.
+- Nearby attraction photos: same `TokenImage` slot from `public/tourist_places/`. Lazy-load, unique `alt` per place. The overlay caption is the attraction name. Do not publish walking times from these images. Click opens a lightbox that cycles **only** attraction photos (not rooms, not the hero).
 - Loading: `placeholder="blur"` (Next.js native). The slot is `bg-sand-deep` with a CSS shimmer (`--sand` highlight) _behind_ the photo so a missed `onLoad` cannot hide it. `prefers-reduced-motion: reduce` keeps the slot static. Do not use a generic grey skeleton. Review avatars use the same reserved sand-deep circle (40×40) because they are remote Google URIs.
 - Owner property photos only, via `next/image` when they exist. Every `PhotoFrame` (and later image) has an `alt`.
 - Until remaining property photos exist (exterior, bathroom): `PhotoFrame` empty state with `role="img"` + `aria-label={alt}`, not Unsplash. Do not show empty frames for those categories.
@@ -224,27 +224,28 @@ The booking widget **stay total** is the only exception: `AnimatedInr` counts fr
 
 Defined once in `:root` and reused. Do not hand-tune a second duration or easing on a single control.
 
-| Token              | Value                            | Role                                     |
-| ------------------ | -------------------------------- | ---------------------------------------- |
-| `--ss-duration`    | `180ms`                          | All hover/press transitions (150–250ms)  |
-| `--ss-ease`        | `cubic-bezier(0.22, 1, 0.36, 1)` | Shared easing                            |
-| `--ss-hover-scale` | `1.02`                           | Buttons on hover                         |
-| `--ss-press-scale` | `0.98`                           | Buttons while pressed                    |
-| `--ss-card-lift`   | `-0.25rem`                       | Occupancy/pricing cards on hover         |
-| `--ss-image-zoom`  | `1.04`                           | Room and attraction photos on hover      |
-| `--ss-fab-pulse`   | `2.8s`                           | Slow WhatsApp FAB ring (not hover/press) |
+| Token                    | Value                            | Role                                     |
+| ------------------------ | -------------------------------- | ---------------------------------------- |
+| `--ss-duration`          | `180ms`                          | All hover/press transitions (150–250ms)  |
+| `--ss-ease`              | `cubic-bezier(0.22, 1, 0.36, 1)` | Shared easing                            |
+| `--ss-hover-scale`       | `1.02`                           | Buttons on hover                         |
+| `--ss-press-scale`       | `0.98`                           | Buttons while pressed                    |
+| `--ss-card-lift`         | `-0.25rem`                       | Occupancy/pricing cards on hover         |
+| `--ss-image-zoom`        | `1.04`                           | Room and attraction photos on hover      |
+| `--ss-fab-pulse`         | `2.8s`                           | Slow WhatsApp FAB ring (not hover/press) |
+| `--ss-lightbox-duration` | `250ms`                          | Photo lightbox open/close (200–300ms)    |
 
 Scoped to `.public-site` (public layout + 404). **Admin (`.admin-shell`) does not use these** — dashboard stays colour-only `duration-150` on buttons/inputs, no scale or lift.
 
-| Surface                   | Hover                                                                           | Press      | Reduced motion                   |
-| ------------------------- | ------------------------------------------------------------------------------- | ---------- | -------------------------------- |
-| Buttons (`.ss-press`)     | Scale 1.02 + slight brightness                                                  | Scale 0.98 | Brightness only (no transform)   |
-| Occupancy cards           | Shadow + translateY                                                             | —          | Shadow only                      |
-| Nav / footer (`.ss-link`) | Colour to `--mangrove-fg` (no underline)                                        | —          | Colour transition kept           |
-| Room / attraction photos  | Zoom 1.04 + mangrove-deep bottom caption (occupancy + live ₹ / attraction name) | —          | Opacity only (no zoom, no slide) |
-| Contact FAB               | Gold circles; WhatsApp has a slow gold pulse ring                               | Scale 0.98 | Pulse off; buttons stay          |
+| Surface                   | Hover                                                                                                            | Press      | Reduced motion                                                          |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
+| Buttons (`.ss-press`)     | Scale 1.02 + slight brightness                                                                                   | Scale 0.98 | Brightness only (no transform)                                          |
+| Occupancy cards           | Shadow + translateY                                                                                              | —          | Shadow only                                                             |
+| Nav / footer (`.ss-link`) | Colour to `--mangrove-fg` (no underline)                                                                         | —          | Colour transition kept                                                  |
+| Room / attraction photos  | Zoom 1.04 + mangrove-deep bottom caption (occupancy + live ₹ / attraction name); click opens that set’s lightbox | —          | Opacity only (no zoom, no slide); lightbox appears/disappears instantly |
+| Contact FAB               | Gold circles; WhatsApp has a slow gold pulse ring                                                                | Scale 0.98 | Pulse off; buttons stay                                                 |
 
-Classes: `ss-press` (on `buttonVariants`), `ss-link`, `ss-card-lift`, `ss-zoom-frame` + `ss-image-zoom`, `ss-photo-caption`, `ss-fab-cluster` / `ss-fab` / `ss-fab-pulse`.
+Classes: `ss-press` (on `buttonVariants`), `ss-link`, `ss-card-lift`, `ss-zoom-frame` + `ss-image-zoom`, `ss-photo-caption`, `ss-fab-cluster` / `ss-fab` / `ss-fab-pulse`, `ss-lightbox` (room set and attraction set are separate providers).
 
 Room/attraction captions sit in `.ss-photo-caption` (sand type on a mangrove-deep gradient from the bottom). Fine-pointer hover (and `:focus-within`) fades them in with `--ss-duration`. Coarse pointers / `hover: none` keep the caption visible. Occupancy ₹ comes from `getPublicPricing` / `formatInr` — never a hardcoded amount. Unpublished rates show the occupancy label only.
 
@@ -257,7 +258,7 @@ Not on `/rooms`, `/about`, `/gallery`, `/location`:
 1. **Hero entrance** — the photograph (and overlay) fades/scales in from `1.045`. Headline, subtext, then **Check dates** follow at 160 / 260 / 360ms. The last beat finishes by ~760ms. The booking widget is not part of this sequence and must stay visible and usable from first paint.
 2. **Scroll fade-up** — `IntersectionObserver` in `RevealOnScroll`. Same ease and 12px rise on Room & Pricing, Photos, About, Nearby Attractions, and FAQ. Content is in the DOM immediately; off-screen sections are only visually pending after mount.
 
-`prefers-reduced-motion: reduce` disables transform-based motion (hero scale, section fade-up, button scale, card lift, image zoom, FAB slide, WhatsApp FAB pulse) and the stay-total count-up (the final `formatInr` amount is shown immediately). Colour and opacity transitions may remain. Never use motion as a loading gate for prices or the widget.
+`prefers-reduced-motion: reduce` disables transform-based motion (hero scale, section fade-up, button scale, card lift, image zoom, FAB slide, WhatsApp FAB pulse, lightbox fade/scale) and the stay-total count-up (the final `formatInr` amount is shown immediately). Colour and opacity transitions may remain. Never use motion as a loading gate for prices or the widget.
 
 ---
 

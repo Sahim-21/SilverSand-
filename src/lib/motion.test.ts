@@ -65,6 +65,7 @@ test("interaction tokens are defined once and scoped to the public site", () => 
   assert.ok(css.includes("--ss-press-scale: 0.98"));
   assert.ok(css.includes("--ss-card-lift:"));
   assert.ok(css.includes("--ss-image-zoom: 1.04"));
+  assert.ok(css.includes("--ss-lightbox-duration: 250ms"));
   assert.ok(css.includes(".public-site .ss-press"));
   assert.ok(css.includes(".public-site .ss-card-lift"));
   assert.ok(css.includes(".public-site .ss-link"));
@@ -129,6 +130,7 @@ test("photo caption overlay uses mangrove tokens, hover reveal, and reduced-moti
     "utf8",
   );
   assert.ok(occupancy.includes("PhotoRevealCaption"));
+  assert.ok(occupancy.includes("PhotoLightboxTrigger"));
   assert.ok(occupancy.includes("formatInr"));
   assert.ok(occupancy.includes("nightlyRateInr"));
   assert.doesNotMatch(occupancy, /₹|2000|2500/);
@@ -145,7 +147,29 @@ test("photo caption overlay uses mangrove tokens, hover reveal, and reduced-moti
     "utf8",
   );
   assert.ok(attractions.includes("PhotoRevealCaption"));
+  assert.ok(attractions.includes("PhotoLightboxTrigger"));
   assert.ok(attractions.includes("label"));
+});
+
+test("photo lightbox open/close is 250ms, reduced-motion instant, and not a npm lightbox", () => {
+  const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+  assert.ok(css.includes("--ss-lightbox-duration: 250ms"));
+  assert.ok(css.includes(".ss-lightbox"));
+  assert.match(css, /prefers-reduced-motion:\s*no-preference[\s\S]*ss-lightbox-in/);
+  assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*ss-lightbox/);
+
+  const photos = readFileSync(
+    join(process.cwd(), "src/components/sections/photos-section.tsx"),
+    "utf8",
+  );
+  assert.ok(photos.includes("RoomPhotoGallery"));
+
+  const nearby = readFileSync(
+    join(process.cwd(), "src/components/sections/nearby-attractions-section.tsx"),
+    "utf8",
+  );
+  assert.ok(nearby.includes("AttractionPhotoGallery"));
+  assert.doesNotMatch(nearby, /RoomPhotoGallery/);
 });
 
 test("section bands alternate existing sand tokens without a wave SVG", () => {

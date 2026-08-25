@@ -6,6 +6,27 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Photo lightbox for room and attraction sets
+
+### What
+
+- Clicking a Deluxe AC Room occupancy photo or a nearby-attraction photo opens a full-viewport overlay (mangrove-deep dim, close control, previous/next).
+- Room photos cycle only through the five occupancy images; attraction photos cycle only through the attraction set. The two galleries never mix. The homepage hero is not in either set.
+- Escape closes; arrow keys and a horizontal swipe change slides. Focus is trapped in the overlay (`inert` on the rest of `document.body`); Tab cycles the chrome. `prefers-reduced-motion: reduce` skips the 250ms fade/scale and shows or hides the overlay immediately.
+- Larger `next/image` variants (`sizes="100vw"`) load only while the overlay is open. Thumbnails on the page keep their card `sizes`.
+
+### Why
+
+Guests should be able to look at a room or a place properly without a new route — and without a second animation/lightbox package.
+
+### Rejected
+
+- PhotoSwipe, yet-another-react-lightbox, GLightbox, Fancybox, or another motion library (nothing in `package.json` already covered this; DESIGN_SYSTEM still forbids an animation kit).
+- One combined gallery of rooms + attractions + hero.
+- Changing occupancy rates or inventing new photographs.
+
+---
+
 ## 2026-08-25 — Stay-total count-up on the booking widget
 
 ### What

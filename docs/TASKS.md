@@ -69,6 +69,7 @@ Full checklist with why each item matters: `BUSINESS_INFO.md`.
 - [x] Public micro-interactions: shared `--ss-duration` / `--ss-ease` on buttons, occupancy cards, nav links, room/attraction photos; admin dashboard excluded
 - [x] Homepage section bands: alternate canvas / sand-deep with a static fade join; `--space-section` 5.5rem (inner pages not rolled out yet)
 - [x] Gold contact FAB: WhatsApp + Call, live widget enquiry when present, hide vs booking CTA, pulse off for reduced motion
+- [x] Photo lightbox: room occupancy set and attraction set are separate; Escape / arrows / swipe; focus trap; reduced-motion instant
 - [x] Marketing pages: Home (full section stack), `/rooms`, `/rooms/deluxe-ac-room`, `/gallery`, `/about`, `/location`, `/contact` — reusable section components; pricing from DB only
 
 ---

@@ -18,8 +18,8 @@ export function NearbyAttractionsSection() {
             </Heading>
             <Text tone="muted" className="mt-2">
               Most guests combine the temple and beach with one or two day trips. The
-              notes below describe each place — distances from our homestay will be
-              added once the owner shares a confirmed map pin.
+              notes below describe each place — walking and driving times from the
+              homestay are not published yet.
             </Text>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">

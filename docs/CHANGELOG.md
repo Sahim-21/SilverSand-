@@ -6,6 +6,28 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Remove stale “pending owner” copy for confirmed facts
+
+### What
+
+- Rewrote guest-facing copy that still treated occupancy rates, extra-bed offering, AC, meals, check-in/out, and cancellation as unpublished.
+- Home “Room & pricing” now states occupancy pricing without “when published.”
+- Beds/bath `TodoNotice` no longer lists AC coverage (all rooms are AC). Extra-bed cap is no longer listed as unpublished.
+- Meals, check-in, and cancellation on `/about` are normal copy. ID/guest house rules stay in a `TodoNotice`.
+- Fail-closed occupancy table and extra-bed FAQ no longer use “Pending owner confirmation” when rates simply fail to load.
+- Left the booking widget disclaimer `*Estimate only, subject to availability` unchanged.
+
+### Why
+
+Those facts are confirmed in `BUSINESS_INFO.md`. Scaffolding language was still on Home, Rooms, the room page, About, Gallery, Location, FAQ, and meta descriptions.
+
+### Rejected
+
+- Removing beds/bath or landmark-distance callouts (still unconfirmed).
+- Hardcoding occupancy ₹ in the fail-closed extra-bed FAQ.
+
+---
+
 ## 2026-08-25 — Booking widget: dates, live rates, 8-guest cap
 
 ### What

@@ -18,9 +18,8 @@ export function RoomPricingSection() {
               Room &amp; pricing
             </Heading>
             <Text tone="muted" className="mt-2">
-              The nightly rate depends on how many guests share the Deluxe AC Room.
-              Rates are set by the owner and shown here when published — not estimated
-              or rounded.{" "}
+              The nightly rate depends on how many guests share the Deluxe AC Room — 2,
+              3, 4, 6, or 8 sharing.{" "}
               <Link href={ROOM_PATH} className="text-mangrove underline">
                 See the full room page
               </Link>{" "}

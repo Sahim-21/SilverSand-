@@ -21,11 +21,10 @@ export function RoomsListSection() {
             <CardHeader>
               <CardTitle>{ROOM_NAME}</CardTitle>
               <Text size="sm" tone="muted">
-                Air-conditioned. Priced per night based on occupancy — 2, 3, 4, 6, or 8
-                guests sharing. One extra bed can be added when the owner confirms it is
-                available; the per-person charge is shown on the room page when
-                published. Bed layout and full amenity list are pending owner
-                confirmation.
+                Air-conditioned. Priced per night by occupancy — 2, 3, 4, 6, or 8 guests
+                sharing. An extra bed can be added up to eight guests in the room; the
+                per-person charge is on this page. Bed layout and bathroom details are
+                pending owner confirmation.
               </Text>
             </CardHeader>
             <CardContent className="gap-6">

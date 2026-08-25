@@ -43,7 +43,7 @@ export function MurudeshwarInfoSection() {
           </div>
           <TodoNotice
             item="landmarkDistances"
-            detail="We have not published the walking or driving distance from our homestay to the temple, beach, or bus stand — this requires the owner to share a confirmed map pin (checklist #8)."
+            detail="We have not published the walking or driving distance from our homestay to the temple, beach, or bus stand (checklist #8)."
           />
         </Stack>
       </Container>

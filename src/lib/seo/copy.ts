@@ -23,17 +23,17 @@ export const PAGE_SEO = {
   },
   rooms: {
     title: "Rooms in Murudeshwar",
-    description: `One room at ${BUSINESS_NAME}: the ${ROOM_NAME}, air-conditioned, priced by how many guests share it (2, 3, 4, 6, or 8). Rates are set by the owner — not an OTA estimate.`,
+    description: `One room at ${BUSINESS_NAME}: the ${ROOM_NAME}, air-conditioned, priced by how many guests share it (2, 3, 4, 6, or 8). Book dates on WhatsApp.`,
     path: "/rooms",
   },
   room: {
     title: `${ROOM_NAME} — occupancy pricing`,
-    description: `The ${ROOM_NAME} at ${BUSINESS_NAME}, Murudeshwar. Nightly rate set by the owner based on occupancy (2–8 sharing). Extra bed available when offered. Check dates on WhatsApp.`,
+    description: `The ${ROOM_NAME} at ${BUSINESS_NAME}, Murudeshwar. Nightly rate depends on occupancy (2–8 sharing). Extra beds up to eight guests. Check dates on WhatsApp.`,
     path: ROOM_PATH,
   },
   gallery: {
     title: "Photos — Silver Sand Beach Homestay",
-    description: `Photographs of ${BUSINESS_NAME} in Murudeshwar. Owner-supplied images of the room, bathroom, and exterior. Placeholders until the owner provides them.`,
+    description: `Photographs of the Deluxe AC Room at ${BUSINESS_NAME}, Murudeshwar, by occupancy. Exterior and bathroom photos will be added when we have them.`,
     path: "/gallery",
   },
   about: {

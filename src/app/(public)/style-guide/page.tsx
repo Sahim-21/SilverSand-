@@ -211,9 +211,8 @@ export default function StyleGuidePage() {
             Booking widget
           </Heading>
           <Text tone="muted" className="mb-6 max-w-prose">
-            Live mangrove panel. Estimates come from GET /api/pricing only. Until the
-            owner publishes rates, the results box stays enquire-only with no rupee
-            fallback.
+            Live mangrove panel. Estimates come from GET /api/pricing only. If rates
+            fail to load, the results box stays enquire-only with no rupee fallback.
           </Text>
           <div className="max-w-md">
             <BookingWidget />

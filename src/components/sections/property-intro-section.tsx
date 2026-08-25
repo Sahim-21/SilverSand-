@@ -33,7 +33,7 @@ export function PropertyIntroSection() {
           </Text>
           <TodoNotice
             item="bedsBath"
-            detail="Bed count, bathroom layout, and AC coverage for 6–8 sharing are not published yet (checklist #3)."
+            detail="Bed count and bathroom layout are not published yet (checklist #3)."
           />
         </Stack>
       </Container>

@@ -17,7 +17,7 @@ export default function GalleryPage() {
     <>
       <InnerPageHero
         title="Gallery"
-        description="Real photographs from the owner will appear here. We do not use stock villa images or OTA scrapes."
+        description="Photographs of the Deluxe AC Room by occupancy. We do not use stock villa images or OTA scrapes."
         crumbs={[
           { href: "/", label: "Home" },
           { href: "/gallery", label: "Gallery" },

@@ -8,6 +8,7 @@ import { InnerPageHero } from "@/components/sections/inner-page-hero";
 import { FinalCtaSection } from "@/components/sections/final-cta-section";
 import { TodoNotice } from "@/components/marketing/todo-notice";
 import { Stack } from "@/components/layout/stack";
+import { Text } from "@/components/ui/heading";
 import { BUSINESS_NAME } from "@/lib/business";
 import { PAGE_SEO } from "@/lib/seo/copy";
 import { pageMetadata } from "@/lib/seo/metadata";
@@ -29,13 +30,14 @@ export default function AboutPage() {
       <Section>
         <Container>
           <Stack gap="md" className="max-w-3xl">
-            <TodoNotice
-              item="meals"
-              detail="Meals policy (whether food is available, on request, or included) is not yet confirmed (checklist #16). Do not assume breakfast is offered — Murudeshwar has restaurants nearby but we have not verified whether the host provides food."
-            />
+            <Text tone="muted">
+              Meals are not included and are not offered at the homestay. Check-in is at
+              11:00 AM; check-out is at 11:00 AM the following day. Bookings are
+              non-cancellable and non-refundable.
+            </Text>
             <TodoNotice
               item="houseRules"
-              detail="House rules including check-in/out times, ID requirements, and cancellation policy are not yet confirmed (checklist #21). These must come from the owner before they appear here."
+              detail="ID requirements and other guest house rules are not yet confirmed (checklist #21)."
             />
             <ContactCta />
           </Stack>

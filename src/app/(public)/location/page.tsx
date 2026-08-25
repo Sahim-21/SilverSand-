@@ -40,8 +40,7 @@ export default function LocationPage() {
             </Text>
             <Text size="sm" tone="muted">
               We have not published walking or driving times from our homestay to the
-              beach, temple, bus stand, or railway station — those distances still need
-              owner confirmation even though the map pin is live.
+              beach, temple, bus stand, or railway station.
             </Text>
             <TodoNotice
               item="landmarkDistances"

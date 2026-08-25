@@ -1,6 +1,5 @@
 import { BookNowButton } from "@/components/marketing/book-now-button";
 import { OccupancyRoomImage } from "@/components/marketing/occupancy-room-image";
-import { TodoNotice } from "@/components/marketing/todo-notice";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Text } from "@/components/ui/heading";
 import { OCCUPANCY_TIERS, ROOM_NAME } from "@/lib/business";
@@ -23,10 +22,10 @@ export async function OccupancyPricing({ bookingHref }: OccupancyPricingProps) {
         </CardHeader>
         <CardContent className="gap-4">
           <OccupancyImageGrid bookingHref={bookingHref} />
-          <TodoNotice
-            item="occupancyRates"
-            detail="Nightly rates for 2 / 3 / 4 / 6 / 8 sharing are not published yet. The owner sets them in the admin panel — we do not hardcode prices on this site. Message us on WhatsApp for today’s rate."
-          />
+          <Text size="sm" tone="muted">
+            Occupancy rates aren&apos;t loading right now. Message us on WhatsApp for
+            today&apos;s rate — we don&apos;t show a guessed rupee amount.
+          </Text>
         </CardContent>
       </Card>
     );
@@ -37,7 +36,7 @@ export async function OccupancyPricing({ bookingHref }: OccupancyPricingProps) {
       <CardHeader>
         <CardTitle>{pricing.room.name} — per night by sharing</CardTitle>
         <Text size="sm" tone="muted">
-          Rates below are loaded from the database. Estimate only — we confirm on
+          Per night, by how many guests share the room. We confirm the total on
           WhatsApp.
         </Text>
       </CardHeader>
@@ -75,7 +74,7 @@ export async function OccupancyPricing({ bookingHref }: OccupancyPricingProps) {
               <>
                 {formatInr(pricing.room.extraBedRateInr)}
                 <span className="ml-1 text-xs font-normal text-muted">
-                  (per night — confirm with owner)
+                  per person / night
                 </span>
               </>
             ) : (

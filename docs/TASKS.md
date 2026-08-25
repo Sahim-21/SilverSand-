@@ -87,7 +87,8 @@ Must ship a **usable** booking path, not a platform.
 
 - [x] About the homestay (family/host story — from owner, not invented) — `/about` with TODOs for missing host facts
 - [ ] Murudeshwar guide / how to reach (useful, not a doorway) — partial on `/location`; dedicated `/murudeshwar` deferred
-- [x] FAQ (only answered questions) — on Home; check-in, parking, Wi-Fi, and cancellation now answered; extra bed when rates published
+- [x] FAQ (only answered questions) — on Home; check-in, parking, Wi-Fi, meals, cancellation, extra bed; occupancy rates as confirmed copy (no “when published” scaffolding)
+- [x] Stale “pending owner / when published” copy removed for confirmed facts (AC, occupancy rates, extra-bed cap, meals, check-in/out, cancellation). Beds/bath, distances, host name, GST, ID rules still flagged.
 - [ ] NAP consistency: site, WhatsApp about, GBP, listed directories
 - [ ] GBP setup or cleanup (categories, photos, products/services, WhatsApp, booking link = this site)
 - [ ] Search Console + Bing Webmaster

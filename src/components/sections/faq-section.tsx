@@ -1,7 +1,6 @@
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
-import { TodoNotice } from "@/components/marketing/todo-notice";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heading, Text } from "@/components/ui/heading";
 import { extraBedFaq, STATIC_FAQS } from "@/lib/seo/faqs";
@@ -45,15 +44,13 @@ export async function FaqSection() {
             ) : (
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-base">
-                    Is there an extra bed charge?
-                  </CardTitle>
+                  <CardTitle className="text-base">Is there an extra bed?</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <TodoNotice
-                    item="extraBedPolicy"
-                    detail="Extra bed rate will appear here when the owner publishes pricing (checklist #12–#13)."
-                  />
+                  <Text size="sm" tone="muted">
+                    Yes. Extra beds are offered up to eight guests in the room. Ask on
+                    WhatsApp for the per-person nightly charge for your dates.
+                  </Text>
                 </CardContent>
               </Card>
             )}

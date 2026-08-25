@@ -18,15 +18,13 @@ export function RoomLayoutSection() {
             <Text tone="muted" className="mt-2">
               The rate below is per room per night, based on how many guests share it.
               Higher occupancy means a lower cost per person — which is why the
-              2-sharing rate is not the same as the 8-sharing rate halved. Rates are set
-              by the owner and updated in the admin panel; the numbers you see are
-              current, not rounded estimates.
+              2-sharing rate is not the same as the 8-sharing rate halved.
             </Text>
           </div>
           <OccupancyPricing bookingHref={BOOKING_HASH} />
           <TodoNotice
             item="bedsBath"
-            detail="Bed count, bathroom layout, and maximum extra beds for this room are not published yet (checklist #3). The owner needs to confirm before we list them here."
+            detail="Bed count and bathroom layout for this room are not published yet (checklist #3)."
           />
         </Stack>
       </Container>

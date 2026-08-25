@@ -16,7 +16,7 @@ export default function RoomsPage() {
     <>
       <InnerPageHero
         title="Rooms at Silver Sand"
-        description="One room type — the Deluxe AC Room, air-conditioned, priced by occupancy. Rates come directly from the owner when published."
+        description="One room type — the Deluxe AC Room, air-conditioned, priced by occupancy."
         crumbs={[
           { href: "/", label: "Home" },
           { href: "/rooms", label: "Rooms" },

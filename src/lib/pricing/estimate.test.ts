@@ -1,7 +1,12 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { estimateEnquiry, estimateStay, nightsBetween } from "./estimate";
+import {
+  estimateEnquiry,
+  estimateStay,
+  nightsBetween,
+  priceEnquiryNightly,
+} from "./estimate";
 import type { PublicPricing } from "./types.ts";
 
 const samplePricing: PublicPricing = {
@@ -84,4 +89,41 @@ test("estimateEnquiry sums multiple lines", () => {
   // 2 nights * (2000 + 3000) = 10000
   assert.equal(result.totalInr, 10000);
   assert.equal(result.nights, 2);
+});
+
+test("extra beds beyond the 8-guest cap are not billed", () => {
+  const fullRoom = estimateStay(samplePricing, {
+    checkIn: new Date(2026, 8, 1),
+    checkOut: new Date(2026, 8, 2),
+    occupancy: 8,
+    extraBeds: 3,
+  });
+  assert.ok(fullRoom);
+  assert.equal(fullRoom.totalInr, 5000);
+
+  const sixSharing = estimateStay(samplePricing, {
+    checkIn: new Date(2026, 8, 1),
+    checkOut: new Date(2026, 8, 2),
+    occupancy: 6,
+    extraBeds: 5,
+  });
+  assert.ok(sixSharing);
+  // 4000 + 2 * 500 (only two extra beds fit)
+  assert.equal(sixSharing.totalInr, 5000);
+});
+
+test("priceEnquiryNightly updates from occupancy without dates", () => {
+  const twoSharing = priceEnquiryNightly(
+    [samplePricing],
+    [{ roomSlug: "deluxe-ac", occupancy: 2, quantity: 1, extraBeds: 0 }],
+  );
+  assert.ok(twoSharing);
+  assert.equal(twoSharing.nightlyTotalInr, 2000);
+
+  const fourPlusBed = priceEnquiryNightly(
+    [samplePricing],
+    [{ roomSlug: "deluxe-ac", occupancy: 4, quantity: 1, extraBeds: 1 }],
+  );
+  assert.ok(fourPlusBed);
+  assert.equal(fourPlusBed.nightlyTotalInr, 3500);
 });

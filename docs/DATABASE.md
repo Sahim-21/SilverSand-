@@ -123,7 +123,7 @@ No GST unless owner supplies a rate. Label: “Estimate only, subject to availab
 
 - Insert `rooms` slug `deluxe-ac`, name `Deluxe AC Room`, `extra_bed_rate_inr = 500`, `max_occupancy = 8`, `is_published = true`.
 - Insert five `occupancy_prices` with owner-confirmed nightly rates (INR): **2→2000, 3→2500, 4→3000, 6→4000, 8→5000** (source: `docs/BUSINESS_INFO.md`, 25 August 2026).
-- Extra bed is **₹500 per person per night**; total guests (billed occupancy + extra beds) must not exceed `max_occupancy` (8).
+- Extra bed is **₹500 per person per night**; total guests (billed occupancy + extra beds) must not exceed `max_occupancy` (8). `estimateStay` / `priceEnquiryNightly` **clamp** extra beds to the remaining places (`maxExtraBeds` in `src/lib/pricing/guest-cap.ts`). Occupancy 8 → zero extra beds.
 - Seed is **idempotent**: re-running updates the room, upserts the five occupancy rows, and leaves an existing admin user alone (`npm run db:seed`).
 
 Do not invent rates or copy competitor tariffs. After seed, `GET /api/pricing` returns the published room + rates (not the “rates not published” 404).

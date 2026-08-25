@@ -22,15 +22,29 @@ import {
   parseOccupancyOptionValue,
   pricingListFromCatalog,
 } from "@/lib/booking/catalog";
-import { addDaysIso, parseIsoDate, todayIso } from "@/lib/booking/dates";
+import {
+  clampIsoDateToMin,
+  earliestCheckOutIso,
+  normalizeCheckOutIso,
+  parseIsoDate,
+  todayIso,
+} from "@/lib/booking/dates";
 import { buildWhatsAppEnquiryUrl } from "@/lib/booking/whatsapp-message";
 import {
   BUSINESS_PLACE,
   DISPLAY_PHONE,
+  MAX_TOTAL_GUESTS,
   OCCUPANCY_TIERS,
   TEL_URL,
 } from "@/lib/business";
-import { estimateEnquiry, formatInr, nightsBetween } from "@/lib/pricing/estimate";
+import {
+  estimateEnquiry,
+  formatInr,
+  nightsBetween,
+  priceEnquiryNightly,
+  type NightlyEnquiryPrice,
+} from "@/lib/pricing/estimate";
+import { clampExtraBeds, maxExtraBeds } from "@/lib/pricing/guest-cap";
 import type { PublicPricing } from "@/lib/pricing/types";
 import { cn } from "@/lib/utils";
 
@@ -129,16 +143,29 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
 
   const catalog = catalogFromPricing(pricing);
   const pricingList = pricingListFromCatalog(pricing);
+  const maxOccupancy = pricing?.room.maxOccupancy ?? MAX_TOTAL_GUESTS;
   const extraBedsOffered = pricing != null && pricing.room.extraBedRateInr > 0;
-  const enquiryLines = extraBedsOffered
-    ? lines
-    : lines.map((line) => ({ ...line, extraBeds: 0 }));
+  const enquiryLines = useMemo(
+    () =>
+      lines.map((line) => ({
+        ...line,
+        extraBeds: extraBedsOffered
+          ? clampExtraBeds(line.occupancy, line.extraBeds, maxOccupancy)
+          : 0,
+      })),
+    [lines, extraBedsOffered, maxOccupancy],
+  );
 
   const checkInDate = parseIsoDate(checkIn);
   const checkOutDate = parseIsoDate(checkOut);
   const datesChosen = Boolean(checkIn && checkOut);
   const checkoutAfterCheckin =
     checkInDate && checkOutDate ? nightsBetween(checkInDate, checkOutDate) > 0 : false;
+
+  const nightly = useMemo(() => {
+    if (pricingList.length === 0) return null;
+    return priceEnquiryNightly(pricingList, enquiryLines);
+  }, [pricingList, enquiryLines]);
 
   const estimate = useMemo(() => {
     if (!checkInDate || !checkOutDate || !checkoutAfterCheckin) return null;
@@ -151,11 +178,18 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
       ? nightsBetween(checkInDate, checkOutDate)
       : null;
 
-  const minCheckOut = checkIn ? (addDaysIso(checkIn, 1) ?? undefined) : undefined;
+  const minCheckOut = checkIn ? (earliestCheckOutIso(checkIn) ?? undefined) : undefined;
 
   function updateLine(id: string, patch: Partial<RoomLine>) {
     setLines((current) =>
-      current.map((line) => (line.id === id ? { ...line, ...patch } : line)),
+      current.map((line) => {
+        if (line.id !== id) return line;
+        const next = { ...line, ...patch };
+        next.extraBeds = extraBedsOffered
+          ? clampExtraBeds(next.occupancy, next.extraBeds, maxOccupancy)
+          : 0;
+        return next;
+      }),
     );
   }
 
@@ -170,12 +204,22 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
   }
 
   function onCheckInChange(value: string) {
-    setCheckIn(value);
-    if (!value) return;
-    const nextMinOut = addDaysIso(value, 1);
-    if (nextMinOut && (!checkOut || checkOut <= value)) {
-      setCheckOut(nextMinOut);
+    if (!value) {
+      setCheckIn("");
+      return;
     }
+    const nextCheckIn = minCheckIn ? clampIsoDateToMin(value, minCheckIn) : value;
+    setCheckIn(nextCheckIn);
+    setCheckOut(normalizeCheckOutIso(nextCheckIn, checkOut));
+  }
+
+  function onCheckOutChange(value: string) {
+    if (!checkIn) return;
+    if (!value) {
+      setCheckOut("");
+      return;
+    }
+    setCheckOut(normalizeCheckOutIso(checkIn, value));
   }
 
   const whatsappHref = buildWhatsAppEnquiryUrl({
@@ -203,114 +247,11 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
           Book your stay
         </CardTitle>
         <CardDescription className="text-sand/80">
-          Pick occupancy and dates for a live estimate. We confirm availability on
-          WhatsApp — this is not an instant booking.
+          Pick dates and occupancy for a live estimate from the owner&apos;s rates. We
+          confirm availability on WhatsApp — this is not an instant booking.
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div>
-          <Label htmlFor={`${formId}-name`} className="mb-2 text-sand">
-            Name <span className="font-normal text-sand/60">(optional)</span>
-          </Label>
-          <Input
-            id={`${formId}-name`}
-            surface="dark"
-            autoComplete="name"
-            value={guestName}
-            onChange={(event) => setGuestName(event.target.value)}
-          />
-        </div>
-
-        <div className="flex flex-col gap-4">
-          {lines.map((line, index) => (
-            <div
-              key={line.id}
-              className="flex flex-col gap-3 rounded-md border border-line-on-dark p-3"
-            >
-              <div>
-                <Label htmlFor={`${formId}-room-${line.id}`} className="mb-2 text-sand">
-                  Room Type*
-                </Label>
-                <Select
-                  id={`${formId}-room-${line.id}`}
-                  surface="dark"
-                  required
-                  value={occupancyOptionValue(line.roomSlug, line.occupancy)}
-                  onChange={(event) => {
-                    const parsed = parseOccupancyOptionValue(event.target.value);
-                    if (!parsed) return;
-                    updateLine(line.id, parsed);
-                  }}
-                >
-                  {catalog.flatMap((room) =>
-                    room.occupancyOptions.map((occupancy) => (
-                      <option
-                        key={occupancyOptionValue(room.slug, occupancy)}
-                        value={occupancyOptionValue(room.slug, occupancy)}
-                      >
-                        {room.name} — {occupancy} sharing
-                      </option>
-                    )),
-                  )}
-                </Select>
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <div>
-                  <Label className="mb-2 text-sand">Quantity*</Label>
-                  <QuantityStepper
-                    label={`quantity for room ${index + 1}`}
-                    value={line.quantity}
-                    min={1}
-                    max={8}
-                    onChange={(quantity) => updateLine(line.id, { quantity })}
-                  />
-                </div>
-                <div>
-                  {extraBedsOffered || pricingStatus !== "ready" ? (
-                    <>
-                      <Label className="mb-2 text-sand">Extra beds</Label>
-                      <QuantityStepper
-                        label={`extra beds for room ${index + 1}`}
-                        value={line.extraBeds}
-                        min={0}
-                        max={8}
-                        onChange={(extraBeds) => updateLine(line.id, { extraBeds })}
-                      />
-                    </>
-                  ) : (
-                    <Text size="xs" className="text-sand/60">
-                      Extra beds are not offered at the current published rate.
-                    </Text>
-                  )}
-                </div>
-              </div>
-
-              {lines.length > 1 ? (
-                <button
-                  type="button"
-                  className="self-start text-sm text-sand/70 underline-offset-2 hover:text-sand hover:underline"
-                  onClick={() => removeLine(line.id)}
-                >
-                  Remove this room type
-                </button>
-              ) : null}
-            </div>
-          ))}
-
-          <button
-            type="button"
-            className="self-start text-sm font-medium text-gold-muted hover:text-gold"
-            onClick={addRoomType}
-          >
-            + Add another room type
-          </button>
-          <Text size="xs" className="text-sand/60">
-            Quantity is an enquiry, not live inventory. We confirm how many rooms we can
-            offer on WhatsApp.
-          </Text>
-        </div>
-
         <div className="flex flex-col gap-4">
           <div>
             <Label htmlFor={`${formId}-in`} className="mb-2 text-sand">
@@ -335,11 +276,165 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
               surface="dark"
               type="date"
               required
+              disabled={!checkIn}
               min={(minCheckOut ?? minCheckIn) || undefined}
               value={checkOut}
-              onChange={(event) => setCheckOut(event.target.value)}
+              onChange={(event) => onCheckOutChange(event.target.value)}
             />
+            {!checkIn ? (
+              <Text size="xs" className="mt-1.5 text-sand/60">
+                Choose check-in first. Check-out must be the next day or later.
+              </Text>
+            ) : (
+              <Text size="xs" className="mt-1.5 text-sand/60">
+                Check-out cannot be on or before check-in.
+              </Text>
+            )}
           </div>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          {lines.map((line, index) => {
+            const extraBedMax = maxExtraBeds(line.occupancy, maxOccupancy);
+            const guestCount =
+              line.occupancy +
+              clampExtraBeds(line.occupancy, line.extraBeds, maxOccupancy);
+
+            return (
+              <div
+                key={line.id}
+                className="flex flex-col gap-3 rounded-md border border-line-on-dark p-3"
+              >
+                <div>
+                  <Label
+                    htmlFor={`${formId}-room-${line.id}`}
+                    className="mb-2 text-sand"
+                  >
+                    Occupancy*
+                  </Label>
+                  <Select
+                    id={`${formId}-room-${line.id}`}
+                    surface="dark"
+                    required
+                    value={occupancyOptionValue(line.roomSlug, line.occupancy)}
+                    onChange={(event) => {
+                      const parsed = parseOccupancyOptionValue(event.target.value);
+                      if (!parsed) return;
+                      updateLine(line.id, parsed);
+                    }}
+                  >
+                    {catalog.flatMap((room) =>
+                      room.occupancyOptions.map((occupancy) => (
+                        <option
+                          key={occupancyOptionValue(room.slug, occupancy)}
+                          value={occupancyOptionValue(room.slug, occupancy)}
+                        >
+                          {room.name} — {occupancy} sharing
+                        </option>
+                      )),
+                    )}
+                  </Select>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  <div>
+                    <Label className="mb-2 text-sand">Quantity*</Label>
+                    <QuantityStepper
+                      label={`quantity for room ${index + 1}`}
+                      value={line.quantity}
+                      min={1}
+                      max={8}
+                      onChange={(quantity) => updateLine(line.id, { quantity })}
+                    />
+                  </div>
+                  <div>
+                    {!extraBedsOffered && pricingStatus === "ready" ? (
+                      <Text size="xs" className="text-sand/60">
+                        Extra beds are not offered at the current published rate.
+                      </Text>
+                    ) : extraBedMax === 0 ? (
+                      <Text size="xs" className="text-sand/70">
+                        This occupancy already fills the room ({maxOccupancy} guests).
+                        Extra beds cannot be added.
+                      </Text>
+                    ) : (
+                      <>
+                        <Label className="mb-2 text-sand">
+                          Extra beds{" "}
+                          <span className="font-normal text-sand/60">
+                            (up to {extraBedMax} — room sleeps {maxOccupancy})
+                          </span>
+                        </Label>
+                        <QuantityStepper
+                          label={`extra beds for room ${index + 1}`}
+                          value={clampExtraBeds(
+                            line.occupancy,
+                            line.extraBeds,
+                            maxOccupancy,
+                          )}
+                          min={0}
+                          max={extraBedMax}
+                          onChange={(extraBeds) => updateLine(line.id, { extraBeds })}
+                        />
+                        <Text size="xs" className="mt-1.5 text-sand/60">
+                          {guestCount} of {maxOccupancy} guests in this room.
+                        </Text>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {lines.length > 1 ? (
+                  <button
+                    type="button"
+                    className="self-start text-sm text-sand/70 underline-offset-2 hover:text-sand hover:underline"
+                    onClick={() => removeLine(line.id)}
+                  >
+                    Remove this room type
+                  </button>
+                ) : null}
+              </div>
+            );
+          })}
+
+          <button
+            type="button"
+            className="self-start text-sm font-medium text-gold-muted hover:text-gold"
+            onClick={addRoomType}
+          >
+            + Add another room type
+          </button>
+          <Text size="xs" className="text-sand/60">
+            Quantity is an enquiry, not live inventory. We confirm how many rooms we can
+            offer on WhatsApp.
+          </Text>
+        </div>
+
+        <div
+          className="rounded-md border border-line-on-dark bg-mangrove-mid px-4 py-3"
+          aria-live="polite"
+        >
+          <EstimatePanel
+            datesChosen={datesChosen}
+            checkoutAfterCheckin={checkoutAfterCheckin}
+            pricingStatus={pricingStatus}
+            nightly={nightly}
+            estimate={estimate}
+            nights={nights}
+          />
+        </div>
+
+        <div>
+          <Label htmlFor={`${formId}-name`} className="mb-2 text-sand">
+            Name <span className="font-normal text-sand/60">(optional)</span>
+          </Label>
+          <Input
+            id={`${formId}-name`}
+            surface="dark"
+            autoComplete="name"
+            value={guestName}
+            onChange={(event) => setGuestName(event.target.value)}
+          />
         </div>
 
         <div>
@@ -354,19 +449,6 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
             autoComplete="tel"
             value={phone}
             onChange={(event) => setPhone(event.target.value)}
-          />
-        </div>
-
-        <div
-          className="rounded-md border border-line-on-dark bg-mangrove-mid px-4 py-3"
-          aria-live="polite"
-        >
-          <EstimatePanel
-            datesChosen={datesChosen}
-            checkoutAfterCheckin={checkoutAfterCheckin}
-            pricingStatus={pricingStatus}
-            estimate={estimate}
-            nights={nights}
           />
         </div>
       </CardContent>
@@ -397,32 +479,18 @@ function EstimatePanel({
   datesChosen,
   checkoutAfterCheckin,
   pricingStatus,
+  nightly,
   estimate,
   nights,
 }: {
   datesChosen: boolean;
   checkoutAfterCheckin: boolean;
   pricingStatus: "ready" | "loading" | "unavailable";
+  nightly: NightlyEnquiryPrice | null;
   estimate: ReturnType<typeof estimateEnquiry>;
   nights: number | null;
 }) {
-  if (!datesChosen) {
-    return (
-      <Text size="sm" className="text-sand/80">
-        Select check-in and check-out dates to see an estimate.
-      </Text>
-    );
-  }
-
-  if (!checkoutAfterCheckin) {
-    return (
-      <Text size="sm" className="text-sand/80">
-        Check-out must be after check-in.
-      </Text>
-    );
-  }
-
-  if (pricingStatus === "loading" && !estimate) {
+  if (pricingStatus === "loading" && !nightly) {
     return (
       <Text size="sm" className="text-sand/80">
         Loading today&apos;s rates…
@@ -430,7 +498,15 @@ function EstimatePanel({
     );
   }
 
-  if (!estimate) {
+  if (datesChosen && !checkoutAfterCheckin) {
+    return (
+      <Text size="sm" className="text-sand/80">
+        Check-out must be after check-in.
+      </Text>
+    );
+  }
+
+  if (!nightly) {
     return (
       <Text size="sm" className="text-sand/80">
         Pricing is temporarily unavailable. Message us on WhatsApp for today&apos;s rate
@@ -440,16 +516,50 @@ function EstimatePanel({
   }
 
   return (
-    <div className="flex flex-col gap-1">
-      <p className="text-sm text-gold">Estimated Total</p>
-      <p className="font-serif text-2xl font-semibold tabular-nums text-sand">
-        {formatInr(estimate.totalInr)}
-      </p>
-      {nights ? (
-        <Text size="xs" className="text-sand/70">
-          {nights} {nights === 1 ? "night" : "nights"}
-        </Text>
-      ) : null}
+    <div className="flex flex-col gap-2">
+      <p className="text-sm text-gold">Live estimate</p>
+      <ul className="flex flex-col gap-1">
+        {nightly.lines.map((line, index) => (
+          <li
+            key={`${line.roomSlug}-${line.occupancy}-${index}`}
+            className="text-sm text-sand/85"
+          >
+            {line.occupancy} sharing
+            {line.quantity > 1 ? ` × ${line.quantity}` : ""} —{" "}
+            {formatInr(line.quantity * line.occupancyRateInr)} / night
+            {line.extraBeds > 0 ? (
+              <>
+                {" "}
+                + {line.extraBeds} extra {line.extraBeds === 1 ? "bed" : "beds"} (
+                {formatInr(line.extraBedTotalInr)} / night)
+              </>
+            ) : null}
+          </li>
+        ))}
+      </ul>
+      {estimate && nights ? (
+        <>
+          <p className="font-serif text-2xl font-semibold tabular-nums text-sand">
+            {formatInr(estimate.totalInr)}
+          </p>
+          <Text size="xs" className="text-sand/70">
+            {nights} {nights === 1 ? "night" : "nights"} ·{" "}
+            {formatInr(nightly.nightlyTotalInr)} per night
+          </Text>
+        </>
+      ) : (
+        <>
+          <p className="font-serif text-2xl font-semibold tabular-nums text-sand">
+            {formatInr(nightly.nightlyTotalInr)}
+            <span className="ml-1 font-sans text-sm font-normal text-sand/70">
+              / night
+            </span>
+          </p>
+          <Text size="xs" className="text-sand/70">
+            Select check-in and check-out to see the stay total.
+          </Text>
+        </>
+      )}
       <Text size="xs" className="text-sand/70">
         *Estimate only, subject to availability
       </Text>

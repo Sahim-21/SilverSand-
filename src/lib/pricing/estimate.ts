@@ -1,4 +1,5 @@
 import type { OccupancyTier } from "@/lib/business";
+import { clampExtraBeds } from "@/lib/pricing/guest-cap";
 import type {
   EnquiryEstimate,
   EnquiryLine,
@@ -24,6 +25,64 @@ export function getOccupancyRate(
   return row.nightlyRateInr;
 }
 
+export type NightlyLinePrice = EnquiryLine & {
+  occupancyRateInr: number;
+  extraBedTotalInr: number;
+  nightlySubtotalInr: number;
+};
+
+export type NightlyEnquiryPrice = {
+  nightlyTotalInr: number;
+  lines: NightlyLinePrice[];
+};
+
+/**
+ * Occupancy + extra-bed nightly total from published rates only.
+ * Extra beds are clamped so occupancy + extra beds never exceeds maxOccupancy.
+ */
+export function priceEnquiryNightly(
+  catalog: PublicPricing[],
+  lines: EnquiryLine[],
+): NightlyEnquiryPrice | null {
+  if (lines.length === 0) return null;
+
+  const pricedLines: NightlyLinePrice[] = [];
+
+  for (const line of lines) {
+    if (line.quantity < 1 || line.extraBeds < 0) return null;
+    const pricing = catalog.find((item) => item.room.slug === line.roomSlug);
+    if (!pricing) return null;
+
+    const occupancyRateInr = getOccupancyRate(pricing, line.occupancy);
+    if (occupancyRateInr === null) return null;
+
+    const extraBeds = clampExtraBeds(
+      line.occupancy,
+      line.extraBeds,
+      pricing.room.maxOccupancy,
+    );
+    const extraBedRate = Math.max(0, pricing.room.extraBedRateInr);
+    const extraBedTotalInr = extraBeds * extraBedRate;
+    const nightlySubtotalInr = line.quantity * occupancyRateInr + extraBedTotalInr;
+
+    pricedLines.push({
+      ...line,
+      extraBeds,
+      occupancyRateInr,
+      extraBedTotalInr,
+      nightlySubtotalInr,
+    });
+  }
+
+  return {
+    nightlyTotalInr: pricedLines.reduce(
+      (sum, line) => sum + line.nightlySubtotalInr,
+      0,
+    ),
+    lines: pricedLines,
+  };
+}
+
 export function estimateStay(
   pricing: PublicPricing,
   input: EstimateInput,
@@ -31,17 +90,21 @@ export function estimateStay(
   const nights = nightsBetween(input.checkIn, input.checkOut);
   if (nights <= 0) return null;
 
-  const quantity = input.quantity ?? 1;
-  if (quantity < 1 || input.extraBeds < 0) return null;
+  const priced = priceEnquiryNightly(
+    [pricing],
+    [
+      {
+        roomSlug: pricing.room.slug,
+        occupancy: input.occupancy,
+        extraBeds: input.extraBeds,
+        quantity: input.quantity ?? 1,
+      },
+    ],
+  );
+  if (!priced) return null;
 
-  const base = getOccupancyRate(pricing, input.occupancy);
-  if (base === null) return null;
-
-  const extra = input.extraBeds * pricing.room.extraBedRateInr;
-  const nightlySubtotalInr = quantity * base + extra;
-  const totalInr = nights * nightlySubtotalInr;
-
-  return { nights, nightlySubtotalInr, totalInr };
+  const nightlySubtotalInr = priced.nightlyTotalInr;
+  return { nights, nightlySubtotalInr, totalInr: nights * nightlySubtotalInr };
 }
 
 /**
@@ -58,28 +121,17 @@ export function estimateEnquiry(
   const nights = nightsBetween(checkIn, checkOut);
   if (nights <= 0 || lines.length === 0) return null;
 
-  const pricedLines: EnquiryLineEstimate[] = [];
+  const nightly = priceEnquiryNightly(catalog, lines);
+  if (!nightly) return null;
 
-  for (const line of lines) {
-    if (line.quantity < 1 || line.extraBeds < 0) return null;
-    const pricing = catalog.find((item) => item.room.slug === line.roomSlug);
-    if (!pricing) return null;
-
-    const result = estimateStay(pricing, {
-      checkIn,
-      checkOut,
-      occupancy: line.occupancy,
-      extraBeds: line.extraBeds,
-      quantity: line.quantity,
-    });
-    if (!result) return null;
-
-    pricedLines.push({
-      ...line,
-      nightlySubtotalInr: result.nightlySubtotalInr,
-      totalInr: result.totalInr,
-    });
-  }
+  const pricedLines: EnquiryLineEstimate[] = nightly.lines.map((line) => ({
+    roomSlug: line.roomSlug,
+    occupancy: line.occupancy,
+    quantity: line.quantity,
+    extraBeds: line.extraBeds,
+    nightlySubtotalInr: line.nightlySubtotalInr,
+    totalInr: nights * line.nightlySubtotalInr,
+  }));
 
   return {
     nights,

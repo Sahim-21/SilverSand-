@@ -35,6 +35,27 @@ export function addDaysIso(iso: string, days: number): string | null {
   return toIsoDate(date);
 }
 
+/** Earliest valid check-out: the calendar day after check-in. */
+export function earliestCheckOutIso(checkInIso: string): string | null {
+  return addDaysIso(checkInIso, 1);
+}
+
+/**
+ * Check-out must be after check-in. Equal or earlier dates snap to the
+ * next morning so the date input cannot keep an invalid stay.
+ */
+export function normalizeCheckOutIso(checkInIso: string, checkOutIso: string): string {
+  const minOut = earliestCheckOutIso(checkInIso);
+  if (!minOut) return checkOutIso;
+  if (!checkOutIso || checkOutIso <= checkInIso) return minOut;
+  return checkOutIso;
+}
+
+export function clampIsoDateToMin(iso: string, minIso: string): string {
+  if (!iso || !minIso) return iso;
+  return iso < minIso ? minIso : iso;
+}
+
 export function formatIsoDateLong(iso: string): string {
   const date = parseIsoDate(iso);
   if (!date) return iso;

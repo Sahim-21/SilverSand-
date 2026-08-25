@@ -6,6 +6,25 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Booking widget: dates, live rates, 8-guest cap
+
+### What
+
+- Check-out is disabled until check-in is chosen. Choosing or typing a check-out on/before check-in snaps to the next day (`normalizeCheckOutIso`). Changing check-in later than the current check-out bumps check-out.
+- The estimate box shows the **live occupancy (+ extra bed) nightly rate** as soon as `/api/pricing` is available, and the stay total once dates are valid. Totals still come only from published DB rates.
+- Extra beds are limited to remaining places in the room (`occupancy + extra beds ≤ 8`). 8 sharing cannot add an extra bed. The estimate clamps extras the same way so a stale stepper value cannot bill past the cap.
+
+### Why
+
+Guests were able to pick an invalid stay, add extra beds on a full 8-person occupancy, and did not see the rupee amount change until both dates were set.
+
+### Rejected
+
+- Hardcoded occupancy ₹ in the widget.
+- Charging extra beds above `max_occupancy`.
+
+---
+
 ## 2026-08-25 — Production deploy runbook (Vercel Hobby + Neon Free)
 
 ### What

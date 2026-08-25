@@ -1,4 +1,9 @@
-import { OCCUPANCY_TIERS, ROOM_NAME, ROOM_SLUG } from "@/lib/business";
+import {
+  MAX_TOTAL_GUESTS,
+  OCCUPANCY_TIERS,
+  ROOM_NAME,
+  ROOM_SLUG,
+} from "@/lib/business";
 import type { OccupancyTier } from "@/lib/business";
 import type { OccupancyRate, PublicPricing } from "@/lib/pricing/types";
 
@@ -13,6 +18,7 @@ export type BookableRoom = {
   occupancyOptions: OccupancyTier[];
   extraBedRateInr: number | null;
   occupancyRates: OccupancyRate[];
+  maxOccupancy: number;
 };
 
 export function catalogFromPricing(pricing: PublicPricing | null): BookableRoom[] {
@@ -24,6 +30,7 @@ export function catalogFromPricing(pricing: PublicPricing | null): BookableRoom[
         occupancyOptions: [...OCCUPANCY_TIERS],
         extraBedRateInr: null,
         occupancyRates: [],
+        maxOccupancy: MAX_TOTAL_GUESTS,
       },
     ];
   }
@@ -35,17 +42,19 @@ export function catalogFromPricing(pricing: PublicPricing | null): BookableRoom[
       occupancyOptions: pricing.occupancyRates.map((row) => row.occupancy),
       extraBedRateInr: pricing.room.extraBedRateInr,
       occupancyRates: pricing.occupancyRates,
+      maxOccupancy: pricing.room.maxOccupancy,
     },
   ];
 }
 
-export function pricingListFromCatalog(
-  pricing: PublicPricing | null,
-): PublicPricing[] {
+export function pricingListFromCatalog(pricing: PublicPricing | null): PublicPricing[] {
   return pricing ? [pricing] : [];
 }
 
-export function occupancyOptionValue(roomSlug: string, occupancy: OccupancyTier): string {
+export function occupancyOptionValue(
+  roomSlug: string,
+  occupancy: OccupancyTier,
+): string {
   return `${roomSlug}:${occupancy}`;
 }
 

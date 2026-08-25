@@ -20,6 +20,9 @@ export const ROOM_NAME = "Deluxe AC Room";
 export const OCCUPANCY_TIERS = [2, 3, 4, 6, 8] as const;
 export type OccupancyTier = (typeof OCCUPANCY_TIERS)[number];
 
+/** Confirmed cap: occupancy + extra beds cannot exceed this (BUSINESS_INFO.md). */
+export const MAX_TOTAL_GUESTS = 8;
+
 /** Google Business / Maps Place ID — reviews + Embed API. */
 export const GOOGLE_PLACE_ID = "ChIJz7O6_zJHvDsRPrgj4nB9eiE";
 

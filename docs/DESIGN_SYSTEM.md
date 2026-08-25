@@ -131,7 +131,7 @@ Native `<a href="https://wa.me/919986222892">` for WhatsApp. Label: **Check Avai
 
 Dark `Card` on the sand page. Gold title, sand body, WhatsApp green CTA, outline-on-dark **Call us**.
 
-Fields: name (optional), occupancy dropdown (room type × sharing), quantity stepper, extra beds, native date pickers, phone (optional), estimate results box, WhatsApp + Call. “+ Add another room type” adds another enquiry line so a second room type can be catalogued later without a rewrite.
+Fields: native check-in / check-out (check-out disabled until check-in; check-out cannot be on or before check-in), occupancy dropdown (room type × sharing), quantity stepper, extra beds (capped so occupancy + extras ≤ 8), live estimate, name/phone (optional), WhatsApp + Call. “+ Add another room type” adds another enquiry line so a second room type can be catalogued later without a rewrite.
 
 Estimates use `GET /api/pricing` / `estimateEnquiry` only. If rates are unpublished, the results box stays enquire-only with **no ₹ fallback**. Disclaimer: `*Estimate only, subject to availability`.
 

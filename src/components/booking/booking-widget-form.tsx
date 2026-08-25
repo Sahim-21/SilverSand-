@@ -148,7 +148,9 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
   }
 
   function removeLine(id: string) {
-    setLines((current) => (current.length <= 1 ? current : current.filter((line) => line.id !== id)));
+    setLines((current) =>
+      current.length <= 1 ? current : current.filter((line) => line.id !== id),
+    );
   }
 
   function onCheckInChange(value: string) {
@@ -181,7 +183,9 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
   return (
     <Card tone="dark" className="w-full scheme-dark">
       <CardHeader>
-        <CardTitle className="text-gold">Book your stay</CardTitle>
+        <CardTitle as="h2" className="text-gold">
+          Book your stay
+        </CardTitle>
         <CardDescription className="text-sand/80">
           Pick occupancy and dates for a live estimate. We confirm availability on
           WhatsApp — this is not an instant booking.
@@ -190,8 +194,7 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
       <CardContent>
         <div>
           <Label htmlFor={`${formId}-name`} className="mb-2 text-sand">
-            Name{" "}
-            <span className="font-normal text-sand/60">(optional)</span>
+            Name <span className="font-normal text-sand/60">(optional)</span>
           </Label>
           <Input
             id={`${formId}-name`}
@@ -287,8 +290,8 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
             + Add another room type
           </button>
           <Text size="xs" className="text-sand/60">
-            Quantity is an enquiry, not live inventory. We confirm how many rooms we
-            can offer on WhatsApp.
+            Quantity is an enquiry, not live inventory. We confirm how many rooms we can
+            offer on WhatsApp.
           </Text>
         </div>
 
@@ -325,8 +328,7 @@ export function BookingWidgetForm({ initialPricing }: BookingWidgetFormProps) {
 
         <div>
           <Label htmlFor={`${formId}-phone`} className="mb-2 text-sand">
-            Phone Number{" "}
-            <span className="font-normal text-sand/60">(optional)</span>
+            Phone Number <span className="font-normal text-sand/60">(optional)</span>
           </Label>
           <Input
             id={`${formId}-phone`}

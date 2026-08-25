@@ -26,9 +26,13 @@ function CardHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement
   return <div className={cn("flex flex-col gap-2 p-6 pb-0", className)} {...props} />;
 }
 
-function CardTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+type CardTitleProps = React.HTMLAttributes<HTMLHeadingElement> & {
+  as?: "h2" | "h3" | "h4";
+};
+
+function CardTitle({ className, as: Tag = "h3", ...props }: CardTitleProps) {
   return (
-    <h2
+    <Tag
       className={cn("font-serif text-xl font-semibold tracking-tight", className)}
       {...props}
     />

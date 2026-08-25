@@ -94,14 +94,15 @@ Max content width: `Container` `page` = 72rem; `narrow` = 42rem; widget column =
 
 ## Layout components
 
-| Component    | File                                    | Job                                |
-| ------------ | --------------------------------------- | ---------------------------------- |
-| `Container`  | `src/components/layout/container.tsx`   | Horizontal gutters + max width     |
-| `Section`    | `src/components/layout/section.tsx`     | Vertical page rhythm               |
-| `Stack`      | `src/components/layout/stack.tsx`       | Vertical gaps including `gap-form` |
-| `Split`      | `src/components/layout/split.tsx`       | Story + sticky widget              |
-| `PageHeader` | `src/components/layout/page-header.tsx` | Eyebrow + H1 + description         |
-| `PhotoFrame` | `src/components/ui/photo-frame.tsx`     | Honest empty photo, no stock       |
+| Component     | File                                    | Job                                                       |
+| ------------- | --------------------------------------- | --------------------------------------------------------- |
+| `Container`   | `src/components/layout/container.tsx`   | Horizontal gutters + max width                            |
+| `Section`     | `src/components/layout/section.tsx`     | Vertical page rhythm                                      |
+| `Stack`       | `src/components/layout/stack.tsx`       | Vertical gaps including `gap-form`                        |
+| `Split`       | `src/components/layout/split.tsx`       | Story + sticky widget                                     |
+| `PageHeader`  | `src/components/layout/page-header.tsx` | Optional breadcrumbs + eyebrow + **one H1** + description |
+| `Breadcrumbs` | `src/components/layout/breadcrumbs.tsx` | Visible trail + `BreadcrumbList` JSON-LD                  |
+| `PhotoFrame`  | `src/components/ui/photo-frame.tsx`     | Honest empty photo; **required `alt`**                    |
 
 Public skeleton: Header (wordmark, Rooms, Contact, WhatsApp, Call) → Main → Footer (NAP when known, phone, WhatsApp, Privacy, Terms). Phone is always `+91 99862 22892`.
 
@@ -118,7 +119,7 @@ Do not add MUI, Ant, or a hotel-booking npm widget.
 | `Button`           | `default` mangrove; `gold` (dark panels); `outline`; `outline-on-dark`; `whatsapp`; `call`; `ghost` |
 | `Input`            | `surface="light" \| "dark"` — h-12, soft radius, thin border                                        |
 | `Label`            | Field labels                                                                                        |
-| `Card`             | `tone="surface" \| "dark"`                                                                          |
+| `Card`             | `tone="surface" \| "dark"`. `CardTitle` is **h3** by default (`as="h2"` for the booking widget).    |
 | `Alert`            | `info` / `danger` — pricing failure: call/WhatsApp, **no fake ₹**                                   |
 | `Heading` / `Text` | Type scale                                                                                          |
 
@@ -138,8 +139,8 @@ Estimates use `GET /api/pricing` / `estimateEnquiry` only. If rates are unpublis
 
 ## Imagery
 
-- Owner photos only, via `next/image` when they exist.
-- Until then: `PhotoFrame` empty state, not Unsplash.
+- Owner photos only, via `next/image` when they exist. Every `PhotoFrame` (and later `<img>`) has an `alt`.
+- Until then: `PhotoFrame` empty state with `role="img"` + `aria-label={alt}`, not Unsplash.
 
 ---
 

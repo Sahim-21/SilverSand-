@@ -13,6 +13,45 @@ This file folds in:
 
 ---
 
+## What's live (25 August 2026)
+
+Implemented in the Next.js app. Canonical room URL is **`/rooms/deluxe-ac-room`** (`/rooms/deluxe-ac` 301s there). Do not invent ratings, street address, geo, breakfast, or amenities in schema when they are still missing.
+
+| Item                                | Live?                 | Notes                                                                                                                                                                                                                                        |
+| ----------------------------------- | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Unique `<title>` + meta description | Yes                   | Copy in `src/lib/seo/copy.ts`. Home uses an absolute title so the brand is not doubled.                                                                                                                                                      |
+| Canonical URLs                      | Yes                   | Self-canonicals via `pageMetadata()`. `metadataBase` is `NEXT_PUBLIC_SITE_URL` or `https://silversandhomestay.com` (apex). **www vs apex redirect is DNS**, not this repo.                                                                   |
+| Open Graph + Twitter                | Yes                   | Per-page `og:title` / `og:description` / `og:url` / `og:locale=en_IN`. Twitter `summary_large_image`. Image is a **branded wordmark card** (`src/app/opengraph-image.tsx`), not a fake villa photo. Swap for an owner photo when one exists. |
+| XML sitemap                         | Yes                   | `src/app/sitemap.ts` — `/`, `/rooms`, `/rooms/deluxe-ac-room`, `/gallery`, `/about`, `/location`, `/contact`, `/privacy`, `/terms`. Omits `/admin`, `/api/*`, `/style-guide`.                                                                |
+| `robots.txt`                        | Yes                   | `src/app/robots.ts` — allow `/`; disallow `/admin`, `/api/`, `/style-guide`; `Sitemap:` absolute URL.                                                                                                                                        |
+| `noindex`                           | Yes                   | Admin layout + dashboard; `/style-guide`; 404 (`index: false`, `follow: true`).                                                                                                                                                              |
+| `lang="en-IN"`                      | Yes                   | Root `<html>`.                                                                                                                                                                                                                               |
+| Image alt text                      | Yes                   | Every `PhotoFrame` requires `alt` (empty frames use `role="img"` + `aria-label`). No property `<img>` yet.                                                                                                                                   |
+| One H1 per public page              | Yes                   | Home: “Homestay in Murudeshwar”. Room: “Deluxe AC Room”. Inner pages: `PageHeader` H1. `CardTitle` defaults to **h3**; booking widget title is **h2** (“Book your stay”). `/style-guide` has extra specimen H1s and is `noindex`.            |
+| Breadcrumbs                         | Yes                   | Visible trail + `BreadcrumbList` JSON-LD on inner public pages (not Home).                                                                                                                                                                   |
+| JSON-LD (known fields only)         | Yes                   | See schema table below for what is **emitted vs withheld**.                                                                                                                                                                                  |
+| Crawlable `tel:` / `wa.me`          | Yes                   | Header, footer, `ContactCta`, booking widget — real `<a href>`, not click-only JS.                                                                                                                                                           |
+| 404                                 | Yes                   | `src/app/not-found.tsx` — H1, Home, WhatsApp, Call.                                                                                                                                                                                          |
+| Keyword meta                        | Not used              | No `keywords` stuffing.                                                                                                                                                                                                                      |
+| HTTPS / Core Web Vitals photos      | Deploy / owner photos | HTTPS is the host. No third-party hotel chat widgets. Compress real photos when they land.                                                                                                                                                   |
+| Hindi / Kannada                     | Not v1                |                                                                                                                                                                                                                                              |
+
+### JSON-LD actually emitted
+
+| Type                              | Where                                                                           | Fields we output                                                                                                                                                             | Withheld on purpose                                                                                    |
+| --------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `WebSite`                         | Public layout                                                                   | `name`, `url`, `inLanguage`                                                                                                                                                  | `SearchAction` (no on-site search)                                                                     |
+| `LodgingBusiness`                 | Public layout                                                                   | `name`, `url`, `telephone`, `currenciesAccepted`, `areaServed` (City: Murudeshwar), `PostalAddress` with **locality / region / country only**, `containsPlace` → `HotelRoom` | `streetAddress`, `postalCode`, `geo`, `image`, `AggregateRating`, `Review`, `BedAndBreakfast`, `Hotel` |
+| `HotelRoom`                       | Nested on the business                                                          | `name`, `url`, `occupancy` min 2 / max 8                                                                                                                                     | Amenities, bed count, photos                                                                           |
+| `Offer`                           | On the room, **only if** `getPublicPricing()` returns published occupancy rates | `price`, `priceCurrency` (INR), `unitText: NIGHT` per occupancy + extra bed when `extraBedRateInr > 0`                                                                       | Entire `Offer` graph while the room is unpublished                                                     |
+| `priceRange` on `LodgingBusiness` | Same gate as `Offer`                                                            | Min–max of published occupancy nightly rates                                                                                                                                 | While unpublished                                                                                      |
+| `FAQPage`                         | Home                                                                            | Answered Qs only: how to book, room types, prices-are-estimates; extra bed **only when rates are published**                                                                 | Parking, Wi-Fi, check-in, cancellation (still `TodoNotice`)                                            |
+| `BreadcrumbList`                  | Inner pages                                                                     | Home → … → current URL                                                                                                                                                       | Duplicate “Home / Home”                                                                                |
+
+Builders: `src/lib/seo/json-ld.ts`. Guardrail test: `src/lib/seo/json-ld.test.ts`.
+
+---
+
 ## E. Strategy
 
 ### Primary topic
@@ -39,12 +78,12 @@ Not realistic as our topics unless the owner actually offers them: scuba package
 
 ### Search intent per must-have URL
 
-| URL                 | Query families                                    | Intent            | Success                                      |
-| ------------------- | ------------------------------------------------- | ----------------- | -------------------------------------------- |
-| `/`                 | homestay in Murudeshwar; homestay Murdeshwar      | Choose a stay     | Widget used; WhatsApp click                  |
-| `/rooms/deluxe-ac`  | deluxe AC room Murudeshwar; occupancy / extra bed | Evaluate the room | Understand 2/3/4/6/8 + extra bed ₹ (from DB) |
-| `/contact`          | Silver Sand Beach Homestay number / WhatsApp      | Contact           | Call or WhatsApp                             |
-| `/privacy` `/terms` | (few searches)                                    | Trust             | Compliance                                   |
+| URL                     | Query families                                    | Intent            | Success                                      |
+| ----------------------- | ------------------------------------------------- | ----------------- | -------------------------------------------- |
+| `/`                     | homestay in Murudeshwar; homestay Murdeshwar      | Choose a stay     | Widget used; WhatsApp click                  |
+| `/rooms/deluxe-ac-room` | deluxe AC room Murudeshwar; occupancy / extra bed | Evaluate the room | Understand 2/3/4/6/8 + extra bed ₹ (from DB) |
+| `/contact`              | Silver Sand Beach Homestay number / WhatsApp      | Contact           | Call or WhatsApp                             |
+| `/privacy` `/terms`     | (few searches)                                    | Trust             | Compliance                                   |
 
 Recommended URLs: see `ARCHITECTURE.md` sitemap. Title tags should match intent, one H1 per page, no four URLs targeting “best homestay”.
 
@@ -62,60 +101,62 @@ Unknown until GSC/Ahrefs: whether we have any existing queries, crawl errors, or
 
 ### Technical SEO checklist (v1)
 
-- [ ] Unique `<title>` and meta description per URL
-- [ ] One H1; H2s for widget, location, FAQ
-- [ ] Canonical self-references; `www` vs apex decided at DNS (pick one, redirect the other)
-- [ ] `sitemap.ts` — public URLs only
-- [ ] `robots.txt` — allow public; disallow `/admin`
-- [ ] `noindex` on admin and preview-auth pages
-- [ ] Open Graph + Twitter card; one real photo when we have it
-- [ ] `lang="en-IN"`
-- [ ] JSON-LD (types below) with **only known** fields
-- [ ] Core Web Vitals: image compression, no hotel-chat third parties in v1
-- [ ] `tel:` and `https://wa.me/919986222892` crawlable links (not click-only JS)
-- [ ] 404 page with path back to Home / WhatsApp
-- [ ] HTTPS
-- [ ] No `keyword` meta stuffing
-- [ ] Hindi/Kannada: not v1 unless the owner writes it (machine-translated pages are thin)
+- [x] Unique `<title>` and meta description per URL — `src/lib/seo/copy.ts`
+- [x] One H1; H2s for widget (“Book your stay”), location, FAQ
+- [x] Canonical self-references; `www` vs apex decided at DNS (pick one, redirect the other) — code assumes **apex** `silversandhomestay.com`
+- [x] `sitemap.ts` — public URLs only
+- [x] `robots.txt` — allow public; disallow `/admin`; sitemap URL
+- [x] `noindex` on admin and `/style-guide`
+- [x] Open Graph + Twitter card; wordmark OG image until we have a real photo
+- [x] `lang="en-IN"`
+- [x] JSON-LD (types below) with **only known** fields
+- [ ] Core Web Vitals: image compression, no hotel-chat third parties in v1 — no third-party chat; compress when owner photos land
+- [x] `tel:` and `https://wa.me/919986222892` crawlable links (not click-only JS)
+- [x] 404 page with path back to Home / WhatsApp
+- [ ] HTTPS — host/DNS (not this repo)
+- [x] No `keyword` meta stuffing
+- [x] Hindi/Kannada: not v1 unless the owner writes it (machine-translated pages are thin)
 
 ### Schema types that actually fit a homestay
 
 Use [schema.org](https://schema.org) types that match a **single lodging house**, not a hotel chain.
 
-| Type                                                | Use?                                            | How                                                                                                                          |
-| --------------------------------------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `LodgingBusiness`                                   | Yes                                             | Main entity. `name`, `telephone`, `url`, `address` (when known), `geo` (when known), `image` (when real).                    |
-| `BedAndBreakfast`                                   | Optional instead of or as `additionalType`      | Only if breakfast is actually offered. **Unknown — do not use until meals are confirmed.**                                   |
-| `Accommodation` (or `HotelRoom` as the room’s type) | Yes                                             | The Deluxe AC Room: `occupancy`, `name`. `HotelRoom` is the schema.org room type; it does **not** make the business a Hotel. |
-| `Offer`                                             | Yes                                             | Each occupancy rate from the **database** (`price`, `priceCurrency: INR`, `unitText` night). Update when admin saves.        |
-| `GeoCoordinates` / `PostalAddress`                  | Yes, when known                                 | Never placeholder pins.                                                                                                      |
-| `FAQPage`                                           | Yes, if `/faq` or Home FAQ is real Q&A          |                                                                                                                              |
-| `BreadcrumbList`                                    | Yes                                             | Home → Room                                                                                                                  |
-| `WebSite`                                           | Yes                                             | `name` + `url`. Skip `SearchAction` (no on-site search).                                                                     |
-| `AggregateRating` / `Review`                        | Only with genuine, attributable reviews         | **No fake 4.9 stars.** Prefer linking GBP.                                                                                   |
-| `Hotel`                                             | **No**                                          | Wrong category; fights our “homestay” SERP.                                                                                  |
-| `VacationRental`                                    | No unless the whole house is let as one product | Brief is a room type with sharing occupancies.                                                                               |
-| `TouristTrip` / scuba `Product`                     | No unless we sell those                         | Leave to `murudeshwar.co.in`.                                                                                                |
+| Type                                                | Use?                                            | How                                                                                                                                                                  |
+| --------------------------------------------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `LodgingBusiness`                                   | Yes                                             | Main entity. **Live:** `name`, `telephone`, `url`, locality-only `PostalAddress` (Murudeshwar / Karnataka / IN). `address` street + `geo` + `image` only when known. |
+| `BedAndBreakfast`                                   | Optional instead of or as `additionalType`      | Only if breakfast is actually offered. **Unknown — do not use until meals are confirmed.**                                                                           |
+| `Accommodation` (or `HotelRoom` as the room’s type) | Yes                                             | The Deluxe AC Room: `occupancy`, `name`. `HotelRoom` is the schema.org room type; it does **not** make the business a Hotel.                                         |
+| `Offer`                                             | Yes                                             | Each occupancy rate from the **database** (`price`, `priceCurrency: INR`, `unitText` night). Update when admin saves.                                                |
+| `GeoCoordinates` / `PostalAddress`                  | Yes, when known                                 | Never placeholder pins.                                                                                                                                              |
+| `FAQPage`                                           | Yes, if `/faq` or Home FAQ is real Q&A          |                                                                                                                                                                      |
+| `BreadcrumbList`                                    | Yes                                             | Home → Room                                                                                                                                                          |
+| `WebSite`                                           | Yes                                             | `name` + `url`. Skip `SearchAction` (no on-site search).                                                                                                             |
+| `AggregateRating` / `Review`                        | Only with genuine, attributable reviews         | **No fake 4.9 stars.** Prefer linking GBP.                                                                                                                           |
+| `Hotel`                                             | **No**                                          | Wrong category; fights our “homestay” SERP.                                                                                                                          |
+| `VacationRental`                                    | No unless the whole house is let as one product | Brief is a room type with sharing occupancies.                                                                                                                       |
+| `TouristTrip` / scuba `Product`                     | No unless we sell those                         | Leave to `murudeshwar.co.in`.                                                                                                                                        |
 
 `priceRange` on `LodgingBusiness`: set only after occupancy rates exist (e.g. `₹X–₹Y` from min/max occupancy).
 
 ### Internal linking map
 
 ```
-/  --primary-->  /rooms/deluxe-ac  --widget-->  wa.me
+/  --primary-->  /rooms/deluxe-ac-room  --widget-->  wa.me
 |                    |
 +-- /contact         +-- /contact
++-- /location
++-- /about
++-- /gallery
 +-- /murudeshwar (later)
-+-- /about (later)
-+-- /faq (later)
-+-- /rooms-in-murudeshwar (later) --back--> /rooms/deluxe-ac
++-- /faq (later — Home FAQ is live)
++-- /rooms-in-murudeshwar (later) --back--> /rooms/deluxe-ac-room
 
-Footer on all public pages: Home, Room, Contact, WhatsApp, Call, Privacy
+Footer on all public pages: Home, Rooms, Gallery, About, Location, Contact, WhatsApp, Call, Privacy, Terms
 ```
 
 Rules:
 
-- The phrase “Deluxe AC Room” on Home links to `/rooms/deluxe-ac`.
+- The phrase “Deluxe AC Room” on Home links to `/rooms/deluxe-ac-room`.
 - “Homestay in Murudeshwar” does not spawn a second Home.
 - Future beach page links to Home + Room + map, not to a cluster of synonyms.
 - Admin never linked from the public footer.

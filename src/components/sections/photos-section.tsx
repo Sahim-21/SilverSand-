@@ -23,18 +23,33 @@ export function PhotosSection({ showGalleryLink = true }: PhotosSectionProps) {
               Photos
             </Heading>
             <Text tone="muted" className="mt-2">
-              Real photographs from the owner will replace these placeholders. We do
-              not use stock villa images.
+              Real photographs from the owner will replace these placeholders. We do not
+              use stock villa images.
             </Text>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <PhotoFrame ratio="wide" caption="Exterior — pending owner photos (#2)" />
-            <PhotoFrame ratio="room" caption="Deluxe AC Room — pending (#2)" />
-            <PhotoFrame ratio="room" caption="Bathroom — pending (#2)" />
+            <PhotoFrame
+              ratio="wide"
+              alt="Exterior of Silver Sand Beach Homestay in Murudeshwar — photograph pending from the owner"
+              caption="Exterior — pending owner photos (#2)"
+            />
+            <PhotoFrame
+              ratio="room"
+              alt="Deluxe AC Room interior at Silver Sand Beach Homestay — photograph pending from the owner"
+              caption="Deluxe AC Room — pending (#2)"
+            />
+            <PhotoFrame
+              ratio="room"
+              alt="Bathroom of the Deluxe AC Room — photograph pending from the owner"
+              caption="Bathroom — pending (#2)"
+            />
           </div>
           <TodoNotice item="photos" />
           {showGalleryLink ? (
-            <Link href="/gallery" className={cn(buttonVariants({ variant: "outline" }), "w-fit")}>
+            <Link
+              href="/gallery"
+              className={cn(buttonVariants({ variant: "outline" }), "w-fit")}
+            >
               View gallery
             </Link>
           ) : null}

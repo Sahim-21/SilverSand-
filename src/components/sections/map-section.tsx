@@ -27,13 +27,16 @@ export function MapSection({ showLocationLink = true }: MapSectionProps) {
           </Text>
           <div className="flex aspect-[16/9] items-center justify-center rounded-lg border border-dashed border-line bg-sand-deep">
             <Text size="sm" tone="muted" className="px-4 text-center">
-              Map embed placeholder — requires owner coordinates (checklist #11)
-              and full address (checklist #1).
+              Map embed placeholder — requires owner coordinates (checklist #11) and
+              full address (checklist #1).
             </Text>
           </div>
           <TodoNotice item="coordinates" />
           {showLocationLink ? (
-            <Link href="/location" className={cn(buttonVariants({ variant: "outline" }), "w-fit")}>
+            <Link
+              href="/location"
+              className={cn(buttonVariants({ variant: "outline" }), "w-fit")}
+            >
               Location page
             </Link>
           ) : null}

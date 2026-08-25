@@ -15,8 +15,8 @@ export function RoomLayoutSection() {
               Layout &amp; pricing
             </Heading>
             <Text tone="muted" className="mt-2">
-              Occupancy rates below are loaded from the admin panel when published.
-              We do not hardcode nightly prices on this site.
+              Occupancy rates below are loaded from the admin panel when published. We
+              do not hardcode nightly prices on this site.
             </Text>
           </div>
           <OccupancyPricing />

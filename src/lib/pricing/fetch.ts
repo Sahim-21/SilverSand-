@@ -10,41 +10,47 @@ import type { PublicPricing } from "@/lib/pricing/types";
 async function fetchPricingUncached(): Promise<PublicPricing | null> {
   if (!isDatabaseConfigured()) return null;
 
-  const db = getDb();
-  const room = await db.query.rooms.findFirst({
-    where: eq(rooms.slug, ROOM_SLUG),
-    with: {
-      occupancyPrices: {
-        orderBy: asc(occupancyPrices.occupancy),
+  try {
+    const db = getDb();
+    const room = await db.query.rooms.findFirst({
+      where: eq(rooms.slug, ROOM_SLUG),
+      with: {
+        occupancyPrices: {
+          orderBy: asc(occupancyPrices.occupancy),
+        },
       },
-    },
-  });
+    });
 
-  if (!room || !room.isPublished) return null;
+    if (!room || !room.isPublished) return null;
 
-  const occupancyRates = OCCUPANCY_TIERS.map((tier) => {
-    const row = room.occupancyPrices.find((p) => p.occupancy === tier);
+    const occupancyRates = OCCUPANCY_TIERS.map((tier) => {
+      const row = room.occupancyPrices.find((p) => p.occupancy === tier);
+      return {
+        occupancy: tier as OccupancyTier,
+        nightlyRateInr: row?.nightlyRateInr ?? 0,
+      };
+    });
+
+    const hasValidRates = occupancyRates.every((r) => r.nightlyRateInr > 0);
+    if (!hasValidRates) return null;
+
     return {
-      occupancy: tier as OccupancyTier,
-      nightlyRateInr: row?.nightlyRateInr ?? 0,
+      room: {
+        slug: room.slug,
+        name: room.name,
+        maxOccupancy: room.maxOccupancy,
+        currency: room.currency.trim(),
+        extraBedRateInr: room.extraBedRateInr,
+        isPublished: room.isPublished,
+      },
+      occupancyRates,
+      updatedAt: room.updatedAt.toISOString(),
     };
-  });
-
-  const hasValidRates = occupancyRates.every((r) => r.nightlyRateInr > 0);
-  if (!hasValidRates) return null;
-
-  return {
-    room: {
-      slug: room.slug,
-      name: room.name,
-      maxOccupancy: room.maxOccupancy,
-      currency: room.currency.trim(),
-      extraBedRateInr: room.extraBedRateInr,
-      isPublished: room.isPublished,
-    },
-    occupancyRates,
-    updatedAt: room.updatedAt.toISOString(),
-  };
+  } catch {
+    // Fail closed: unpublished UI + schema without Offers. Do not throw during
+    // prerender when DATABASE_URL is set but unreachable (CI, local, Neon blip).
+    return null;
+  }
 }
 
 export async function getPublicPricing(): Promise<PublicPricing | null> {

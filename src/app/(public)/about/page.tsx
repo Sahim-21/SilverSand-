@@ -9,12 +9,10 @@ import { FinalCtaSection } from "@/components/sections/final-cta-section";
 import { TodoNotice } from "@/components/marketing/todo-notice";
 import { Stack } from "@/components/layout/stack";
 import { BUSINESS_NAME } from "@/lib/business";
+import { PAGE_SEO } from "@/lib/seo/copy";
+import { pageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "About",
-  description: `About ${BUSINESS_NAME} — a homestay in Murudeshwar focused on direct WhatsApp and phone bookings.`,
-  alternates: { canonical: "/about" },
-};
+export const metadata: Metadata = pageMetadata(PAGE_SEO.about);
 
 export default function AboutPage() {
   return (
@@ -22,6 +20,10 @@ export default function AboutPage() {
       <InnerPageHero
         title={`About ${BUSINESS_NAME}`}
         description="A single-property homestay in Murudeshwar. We publish only what the owner has confirmed."
+        crumbs={[
+          { href: "/", label: "Home" },
+          { href: "/about", label: "About" },
+        ]}
       />
       <AboutSection />
       <Section>

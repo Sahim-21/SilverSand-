@@ -59,7 +59,7 @@ Until the owner answers the checklist in `docs/BUSINESS_INFO.md`, copy must stay
 
 ## Current state (summary)
 
-**Phase 1 (project scaffold) is complete.** Documentation (Phase 0) and the runnable Next.js repo are in place. Phase 2 adds the interactive booking widget, JSON-LD, and launch polish.
+**Phase 1 (project scaffold) is complete.** Documentation (Phase 0) and the runnable Next.js repo are in place. Phase 2 remaining: owner occupancy rates and deploy. Technical SEO (titles, canonicals, JSON-LD with known facts) is live.
 
 - Full status: [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
 - Work remaining: [`docs/TASKS.md`](docs/TASKS.md)
@@ -69,7 +69,7 @@ Until the owner answers the checklist in `docs/BUSINESS_INFO.md`, copy must stay
 
 **Done:** Phase 0 documentation; Phase 1 scaffold; marketing pages; **interactive booking widget** (live estimate + WhatsApp prefill).
 
-**Next (Phase 2 remaining):** owner occupancy rates in admin; JSON-LD when address exists; deploy to Vercel.
+**Next (Phase 2 remaining):** owner occupancy rates in admin; deploy to Vercel. Street address/geo can extend LodgingBusiness JSON-LD when confirmed.
 
 **Do not do without owner facts:** invented beach distance, amenities, review quotes, or hardcoded occupancy ₹.
 

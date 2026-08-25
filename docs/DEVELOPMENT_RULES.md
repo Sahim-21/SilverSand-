@@ -72,7 +72,7 @@ OTA pages (EaseMyTrip, Casai, etc.) that mention Silver Sand are **leads to veri
 
 - Follow `docs/SEO_STRATEGY.md`.
 - No doorway pages, no fake `Hotel` schema, no fabricated `AggregateRating`.
-- Use `LodgingBusiness` / `BedAndBreakfast` + `Accommodation` with only known properties.
+- Use `LodgingBusiness` + `HotelRoom` with only known properties. No `BedAndBreakfast` until meals are confirmed.
 - `/admin` stays out of the sitemap and is `noindex`.
 
 ---

@@ -10,18 +10,22 @@ import { NearbyAttractionsSection } from "@/components/sections/nearby-attractio
 import { PhotosSection } from "@/components/sections/photos-section";
 import { PropertyIntroSection } from "@/components/sections/property-intro-section";
 import { RoomPricingSection } from "@/components/sections/room-pricing-section";
-import { BUSINESS_NAME } from "@/lib/business";
+import { JsonLd } from "@/components/seo/json-ld";
+import { getPublicPricing } from "@/lib/pricing/fetch";
+import { getAnsweredFaqs } from "@/lib/seo/faqs";
+import { PAGE_SEO } from "@/lib/seo/copy";
+import { faqPageJsonLd } from "@/lib/seo/json-ld";
+import { pageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "Homestay in Murudeshwar",
-  description:
-    `${BUSINESS_NAME} in Murudeshwar, Karnataka. One Deluxe AC Room, occupancy-based pricing, book direct on WhatsApp.`,
-  alternates: { canonical: "/" },
-};
+export const metadata: Metadata = pageMetadata(PAGE_SEO.home);
 
-export default function HomePage() {
+export default async function HomePage() {
+  const pricing = await getPublicPricing();
+  const faqLd = faqPageJsonLd(getAnsweredFaqs(pricing));
+
   return (
     <>
+      <JsonLd data={faqLd} />
       <HeroSection />
       <PropertyIntroSection />
       <RoomPricingSection />

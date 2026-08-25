@@ -22,15 +22,15 @@ export function AboutSection({ compact = false }: AboutSectionProps) {
             About {BUSINESS_NAME}
           </Heading>
           <Text tone="muted">
-            We are a homestay in Murudeshwar focused on direct bookings — WhatsApp
-            and phone — so you deal with the host, not an OTA commission layer. The
-            site shows one room type with occupancy-based pricing you can see before
-            you message us (when rates are published).
+            We are a homestay in Murudeshwar focused on direct bookings — WhatsApp and
+            phone — so you deal with the host, not an OTA commission layer. The site
+            shows one room type with occupancy-based pricing you can see before you
+            message us (when rates are published).
           </Text>
           {!compact ? (
             <Text tone="muted">
-              Host names, languages spoken, and the family story behind the house
-              will be added when the owner provides them.
+              Host names, languages spoken, and the family story behind the house will
+              be added when the owner provides them.
             </Text>
           ) : null}
           <TodoNotice
@@ -38,7 +38,10 @@ export function AboutSection({ compact = false }: AboutSectionProps) {
             detail="Host name(s) and languages not yet provided (checklist #20)."
           />
           {compact ? (
-            <Link href="/about" className={cn(buttonVariants({ variant: "outline" }), "w-fit")}>
+            <Link
+              href="/about"
+              className={cn(buttonVariants({ variant: "outline" }), "w-fit")}
+            >
               Read about us
             </Link>
           ) : null}

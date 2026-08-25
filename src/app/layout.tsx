@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
 
 import { Providers } from "@/components/providers";
+import { BUSINESS_NAME, SITE_URL } from "@/lib/business";
+import { PAGE_SEO } from "@/lib/seo/copy";
 
 import "./globals.css";
 
@@ -16,15 +18,25 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://silversandhomestay.com",
-  ),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Silver Sand Beach Homestay | Homestay in Murudeshwar",
-    template: "%s | Silver Sand Beach Homestay",
+    default: PAGE_SEO.home.absoluteTitle,
+    template: `%s | ${BUSINESS_NAME}`,
   },
-  description:
-    "Homestay in Murudeshwar, Karnataka. Deluxe AC Room with occupancy-based pricing. Book direct on WhatsApp or phone.",
+  description: PAGE_SEO.home.description,
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: SITE_URL,
+    siteName: BUSINESS_NAME,
+    title: PAGE_SEO.home.absoluteTitle,
+    description: PAGE_SEO.home.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: PAGE_SEO.home.absoluteTitle,
+    description: PAGE_SEO.home.description,
+  },
 };
 
 export default function RootLayout({

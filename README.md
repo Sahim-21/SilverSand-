@@ -23,15 +23,15 @@ After seeding, log in and enter all five occupancy rates (2/3/4/6/8) plus extra-
 
 ## Scripts
 
-| Command                           | Purpose                            |
-| --------------------------------- | ---------------------------------- |
-| `npm run dev`                     | Dev server (port 43123)            |
-| `npm run build`                   | Production build                   |
-| `npm run lint`                    | ESLint                             |
-| `npm run typecheck`               | `tsc --noEmit`                     |
-| `npm run format` / `format:check` | Prettier                           |
-| `npm run db:push`                 | Push Drizzle schema to Postgres    |
-| `npm test`                        | Estimate + WhatsApp message tests  |
+| Command                           | Purpose                                          |
+| --------------------------------- | ------------------------------------------------ |
+| `npm run dev`                     | Dev server (port 43123)                          |
+| `npm run build`                   | Production build                                 |
+| `npm run lint`                    | ESLint                                           |
+| `npm run typecheck`               | `tsc --noEmit`                                   |
+| `npm run format` / `format:check` | Prettier                                         |
+| `npm run db:push`                 | Push Drizzle schema to Postgres                  |
+| `npm test`                        | Estimate, WhatsApp, price-scanner, JSON-LD tests |
 
 ## Docs
 

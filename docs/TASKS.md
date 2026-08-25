@@ -74,7 +74,8 @@ Must ship a **usable** booking path, not a platform.
 - [ ] Owner occupancy rates entered (Phase 0) and room published via admin
 - [x] Interactive booking widget: dates, occupancy, extra beds, live estimate from API
 - [x] WhatsApp prefill with dates, guests, estimate, room name
-- [ ] `LodgingBusiness` + `Accommodation` JSON-LD **only with known facts**
+- [x] `LodgingBusiness` + `HotelRoom` JSON-LD **only with known facts** (`Offer` when rates are published; no geo/ratings)
+- [x] Unique titles, canonicals, OG/Twitter, sitemap, robots, breadcrumbs, 404
 - [ ] Deploy to Vercel + Neon; domain DNS
 - [ ] README verified against production setup
 

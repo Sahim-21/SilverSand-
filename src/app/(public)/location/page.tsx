@@ -12,12 +12,10 @@ import { TodoNotice } from "@/components/marketing/todo-notice";
 import { Stack } from "@/components/layout/stack";
 import { Text } from "@/components/ui/heading";
 import { BUSINESS_NAME, BUSINESS_PLACE } from "@/lib/business";
+import { PAGE_SEO } from "@/lib/seo/copy";
+import { pageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "Location",
-  description: `How to find ${BUSINESS_NAME} in Murudeshwar, Karnataka. Map and directions when the owner provides a confirmed pin.`,
-  alternates: { canonical: "/location" },
-};
+export const metadata: Metadata = pageMetadata(PAGE_SEO.location);
 
 export default function LocationPage() {
   return (
@@ -25,15 +23,19 @@ export default function LocationPage() {
       <InnerPageHero
         title="Location"
         description={`${BUSINESS_NAME} — ${BUSINESS_PLACE}. Street address and driving directions will be added when the owner confirms them.`}
+        crumbs={[
+          { href: "/", label: "Home" },
+          { href: "/location", label: "Location" },
+        ]}
       />
       <MapSection showLocationLink={false} />
       <Section>
         <Container>
           <Stack gap="md" className="max-w-3xl">
             <Text tone="muted">
-              We have not published walking or driving times from our homestay to
-              the beach, temple, bus stand, or railway station until the owner
-              shares a map pin and measured distances.
+              We have not published walking or driving times from our homestay to the
+              beach, temple, bus stand, or railway station until the owner shares a map
+              pin and measured distances.
             </Text>
             <TodoNotice item="address" />
             <TodoNotice

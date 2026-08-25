@@ -190,15 +190,15 @@ No thin doorway pages. A URL earns its keep with distinct intent and facts we ac
 
 ### Must-have (v1)
 
-| URL                | Intent                                                    | Notes                                                                                  |
-| ------------------ | --------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `/`                | “Homestay in Murudeshwar” — choose this stay, start dates | Hero, proof we can legally show, booking widget, WhatsApp + call, honest location line |
-| `/rooms/deluxe-ac` | Evaluate the one room                                     | Layout, occupancy pricing (from DB), extra bed, photos, widget                         |
-| `/contact`         | Call / WhatsApp / later map                               | NAP once address exists                                                                |
-| `/privacy`         | Trust / WhatsApp prefill                                  | Short, real                                                                            |
-| `/terms`           | House rules we actually have                              | Do not paste a hotel TOS template                                                      |
+| URL                     | Intent                                                    | Notes                                                                                  |
+| ----------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `/`                     | “Homestay in Murudeshwar” — choose this stay, start dates | Hero, proof we can legally show, booking widget, WhatsApp + call, honest location line |
+| `/rooms/deluxe-ac-room` | Evaluate the one room                                     | Layout, occupancy pricing (from DB), extra bed, photos, widget                         |
+| `/contact`              | Call / WhatsApp / later map                               | NAP once address exists                                                                |
+| `/privacy`              | Trust / WhatsApp prefill                                  | Short, real                                                                            |
+| `/terms`                | House rules we actually have                              | Do not paste a hotel TOS template                                                      |
 
-`/rooms` as a listing page is optional in v1 (only one type). Prefer redirect `/rooms` → `/rooms/deluxe-ac` rather than a fake catalog.
+`/rooms` is a listing page (one type). `/rooms/deluxe-ac` 301s to `/rooms/deluxe-ac-room`.
 
 ### Recommended (v1.1, after facts exist)
 
@@ -227,7 +227,7 @@ No thin doorway pages. A URL earns its keep with distinct intent and facts we ac
 
 ### Internal linking (minimum)
 
-See `SEO_STRATEGY.md` for the full map. Architecture rule: every public page can reach the booking widget or `/rooms/deluxe-ac` in one click; footer NAP + WhatsApp on all public pages.
+See `SEO_STRATEGY.md` for the full map. Architecture rule: every public page can reach the booking widget or `/rooms/deluxe-ac-room` in one click; footer NAP + WhatsApp on all public pages.
 
 ---
 

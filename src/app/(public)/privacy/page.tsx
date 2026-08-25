@@ -5,18 +5,23 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
 import { Text } from "@/components/ui/heading";
+import { PAGE_SEO } from "@/lib/seo/copy";
+import { pageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  alternates: { canonical: "/privacy" },
-};
+export const metadata: Metadata = pageMetadata(PAGE_SEO.privacy);
 
 export default function PrivacyPage() {
   return (
     <Container width="narrow">
       <Section>
         <Stack gap="md">
-          <PageHeader title="Privacy Policy" />
+          <PageHeader
+            title="Privacy Policy"
+            crumbs={[
+              { href: "/", label: "Home" },
+              { href: "/privacy", label: "Privacy Policy" },
+            ]}
+          />
           <Text tone="muted">
             When you contact Silver Sand Beach Homestay by phone or WhatsApp, we use
             your number and message only to respond about your stay. We do not sell your

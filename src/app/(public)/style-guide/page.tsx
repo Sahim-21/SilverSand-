@@ -20,10 +20,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PhotoFrame } from "@/components/ui/photo-frame";
 
-export const metadata: Metadata = {
-  title: "Style guide",
-  robots: { index: false, follow: false },
-};
+import { noIndexMetadata } from "@/lib/seo/metadata";
+
+export const metadata: Metadata = noIndexMetadata("Style guide");
 
 const colours = [
   { name: "Sand", className: "bg-sand border border-line", value: "#F4EFE6" },
@@ -200,7 +199,7 @@ export default function StyleGuidePage() {
                 <Button size="full">Save</Button>
               </CardFooter>
             </Card>
-            <PhotoFrame />
+            <PhotoFrame alt="Specimen empty photo frame — no property photograph yet" />
           </div>
           <Alert tone="danger" className="mt-6">
             Form error example — occupancy rates must be positive integers.

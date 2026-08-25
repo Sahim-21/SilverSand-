@@ -19,9 +19,9 @@ export function RoomsListSection() {
             <CardHeader>
               <CardTitle>{ROOM_NAME}</CardTitle>
               <Text size="sm" tone="muted">
-                One room type with occupancy-based pricing for families and groups.
-                Bed layout and amenities are listed on the room page when the owner
-                confirms them.
+                One room type with occupancy-based pricing for families and groups. Bed
+                layout and amenities are listed on the room page when the owner confirms
+                them.
               </Text>
             </CardHeader>
             <CardContent className="gap-6">

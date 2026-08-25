@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  robots: { index: false, follow: false },
-  title: "Admin",
-};
+import { noIndexMetadata } from "@/lib/seo/metadata";
+
+export const metadata: Metadata = noIndexMetadata("Admin");
 
 /**
  * Admin route group layout.

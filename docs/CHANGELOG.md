@@ -6,6 +6,31 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Technical SEO: metadata, crawl files, JSON-LD, breadcrumbs
+
+### What
+
+- Unique title tags and meta descriptions per public URL (`src/lib/seo/copy.ts`) plus Open Graph (`en_IN`) and Twitter `summary_large_image`. Canonicals via `pageMetadata()`. Home title is absolute so the brand is not doubled by the layout template.
+- `robots.ts` now advertises `sitemap.xml`. Sitemap still lists public URLs only (`/admin`, `/api`, `/style-guide` omitted).
+- Branded OG/Twitter image (`src/app/opengraph-image.tsx`) — wordmark card, not a stock villa.
+- JSON-LD: `WebSite`, `LodgingBusiness` + nested `HotelRoom`, `Offer`/`priceRange` only from published `getPublicPricing()`, `FAQPage` from answered FAQs only, `BreadcrumbList` on inner pages. Builders in `src/lib/seo/json-ld.ts`. Public layout loads pricing for that graph; `getPublicPricing()` fail-closes to `null` if the database is unreachable so prerender does not 500.
+- Visible breadcrumbs on inner pages; `PhotoFrame` requires `alt` (`role="img"` while empty); `CardTitle` defaults to h3 so each public page keeps one H1; booking widget title is h2.
+- Custom `src/app/not-found.tsx` with Home + WhatsApp/Call.
+- Home body “Deluxe AC Room” links to `/rooms/deluxe-ac-room`.
+- `docs/SEO_STRATEGY.md` records what is live vs withheld. Tests in `src/lib/seo/json-ld.test.ts`.
+
+### Why
+
+SEO is a day-one constraint. Crawl metadata and structured data have to match confirmed facts so we do not copy competitor sins (fake ratings, lorem, Hotel schema).
+
+### Rejected
+
+- `Hotel`, `BedAndBreakfast`, `AggregateRating`, `Review`, `SearchAction`, `GeoCoordinates`, street `PostalAddress`, `image` on the business, and `Offer` rows while rates are unpublished.
+- Keyword meta tag.
+- Using a stock photograph as `og:image`.
+
+---
+
 ## 2026-08-24 — Hardcoded-price audit + fail-closed display
 
 ### What

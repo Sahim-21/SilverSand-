@@ -13,8 +13,8 @@ export function FinalCtaSection() {
             Ready to check dates?
           </Heading>
           <Text className="text-sand/85">
-            Send your travel dates and how many guests will share the Deluxe AC Room.
-            We reply on WhatsApp with availability and an estimate from our published
+            Send your travel dates and how many guests will share the Deluxe AC Room. We
+            reply on WhatsApp with availability and an estimate from our published
             rates.
           </Text>
           <ContactCta layout="stack" className="max-w-md" />

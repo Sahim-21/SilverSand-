@@ -2,7 +2,7 @@
 
 Visual identity for Silver Sand Beach Homestay. **Not** owner-editable. **Not** a clone of `dandeliinn.com`, Kamath, Coastal Pearl, Amani, Nestle Sahyadri, or the attached booking-form screenshot.
 
-Implemented in code as CSS custom properties + Tailwind `@theme` utilities (`src/app/globals.css`). Pages must use those utilities (`bg-sand`, `text-mangrove`, `gap-form`, …), not leftover hex values.
+Implemented in code as CSS custom properties + Tailwind `@theme` utilities (`src/app/globals.css`). Pages must use those utilities (`bg-background`, `text-ink`, `text-mangrove-fg`, `gap-form`, …), not leftover hex values. Dark mode remaps canvas/text tokens; it does not introduce a second palette.
 
 **Rendered reference:** `/style-guide` (`noindex`, not in the sitemap).
 
@@ -20,10 +20,10 @@ Avoid: “5 star”, heavy gradients, excessive animation, generic stock-photo v
 
 ## Surfaces (what we actually decided)
 
-Two surfaces, not one dark website:
+Two surfaces, not one generic dark website:
 
-1. **Sand canvas** for marketing pages so real photographs (when we have them) sit on a warm, quiet field — not a hotel-white or a full-bleed dark theme.
-2. **Mangrove booking panel** (deep coastal green / near-black) with **warm gold** for titles and accent on that panel only. Adapted from a restrained warm-dark booking form; not copied pixel-for-pixel.
+1. **Page canvas** — warm **sand** in light mode (`--background` → `--sand`) so photographs sit on a quiet field, not hotel-white. In dark mode the canvas is **mangrove-deep** (`#121C18`), the same coastal near-black as the brand, not zinc/slate grey.
+2. **Mangrove booking panel** (pigment `--mangrove`, `#1A2B24`) with **warm gold** for titles and accent on that panel only. Pigments do not invert when the theme changes, so sand type on the panel still reads.
 
 WhatsApp green is **only** for WhatsApp CTAs. Gold is not a second conversion colour on light pages.
 
@@ -31,30 +31,81 @@ WhatsApp green is **only** for WhatsApp CTAs. Gold is not a second conversion co
 
 ## Colour tokens
 
-Defined in `:root` and mapped in `@theme inline`.
+Defined in `:root` and mapped in `@theme inline`. **Pigments** (`--sand`, `--mangrove`, `--gold`, WhatsApp green) stay the same in both themes so `text-sand` on the booking panel and gold buttons with `text-mangrove` keep working. **Canvas and text** tokens remap under `html.dark`.
 
-| Token              | Hex / value         | Role                                        |
-| ------------------ | ------------------- | ------------------------------------------- |
-| `--sand`           | `#F4EFE6`           | Page background                             |
-| `--sand-deep`      | `#E8DFD0`           | Photo empty states, hover washes            |
-| `--surface`        | `#FFFCF7`           | Light cards, header/footer                  |
-| `--ink`            | `#1C1914`           | Body text (warm near-black)                 |
-| `--muted`          | `#5E574C`           | Secondary text                              |
-| `--mangrove`       | `#1A2B24`           | Brand, primary buttons on light, dark panel |
-| `--mangrove-mid`   | `#243830`           | Dark-panel inputs, hover                    |
-| `--mangrove-deep`  | `#121C18`           | Reserved (deeper shade)                     |
-| `--gold`           | `#C4A35A`           | Dark-panel titles; `Button variant="gold"`  |
-| `--gold-hover`     | `#B08F48`           | Gold hover                                  |
-| `--gold-muted`     | `#D4B56A`           | Gold on dark, large type only               |
-| `--whatsapp`       | `#128C7E`           | WhatsApp CTA only                           |
-| `--whatsapp-hover` | `#0E7368`           | WhatsApp hover                              |
-| `--line`           | `#D9D0C2`           | Light borders                               |
-| `--line-on-dark`   | sand at 22% opacity | Dark-panel input borders                    |
-| `--danger`         | `#B42318`           | Errors                                      |
+Use `--background` for the page, not `--sand`. Use `--mangrove-fg` for links, the wordmark, and outline/call buttons — not raw `--mangrove` (that pigment stays dark green and would disappear on a dark canvas). Gold buttons keep `text-mangrove`.
 
-**Do not use:** `--sea` / `--sea-hover` (Phase 1 scaffold blues — removed).
+### Light (`:root`)
 
-Contrast: ink on sand, sand on mangrove, and mangrove on gold buttons must stay WCAG AA. Do not set body copy in gold on sand.
+| Token              | Hex / value         | Role                                              |
+| ------------------ | ------------------- | ------------------------------------------------- |
+| `--background`     | `var(--sand)`       | Page canvas                                       |
+| `--sand`           | `#F4EFE6`           | Pigment — light canvas; on-dark type              |
+| `--sand-deep`      | `#E8DFD0`           | Photo empty states, hover washes, banded sections |
+| `--surface`        | `#FFFCF7`           | Cards, header, footer                             |
+| `--ink`            | `#1C1914`           | Body text (warm near-black)                       |
+| `--muted`          | `#5E574C`           | Secondary text                                    |
+| `--mangrove`       | `#1A2B24`           | Pigment — brand, primary buttons, booking panel   |
+| `--mangrove-mid`   | `#243830`           | Dark-panel inputs, hover                          |
+| `--mangrove-deep`  | `#121C18`           | Hero overlay, dark-mode page canvas               |
+| `--mangrove-fg`    | `#1A2B24`           | Links, wordmark (follows canvas in dark mode)     |
+| `--gold`           | `#C4A35A`           | Dark-panel titles; `Button variant="gold"`        |
+| `--gold-hover`     | `#B08F48`           | Gold hover                                        |
+| `--gold-muted`     | `#D4B56A`           | Gold on dark, large type; dark-mode mangrove-fg   |
+| `--whatsapp`       | `#128C7E`           | WhatsApp CTA only                                 |
+| `--whatsapp-hover` | `#0E7368`           | WhatsApp hover                                    |
+| `--line`           | `#D9D0C2`           | Borders on the light canvas                       |
+| `--line-on-dark`   | sand at 22% opacity | Dark-panel input borders                          |
+| `--danger`         | `#B42318`           | Errors                                            |
+| `--focus`          | `#1A2B24`           | Focus ring on light surfaces                      |
+
+### Dark (`html.dark`)
+
+Warm mangrove-deep canvas and gold-mustard links — not a generic black/white swap. Pigments above are **not** redefined here.
+
+| Token           | Dark value                         | Role                                   |
+| --------------- | ---------------------------------- | -------------------------------------- |
+| `--background`  | `var(--mangrove-deep)` (`#121C18`) | Page canvas                            |
+| `--sand-deep`   | `#1A2420`                          | Empty states, hover, banded sections   |
+| `--surface`     | `#1E2C26`                          | Cards, header, footer, occupancy table |
+| `--ink`         | `var(--sand)` (`#F4EFE6`)          | Body text                              |
+| `--muted`       | `#C9BFB0`                          | Secondary text                         |
+| `--line`        | `#3D4C44`                          | Borders on the dark canvas             |
+| `--mangrove-fg` | `var(--gold-muted)` (`#D4B56A`)    | Links, wordmark, outline/call          |
+| `--focus`       | `var(--gold-muted)`                | Focus ring on dark surfaces            |
+| `--danger`      | `#E07068`                          | Errors (lightened for the dark canvas) |
+
+Tailwind `dark:` variants follow the `html.dark` class (`@custom-variant dark`), not only `prefers-color-scheme`, so the header toggle actually switches utilities such as the hero overlay.
+
+**Do not use:** `--sea` / `--sea-hover` (Phase 1 scaffold blues — removed). Do not add zinc, slate, or a second grey scale. Do not invert `--sand` so it is both the dark page and on-dark type — that was the dual-use bug this remap avoids.
+
+### Contrast (WCAG AA)
+
+Guarded in `src/lib/theme-contrast.test.ts`. Body copy needs 4.5:1; large gold titles need 3:1.
+
+| Pair (approx.)                        | Mode  | Notes                                |
+| ------------------------------------- | ----- | ------------------------------------ |
+| Ink on sand / surface                 | Light | Body                                 |
+| Muted on sand                         | Light | Secondary                            |
+| Sand on mangrove / mangrove-deep      | Both  | Booking panel, hero overlay H1       |
+| Mangrove on gold                      | Both  | Gold buttons                         |
+| Ink (sand) on mangrove-deep / surface | Dark  | Body, occupancy cards                |
+| Muted `#C9BFB0` on surface `#1E2C26`  | Dark  | Secondary                            |
+| Gold-muted on surface / page          | Dark  | Links and wordmark (`--mangrove-fg`) |
+| Gold-muted on mangrove-deep           | Both  | Hero eyebrow                         |
+
+Do not set body copy in gold on the sand canvas.
+
+---
+
+## Dark mode behaviour
+
+- **First visit:** `prefers-color-scheme` (inline script in `layout.tsx` before paint, key `silversand-theme`).
+- **After the visitor toggles:** that choice is stored in `localStorage` and wins over the OS. If they never toggle, OS changes still apply.
+- **Control:** small sun/moon ghost button in the public header (and the admin chrome). Sun in dark mode, moon in light mode.
+- **Hero overlay:** mangrove-deep → mangrove gradient; dark mode uses a slightly stronger wash (`from-mangrove-deep/95`) so sand type still sits on the photograph.
+- **Occupancy / pricing cards:** `bg-surface` + `text-ink` so they follow the remap. Do not use `bg-sand` for those cards.
+- **Static OG image** (`opengraph-image.tsx`) may keep branded hex — it is not a themed page.
 
 ---
 
@@ -104,9 +155,9 @@ Max content width: `Container` `page` = 72rem; `narrow` = 42rem; widget column =
 | `Breadcrumbs` | `src/components/layout/breadcrumbs.tsx` | Visible trail + `BreadcrumbList` JSON-LD                  |
 | `PhotoFrame`  | `src/components/ui/photo-frame.tsx`     | Honest empty photo; **required `alt`**                    |
 
-Public skeleton: **Sticky** header (wordmark, Rooms, Contact, WhatsApp, Call) → Main → Footer (NAP when known, phone, WhatsApp, Privacy, Terms). Phone is always `+91 99862 22892`. Booking widgets on Home and the room page use `lg:sticky lg:top-24` so they sit below the header.
+Public skeleton: **Sticky** header (wordmark, Rooms, Contact, **theme toggle**, WhatsApp, Call) → Main → Footer (NAP when known, phone, WhatsApp, Privacy, Terms). Phone is always `+91 99862 22892`. Booking widgets on Home and the room page use `lg:sticky lg:top-24` so they sit below the header.
 
-Admin: no marketing header. Quiet sand/surface dashboard.
+Admin: no marketing header. Quiet canvas/surface dashboard with the same theme toggle.
 
 ---
 

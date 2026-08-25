@@ -29,15 +29,15 @@ Hobby Vercel + Neon Free. Functions region `sin1` (see `vercel.json`). Preview h
 
 ## Scripts
 
-| Command                           | Purpose                                          |
-| --------------------------------- | ------------------------------------------------ |
-| `npm run dev`                     | Dev server (port 43123)                          |
-| `npm run build`                   | Production build                                 |
-| `npm run lint`                    | ESLint                                           |
-| `npm run typecheck`               | `tsc --noEmit`                                   |
-| `npm run format` / `format:check` | Prettier                                         |
-| `npm run db:push`                 | Push Drizzle schema to Postgres                  |
-| `npm test`                        | Estimate, WhatsApp, price-scanner, JSON-LD tests |
+| Command                           | Purpose                                                 |
+| --------------------------------- | ------------------------------------------------------- |
+| `npm run dev`                     | Dev server (port 43123)                                 |
+| `npm run build`                   | Production build                                        |
+| `npm run lint`                    | ESLint                                                  |
+| `npm run typecheck`               | `tsc --noEmit`                                          |
+| `npm run format` / `format:check` | Prettier                                                |
+| `npm run db:push`                 | Push Drizzle schema to Postgres                         |
+| `npm test`                        | Estimate, WhatsApp, price-scanner, JSON-LD, theme tests |
 
 ## Docs
 

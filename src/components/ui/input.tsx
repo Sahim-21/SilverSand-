@@ -8,7 +8,7 @@ const inputVariants = cva(
   {
     variants: {
       surface: {
-        light: "border-line bg-surface text-ink focus-visible:ring-mangrove",
+        light: "border-line bg-surface text-ink focus-visible:ring-focus",
         dark: "scheme-dark border-line-on-dark bg-mangrove-mid text-sand placeholder:text-sand/55 focus-visible:ring-gold",
       },
     },

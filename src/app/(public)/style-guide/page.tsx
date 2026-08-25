@@ -25,16 +25,26 @@ import { noIndexMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = noIndexMetadata("Style guide");
 
 const colours = [
+  {
+    name: "Background",
+    className: "bg-background border border-line",
+    value: "canvas",
+  },
   { name: "Sand", className: "bg-sand border border-line", value: "#F4EFE6" },
-  { name: "Sand deep", className: "bg-sand-deep", value: "#E8DFD0" },
-  { name: "Surface", className: "bg-surface border border-line", value: "#FFFCF7" },
-  { name: "Ink", className: "bg-ink", value: "#1C1914" },
-  { name: "Muted", className: "bg-muted", value: "#5E574C" },
+  { name: "Sand deep", className: "bg-sand-deep", value: "#E8DFD0 / #1A2420" },
+  {
+    name: "Surface",
+    className: "bg-surface border border-line",
+    value: "#FFFCF7 / #1E2C26",
+  },
+  { name: "Ink", className: "bg-ink", value: "#1C1914 / sand" },
+  { name: "Muted", className: "bg-muted", value: "#5E574C / #C9BFB0" },
   { name: "Mangrove", className: "bg-mangrove", value: "#1A2B24" },
   { name: "Mangrove mid", className: "bg-mangrove-mid", value: "#243830" },
+  { name: "Mangrove fg", className: "bg-mangrove-fg", value: "#1A2B24 / gold-muted" },
   { name: "Gold", className: "bg-gold", value: "#C4A35A" },
   { name: "WhatsApp", className: "bg-whatsapp", value: "#128C7E" },
-  { name: "Danger", className: "bg-danger", value: "#B42318" },
+  { name: "Danger", className: "bg-danger", value: "#B42318 / #E07068" },
 ] as const;
 
 export default function StyleGuidePage() {
@@ -42,7 +52,7 @@ export default function StyleGuidePage() {
     <Container className="pb-section">
       <Section className="pb-10">
         <Stack gap="sm">
-          <p className="text-sm font-medium text-mangrove">Internal — not indexed</p>
+          <p className="text-sm font-medium text-mangrove-fg">Internal — not indexed</p>
           <Heading as="h1" size="display">
             Style guide
           </Heading>
@@ -50,7 +60,7 @@ export default function StyleGuidePage() {
             Rendered tokens and primitives for Silver Sand Beach Homestay. Use this page
             when adding UI. Public pages must not invent amenities, prices, or photos.
             See{" "}
-            <Link href="/" className="text-mangrove underline">
+            <Link href="/" className="text-mangrove-fg underline">
               Home
             </Link>{" "}
             for the live layout.
@@ -72,6 +82,12 @@ export default function StyleGuidePage() {
               </div>
             ))}
           </div>
+          <Text size="sm" tone="muted" className="mt-4 max-w-prose">
+            Use the sun/moon control in the header to switch themes. Canvas tokens
+            (background, sand-deep, surface, ink, muted, line, mangrove-fg) remap. Sand,
+            mangrove, and gold pigments stay so the booking panel still uses sand type
+            on mangrove.
+          </Text>
         </section>
 
         <section>

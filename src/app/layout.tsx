@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
 
 import { Providers } from "@/components/providers";
 import { BUSINESS_NAME, SITE_URL } from "@/lib/business";
 import { PAGE_SEO } from "@/lib/seo/copy";
 import { OG_IMAGE } from "@/lib/seo/metadata";
+import { THEME_INIT_SCRIPT } from "@/lib/theme";
 
 import "./globals.css";
 
@@ -50,9 +52,13 @@ export default function RootLayout({
   return (
     <html
       lang="en-IN"
+      suppressHydrationWarning
       className={`${sourceSans.variable} ${sourceSerif.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col antialiased">
+      <body className="min-h-full flex flex-col antialiased bg-background text-ink">
+        <Script id="silversand-theme" strategy="beforeInteractive">
+          {THEME_INIT_SCRIPT}
+        </Script>
         <Providers>{children}</Providers>
       </body>
     </html>

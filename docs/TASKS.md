@@ -64,6 +64,7 @@ Full checklist with why each item matters: `BUSINESS_INFO.md`.
 - [x] Lint / typecheck / format scripts
 - [x] Booking widget (dates, occupancy, extra beds, live estimate, WhatsApp prefill)
 - [x] Design system: tokens, primitives, layout, `/style-guide`
+- [x] Dark mode: canvas/text token remap under `html.dark` (mangrove-deep + gold-mustard), header sun/moon toggle, system preference then `localStorage`, contrast tests
 - [x] Marketing pages: Home (full section stack), `/rooms`, `/rooms/deluxe-ac-room`, `/gallery`, `/about`, `/location`, `/contact` — reusable section components; pricing from DB only
 
 ---

@@ -35,7 +35,7 @@ export default async function AdminDashboardPage() {
   return (
     <div className="mx-auto max-w-lg px-gutter py-8">
       <div className="mb-6">
-        <h1 className="font-serif text-2xl font-semibold text-mangrove">
+        <h1 className="font-serif text-2xl font-semibold text-mangrove-fg">
           {BUSINESS_NAME}
         </h1>
         <p className="mt-1 text-sm text-muted">Pricing dashboard</p>

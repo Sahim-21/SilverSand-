@@ -4,18 +4,19 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mangrove focus-visible:ring-offset-2 focus-visible:ring-offset-sand disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         default: "bg-mangrove text-sand hover:bg-mangrove-mid",
         gold: "bg-gold text-mangrove hover:bg-gold-hover",
-        outline: "border border-line bg-transparent text-mangrove hover:bg-sand-deep",
+        outline:
+          "border border-line bg-transparent text-mangrove-fg hover:bg-sand-deep",
         "outline-on-dark":
           "border border-line-on-dark bg-transparent text-sand hover:bg-mangrove-mid",
-        whatsapp: "bg-whatsapp text-white hover:bg-whatsapp-hover",
+        whatsapp: "bg-whatsapp text-sand hover:bg-whatsapp-hover",
         ghost: "text-ink hover:bg-sand-deep",
-        call: "border border-mangrove bg-transparent text-mangrove hover:bg-sand-deep",
+        call: "border border-mangrove-fg bg-transparent text-mangrove-fg hover:bg-sand-deep",
       },
       size: {
         default: "h-11 px-5 py-2",

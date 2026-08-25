@@ -9,7 +9,7 @@ const selectVariants = cva(
   {
     variants: {
       surface: {
-        light: "border-line bg-surface text-ink focus-visible:ring-mangrove",
+        light: "border-line bg-surface text-ink focus-visible:ring-focus",
         dark: "scheme-dark border-line-on-dark bg-mangrove-mid text-sand focus-visible:ring-gold",
       },
     },

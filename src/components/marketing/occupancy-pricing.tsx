@@ -48,7 +48,7 @@ export async function OccupancyPricing({ bookingHref }: OccupancyPricingProps) {
             return (
               <article
                 key={tier}
-                className="flex flex-col overflow-hidden rounded-lg border border-line bg-sand"
+                className="flex flex-col overflow-hidden rounded-lg border border-line bg-surface"
               >
                 <OccupancyRoomImage occupancy={tier} className="rounded-none" />
                 <div className="flex flex-1 flex-col gap-3 p-4">
@@ -93,7 +93,7 @@ function OccupancyImageGrid({ bookingHref }: { bookingHref: string }) {
       {OCCUPANCY_TIERS.map((tier) => (
         <article
           key={tier}
-          className="flex flex-col overflow-hidden rounded-lg border border-line bg-sand"
+          className="flex flex-col overflow-hidden rounded-lg border border-line bg-surface"
         >
           <OccupancyRoomImage occupancy={tier} className="rounded-none" />
           <div className="flex flex-1 flex-col gap-3 p-4">

@@ -36,7 +36,7 @@ function AuthorLine({ review }: { review: GoogleReview }) {
       href={review.author.uri}
       target="_blank"
       rel="noopener noreferrer"
-      className="font-medium text-mangrove underline-offset-2 hover:underline"
+      className="font-medium text-mangrove-fg underline-offset-2 hover:underline"
     >
       {name}
     </a>
@@ -89,7 +89,7 @@ function ReviewItem({ review }: { review: GoogleReview }) {
           href={review.googleMapsUri}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-fit text-sm text-mangrove underline-offset-2 hover:underline"
+          className="w-fit text-sm text-mangrove-fg underline-offset-2 hover:underline"
         >
           View on Google Maps
         </a>
@@ -129,7 +129,7 @@ export async function ReviewsSection() {
           </div>
 
           <p
-            className="text-sm text-[#5e5e5e]"
+            className="text-sm text-muted"
             style={{ fontFamily: "Roboto, sans-serif", fontWeight: 400 }}
             translate="no"
           >

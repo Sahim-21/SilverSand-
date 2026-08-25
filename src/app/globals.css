@@ -1,9 +1,11 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 /*
   Silver Sand Beach Homestay tokens.
   Source of truth for colour, type, space, and radius.
   Do not hardcode hex values in page components — use these utilities.
+  Dark mode remaps canvas/text tokens; mangrove, sand, and gold pigments stay.
 */
 
 :root {
@@ -20,6 +22,7 @@
   --mangrove: #1a2b24;
   --mangrove-mid: #243830;
   --mangrove-deep: #121c18;
+  --mangrove-fg: #1a2b24;
   --gold: #c4a35a;
   --gold-hover: #b08f48;
   --gold-muted: #d4b56a;
@@ -43,6 +46,22 @@
 
   --background: var(--sand);
   --foreground: var(--ink);
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+  /* Page canvas uses the mangrove-deep pigment — not a generic black. */
+  --background: var(--mangrove-deep);
+  --sand-deep: #1a2420;
+  --surface: #1e2c26;
+  --ink: var(--sand);
+  --muted: #c9bfb0;
+  --line: #3d4c44;
+  --mangrove-fg: var(--gold-muted);
+  --focus: var(--gold-muted);
+  --danger: #e07068;
+  --foreground: var(--ink);
 }
 
 @theme inline {
@@ -54,6 +73,7 @@
   --color-mangrove: var(--mangrove);
   --color-mangrove-mid: var(--mangrove-mid);
   --color-mangrove-deep: var(--mangrove-deep);
+  --color-mangrove-fg: var(--mangrove-fg);
   --color-gold: var(--gold);
   --color-gold-hover: var(--gold-hover);
   --color-gold-muted: var(--gold-muted);
@@ -62,6 +82,7 @@
   --color-line: var(--line);
   --color-line-on-dark: var(--line-on-dark);
   --color-danger: var(--danger);
+  --color-focus: var(--focus);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
@@ -89,7 +110,7 @@ html {
 }
 
 body {
-  background: var(--sand);
+  background: var(--background);
   color: var(--ink);
   font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: 1rem;

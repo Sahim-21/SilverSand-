@@ -7,11 +7,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
 import { Text } from "@/components/ui/heading";
-import {
-  BUSINESS_NAME,
-  FULL_ADDRESS,
-  GOOGLE_MAPS_PLACE_URL,
-} from "@/lib/business";
+import { BUSINESS_NAME, FULL_ADDRESS, GOOGLE_MAPS_PLACE_URL } from "@/lib/business";
 import { PAGE_SEO } from "@/lib/seo/copy";
 import { pageMetadata } from "@/lib/seo/metadata";
 
@@ -38,7 +34,7 @@ export default function ContactPage() {
           <ContactCta layout="stack" />
           <Text size="sm" tone="muted">
             {FULL_ADDRESS}. Directions and the live map pin are on the{" "}
-            <Link href="/location" className="text-mangrove underline">
+            <Link href="/location" className="text-mangrove-fg underline">
               Location
             </Link>{" "}
             page, or{" "}
@@ -46,7 +42,7 @@ export default function ContactPage() {
               href={GOOGLE_MAPS_PLACE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-mangrove underline"
+              className="text-mangrove-fg underline"
             >
               Google Maps
             </a>

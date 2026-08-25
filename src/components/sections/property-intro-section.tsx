@@ -16,7 +16,7 @@ export function PropertyIntroSection() {
           </Heading>
           <Text tone="muted">
             {BUSINESS_NAME} has one room:{" "}
-            <Link href={ROOM_PATH} className="text-mangrove underline">
+            <Link href={ROOM_PATH} className="text-mangrove-fg underline">
               the Deluxe AC Room
             </Link>
             . The nightly rate depends on how many guests share it — 2, 3, 4, 6, or 8 —

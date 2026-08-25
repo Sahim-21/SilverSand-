@@ -6,6 +6,27 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Dark mode on existing design tokens
+
+### What
+
+- Remapped canvas/text CSS variables under `html.dark`: page → mangrove-deep, surface → `#1E2C26`, ink → sand, muted → `#C9BFB0`, line → `#3D4C44`, `--mangrove-fg` → gold-muted, danger/focus lightened. Sand, mangrove, and gold **pigments** stay so the booking panel and gold buttons do not invert.
+- Header (and admin chrome) sun/moon toggle. First visit follows `prefers-color-scheme`; an explicit choice is stored as `silversand-theme`.
+- Tailwind `dark:` follows the `html.dark` class. Hero overlay is a stronger mangrove wash in dark mode. Occupancy cards use `bg-surface` / `text-ink`. Links and the wordmark use `text-mangrove-fg`.
+- Contrast pairs for both modes (hero overlay + pricing surface included) live in `src/lib/theme-contrast.test.ts`. Hex audit skips only the OG image and style-guide labels.
+
+### Why
+
+Guests (and the owner in admin) should be able to match the OS theme without a second, unrelated grey palette. The site identity is warm mangrove + gold-mustard; dark mode is that identity with the canvas dropped to mangrove-deep.
+
+### Rejected
+
+- A zinc/slate/black-and-white dark theme.
+- Inverting `--sand` so it is both the dark page background and on-dark type (breaks `text-sand` on the mangrove panel).
+- Ignoring `prefers-color-scheme` or failing to persist an explicit toggle.
+
+---
+
 ## 2026-08-25 — Sticky site header
 
 ### What

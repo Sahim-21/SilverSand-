@@ -25,7 +25,7 @@ export function PageHeader({
     <Stack gap="sm" className={cn("max-w-prose", className)}>
       {crumbs ? <Breadcrumbs items={crumbs} /> : null}
       {eyebrow ? (
-        <p className="text-sm font-medium tracking-wide text-mangrove">{eyebrow}</p>
+        <p className="text-sm font-medium tracking-wide text-mangrove-fg">{eyebrow}</p>
       ) : null}
       <Heading as="h1" size="display">
         {title}

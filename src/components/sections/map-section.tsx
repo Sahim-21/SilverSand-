@@ -39,7 +39,7 @@ export function MapSection({ showLocationLink = true }: MapSectionProps) {
               href={GOOGLE_MAPS_PLACE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-mangrove underline"
+              className="text-mangrove-fg underline"
             >
               open it on Google Maps
             </a>

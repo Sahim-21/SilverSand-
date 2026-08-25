@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import { BUSINESS_NAME, DISPLAY_PHONE, TEL_URL, WHATSAPP_URL } from "@/lib/business";
 import { mainNav } from "@/lib/navigation";
@@ -10,7 +11,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-surface/90 backdrop-blur-sm">
       <Container className="flex items-center justify-between gap-4 py-4">
-        <Link href="/" className="font-serif text-lg font-semibold text-mangrove">
+        <Link href="/" className="font-serif text-lg font-semibold text-mangrove-fg">
           {BUSINESS_NAME}
         </Link>
         <nav className="hidden items-center gap-6 text-sm md:flex">
@@ -18,13 +19,14 @@ export function SiteHeader() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-ink hover:text-mangrove"
+              className="text-ink hover:text-mangrove-fg"
             >
               {link.label}
             </Link>
           ))}
         </nav>
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <a
             href={WHATSAPP_URL}
             target="_blank"

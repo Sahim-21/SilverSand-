@@ -20,7 +20,7 @@ export function RoomPricingSection() {
             <Text tone="muted" className="mt-2">
               The nightly rate depends on how many guests share the Deluxe AC Room — 2,
               3, 4, 6, or 8 sharing.{" "}
-              <Link href={ROOM_PATH} className="text-mangrove underline">
+              <Link href={ROOM_PATH} className="text-mangrove-fg underline">
                 See the full room page
               </Link>{" "}
               for details and to check dates.

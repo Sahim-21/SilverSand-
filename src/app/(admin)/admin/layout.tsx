@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { ThemeToggle } from "@/components/theme-toggle";
 import { noIndexMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = noIndexMetadata("Admin");
@@ -14,10 +15,11 @@ export default function AdminLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="min-h-screen bg-sand text-ink">
+    <div className="min-h-screen bg-background text-ink">
       <header className="border-b border-line bg-surface">
-        <div className="mx-auto max-w-lg px-gutter py-3 text-sm text-muted">
-          Silver Sand — pricing admin only
+        <div className="mx-auto flex max-w-lg items-center justify-between px-gutter py-2 text-sm text-muted">
+          <span>Silver Sand — pricing admin only</span>
+          <ThemeToggle />
         </div>
       </header>
       <main>{children}</main>

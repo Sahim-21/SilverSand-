@@ -208,9 +208,7 @@ export function PricingDashboard({ initialData }: PricingDashboardProps) {
                         className="w-32 tabular-nums"
                       />
                       {errors[`tier_${tier}`] ? (
-                        <p className="text-xs text-danger">
-                          {errors[`tier_${tier}`]}
-                        </p>
+                        <p className="text-xs text-danger">{errors[`tier_${tier}`]}</p>
                       ) : null}
                     </div>
                   </td>
@@ -260,14 +258,12 @@ export function PricingDashboard({ initialData }: PricingDashboardProps) {
       {/* Feedback */}
       {errorMsg ? <Alert tone="danger">{errorMsg}</Alert> : null}
       {successMsg ? (
-        <p className="text-sm font-medium text-mangrove" role="status">
+        <p className="text-sm font-medium text-mangrove-fg" role="status">
           {successMsg}
         </p>
       ) : null}
       {!isDirty && !successMsg ? (
-        <p className="text-xs text-muted">
-          Edit a rate above to enable saving.
-        </p>
+        <p className="text-xs text-muted">Edit a rate above to enable saving.</p>
       ) : null}
 
       {/* Actions */}

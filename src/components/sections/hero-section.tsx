@@ -26,7 +26,7 @@ export function HeroSection() {
       {/* Mangrove / near-black wash so sand-tone copy and the booking CTAs stay readable */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-r from-mangrove-deep/92 via-mangrove-deep/78 to-mangrove/55"
+        className="absolute inset-0 bg-gradient-to-r from-mangrove-deep/92 via-mangrove-deep/78 to-mangrove/55 dark:from-mangrove-deep/95 dark:via-mangrove-deep/84 dark:to-mangrove/68"
       />
 
       <Container className="relative z-10 py-section">
@@ -39,7 +39,7 @@ export function HeroSection() {
               <Heading as="h1" size="display" className="mt-2 text-sand">
                 Homestay in Murudeshwar
               </Heading>
-              <Text className="mt-4 max-w-prose text-sand/85">
+              <Text className="mt-4 max-w-prose text-sand/90 dark:text-sand">
                 {BUSINESS_NAME} is a homestay in Murudeshwar — one Deluxe AC Room,
                 priced by how many guests share it. Book direct on WhatsApp; the host
                 confirms availability and your rate before you travel.

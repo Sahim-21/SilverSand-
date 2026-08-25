@@ -6,6 +6,27 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Homepage hero entrance and section fade-up
+
+### What
+
+- One hero entrance on Home: the coast photograph fades and eases from a slight scale, then headline, subtext, and a **Check dates** control (scrolls to `#booking`) stagger at 160 / 260 / 360ms. Total under 800ms. CSS only; booking widget is not animated.
+- The same IntersectionObserver fade-up on Room & Pricing, Photos, About, Nearby Attractions, and FAQ as they enter the viewport. Wrappers live on the homepage only so reused sections on other routes stay still.
+- `prefers-reduced-motion: reduce` skips all of this. Content and pricing stay in the DOM from first paint.
+
+### Why
+
+A single composed moment on arrival, then quiet consistency as you scroll — premium, not a site full of unrelated effects.
+
+### Rejected
+
+- Framer Motion / GSAP / a second motion library.
+- Animating the booking widget or gating prices behind the reveal.
+- Per-section gimmicks (different easings, parallax, count-ups).
+- Running the fade-up on every page that reuses Photos / About / attractions.
+
+---
+
 ## 2026-08-25 — Dark mode on existing design tokens
 
 ### What

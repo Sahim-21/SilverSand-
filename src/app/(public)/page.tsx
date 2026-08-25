@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { RevealOnScroll } from "@/components/reveal-on-scroll";
 import { AboutSection } from "@/components/sections/about-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import { FinalCtaSection } from "@/components/sections/final-cta-section";
@@ -29,13 +30,23 @@ export default async function HomePage() {
       <JsonLd data={faqLd} />
       <HeroSection />
       <PropertyIntroSection />
-      <RoomPricingSection />
-      <PhotosSection />
-      <AboutSection compact />
+      <RevealOnScroll>
+        <RoomPricingSection />
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <PhotosSection />
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <AboutSection compact />
+      </RevealOnScroll>
       <ReviewsSection />
       <MurudeshwarInfoSection />
-      <NearbyAttractionsSection />
-      <FaqSection />
+      <RevealOnScroll>
+        <NearbyAttractionsSection />
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <FaqSection />
+      </RevealOnScroll>
       <MapSection />
       <FinalCtaSection />
     </>

@@ -200,7 +200,14 @@ Estimates use `GET /api/pricing` / `estimateEnquiry` only. If rates are unpublis
 
 ## Motion
 
-Colour transitions on buttons/inputs only (`duration-150`). No hero carousels, no count-up stats.
+Colour transitions on buttons/inputs (`duration-150`). No hero carousels, no count-up stats, no animation library.
+
+**Homepage only** (not on `/rooms`, `/about`, `/gallery`, `/location`):
+
+1. **Hero entrance** — the photograph (and overlay) fades/scales in from `1.045`. Headline, subtext, then **Check dates** follow at 160 / 260 / 360ms. The last beat finishes by ~760ms. The booking widget is not part of this sequence and must stay visible and usable from first paint.
+2. **Scroll fade-up** — `IntersectionObserver` in `RevealOnScroll`. Same ease and 12px rise on Room & Pricing, Photos, About, Nearby Attractions, and FAQ. Content is in the DOM immediately; off-screen sections are only visually pending after mount.
+
+`prefers-reduced-motion: reduce` disables every animation and transition above; content shows at full opacity with no transform. Never use motion as a loading gate for prices or the widget.
 
 ---
 

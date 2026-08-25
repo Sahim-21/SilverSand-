@@ -6,6 +6,7 @@ import { Providers } from "@/components/providers";
 import { BUSINESS_NAME, SITE_URL } from "@/lib/business";
 import { PAGE_SEO } from "@/lib/seo/copy";
 import { OG_IMAGE } from "@/lib/seo/metadata";
+import { MOTION_INIT_SCRIPT } from "@/lib/motion";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 
 import "./globals.css";
@@ -56,8 +57,8 @@ export default function RootLayout({
       className={`${sourceSans.variable} ${sourceSerif.variable} h-full`}
     >
       <body className="min-h-full flex flex-col antialiased bg-background text-ink">
-        <Script id="silversand-theme" strategy="beforeInteractive">
-          {THEME_INIT_SCRIPT}
+        <Script id="silversand-boot" strategy="beforeInteractive">
+          {`${THEME_INIT_SCRIPT}${MOTION_INIT_SCRIPT}`}
         </Script>
         <Providers>{children}</Providers>
       </body>

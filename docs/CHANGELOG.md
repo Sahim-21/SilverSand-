@@ -6,6 +6,34 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Owner-confirmed pricing, policies, and amenities
+
+### What
+
+- Updated `docs/BUSINESS_INFO.md` with owner-supplied facts (25 August 2026):
+  - Occupancy nightly rates (INR): 2 → ₹2,000; 3 → ₹2,500; 4 → ₹3,000; 6 → ₹4,000; 8 → ₹5,000.
+  - Extra bed: ₹500 per person per night; max **8 total guests** (not sold beyond that cap).
+  - Room type: single **Deluxe AC Room** type; all rooms air-conditioned.
+  - Meals: not included, not offered.
+  - Wi-Fi: available, free.
+  - Parking: on-site.
+  - Check-in 11:00 AM; check-out 11:00 AM the next day.
+  - Cancellation: non-cancellable / non-refundable.
+  - Social share image: branded OG/Twitter wordmark is **final** (no owner photograph required).
+- Checked off matching items in the `BUSINESS_INFO.md` missing-information checklist (#4–#7, #12, #13, #16).
+- Added derived constants for rates, extra bed, check-in/out, and max guests.
+
+### Why
+
+Site copy, admin seeding, FAQs, and JSON-LD cannot move past placeholder state until these facts live in the single source of truth.
+
+### Rejected / still withheld
+
+- **Naveen Beach Road / Mavalli / PIN 581350** — still unverified OTA-mirror data; address not added to Confirmed.
+- Bed/bathroom layout, landmark distances, guest-count rules for 1/5/7, unit count, GST, GBP, reviews, host name, house rules, and OTA policy — still open on the checklist.
+
+---
+
 ## 2026-08-25 — Technical SEO: metadata, crawl files, JSON-LD, breadcrumbs
 
 ### What

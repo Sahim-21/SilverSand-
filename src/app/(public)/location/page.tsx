@@ -21,8 +21,8 @@ export default function LocationPage() {
   return (
     <>
       <InnerPageHero
-        title="Location"
-        description={`${BUSINESS_NAME} — ${BUSINESS_PLACE}. Street address and driving directions will be added when the owner confirms them.`}
+        title="Getting to Murudeshwar"
+        description={`${BUSINESS_NAME} is in ${BUSINESS_PLACE}. Murdeshwar Railway Station is on the Konkan Railway. Street address and map pin will be added when the owner confirms them.`}
         crumbs={[
           { href: "/", label: "Home" },
           { href: "/location", label: "Location" },
@@ -33,14 +33,23 @@ export default function LocationPage() {
         <Container>
           <Stack gap="md" className="max-w-3xl">
             <Text tone="muted">
-              We have not published walking or driving times from our homestay to the
-              beach, temple, bus stand, or railway station until the owner shares a map
-              pin and measured distances.
+              Murudeshwar is on the Konkan Railway — the quickest route from most major
+              cities. Nearest airport is Hubli (roughly 3–4 hours by road) or Mangalore
+              (roughly 2 hours). Once you arrive at Murdeshwar station, auto-rickshaws
+              run to most parts of town.
             </Text>
-            <TodoNotice item="address" />
+            <Text size="sm" tone="muted">
+              We have not published walking or driving times from our homestay to the
+              beach, temple, bus stand, or railway station — those distances require the
+              owner to confirm a map pin first.
+            </Text>
+            <TodoNotice
+              item="address"
+              detail="Full street address is not yet confirmed (checklist #1). Do not publish OTA-mirror addresses — they may refer to a different property."
+            />
             <TodoNotice
               item="landmarkDistances"
-              detail="Distances to Murudeshwar Beach, temple, bus stand, and railway station are pending (checklist #8)."
+              detail="Distances to the beach, temple, bus stand, and railway station require a confirmed map pin (checklist #8)."
             />
           </Stack>
         </Container>

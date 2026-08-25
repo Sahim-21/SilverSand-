@@ -19,7 +19,7 @@ export default function AboutPage() {
     <>
       <InnerPageHero
         title={`About ${BUSINESS_NAME}`}
-        description="A single-property homestay in Murudeshwar. We publish only what the owner has confirmed."
+        description="A family-run homestay in Murudeshwar with one Deluxe AC Room. Direct booking on WhatsApp — no OTA, no middleman."
         crumbs={[
           { href: "/", label: "Home" },
           { href: "/about", label: "About" },
@@ -31,11 +31,11 @@ export default function AboutPage() {
           <Stack gap="md" className="max-w-3xl">
             <TodoNotice
               item="meals"
-              detail="Meals policy (none / on request / included) not yet provided (checklist #16)."
+              detail="Meals policy (whether food is available, on request, or included) is not yet confirmed (checklist #16). Do not assume breakfast is offered — Murudeshwar has restaurants nearby but we have not verified whether the host provides food."
             />
             <TodoNotice
               item="houseRules"
-              detail="House rules and ID requirements not yet provided (checklist #21)."
+              detail="House rules including check-in/out times, ID requirements, and cancellation policy are not yet confirmed (checklist #21). These must come from the owner before they appear here."
             />
             <ContactCta />
           </Stack>

@@ -104,7 +104,7 @@ test("FAQPage schema uses answered questions only", () => {
     STATIC_FAQS.map((item) => item.q),
   );
   const withRates = getAnsweredFaqs(published);
-  assert.ok(withRates.some((item) => item.q === "Is there an extra bed charge?"));
+  assert.ok(withRates.some((item) => item.q === "Is there an extra bed?"));
   const pending = ["parking", "Wi-Fi", "check-in", "cancellation"];
   const blob = JSON.stringify(faqPageJsonLd(unanswered));
   for (const word of pending) {

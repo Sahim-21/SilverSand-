@@ -10,12 +10,12 @@ export function FinalCtaSection() {
       <Container>
         <Stack gap="md" className="max-w-2xl">
           <Heading as="h2" size="section" className="text-gold-muted">
-            Ready to check dates?
+            Check your dates
           </Heading>
           <Text className="text-sand/85">
-            Send your travel dates and how many guests will share the Deluxe AC Room. We
-            reply on WhatsApp with availability and an estimate from our published
-            rates.
+            Send us your travel dates and how many guests will share the room. We reply
+            on WhatsApp with availability and the rate for your group — no OTA fee, no
+            automated form, just the host.
           </Text>
           <ContactCta layout="stack" className="max-w-md" />
         </Stack>

@@ -18,8 +18,9 @@ export function HeroSection() {
                 Homestay in Murudeshwar
               </Heading>
               <Text tone="muted" className="mt-4 max-w-prose">
-                {BUSINESS_NAME} — one Deluxe AC Room with occupancy-based pricing. Book
-                direct on WhatsApp or phone; we confirm availability ourselves.
+                {BUSINESS_NAME} is a homestay in Murudeshwar — one Deluxe AC Room,
+                priced by how many guests share it. Book direct on WhatsApp; the host
+                confirms availability and your rate before you travel.
               </Text>
             </div>
           </Stack>

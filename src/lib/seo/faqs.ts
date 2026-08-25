@@ -11,15 +11,27 @@ export type FaqItem = {
 export const STATIC_FAQS: readonly FaqItem[] = [
   {
     q: "How do I book?",
-    a: `Message us on WhatsApp or call ${DISPLAY_PHONE} with your dates and how many guests will share the room. We confirm availability ourselves — there is no instant OTA checkout on this site.`,
+    a: `Send us a WhatsApp message or call ${DISPLAY_PHONE} with your travel dates and how many guests will share the room. We reply with availability and the rate for your group. There is no instant checkout — we confirm every booking ourselves.`,
   },
   {
-    q: "What room types do you have?",
-    a: `One type only: ${ROOM_NAME}, with occupancy-based pricing for 2, 3, 4, 6, or 8 sharing.`,
+    q: "Why is there no online payment?",
+    a: "We confirm bookings on WhatsApp and phone, not through an OTA checkout. Advance payment terms are set by the owner and will be published here once confirmed.",
   },
   {
-    q: "Are the prices on the website final?",
-    a: "They are estimates from our published occupancy rates. We confirm the total on WhatsApp before you travel.",
+    q: "What room types are available?",
+    a: `One type: the ${ROOM_NAME}. It is air-conditioned and priced by how many guests share it — 2, 3, 4, 6, or 8. There are no other room categories at this homestay.`,
+  },
+  {
+    q: "How does occupancy pricing work?",
+    a: "The nightly rate changes with the number of guests sharing the room. A couple (2 sharing) pays one rate; a family of six (6 sharing) pays a different, higher rate for the same room. The per-person cost is lower for larger groups.",
+  },
+  {
+    q: "Are the prices on this website final?",
+    a: "The rates shown come directly from the owner's admin panel and are current when published. We confirm the total on WhatsApp before you travel — if rates have changed, we tell you.",
+  },
+  {
+    q: "Can I book for 5 or 7 guests?",
+    a: "The published occupancy tiers are 2, 3, 4, 6, and 8. If your group is 5 or 7, WhatsApp us — the owner will confirm whether that occupancy is accepted and at which rate.",
   },
 ];
 
@@ -27,13 +39,13 @@ export function extraBedFaq(pricing: PublicPricing | null): FaqItem | null {
   if (!pricing) return null;
   if (pricing.room.extraBedRateInr > 0) {
     return {
-      q: "Is there an extra bed charge?",
-      a: `Yes. Extra bed is ${formatInr(pricing.room.extraBedRateInr)} per person per night when offered. We confirm the total on WhatsApp.`,
+      q: "Is there an extra bed?",
+      a: `Yes, when available. The current charge is ${formatInr(pricing.room.extraBedRateInr)} per person per night. Confirm on WhatsApp that an extra bed is available for your dates before including it in the total.`,
     };
   }
   return {
-    q: "Is there an extra bed charge?",
-    a: "No extra bed is offered at the current published rate.",
+    q: "Is there an extra bed?",
+    a: "No extra bed is offered at the current published rate. Ask on WhatsApp if you need one — the owner may accommodate it for certain dates.",
   };
 }
 

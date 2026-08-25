@@ -19,15 +19,17 @@ export function RoomsListSection() {
             <CardHeader>
               <CardTitle>{ROOM_NAME}</CardTitle>
               <Text size="sm" tone="muted">
-                One room type with occupancy-based pricing for families and groups. Bed
-                layout and amenities are listed on the room page when the owner confirms
-                them.
+                Air-conditioned. Priced per night based on occupancy — 2, 3, 4, 6, or 8
+                guests sharing. One extra bed can be added when the owner confirms it is
+                available; the per-person charge is shown on the room page when
+                published. Bed layout and full amenity list are pending owner
+                confirmation.
               </Text>
             </CardHeader>
             <CardContent className="gap-6">
               <OccupancyPricing />
               <Link href={ROOM_PATH} className={cn(buttonVariants(), "w-fit")}>
-                View room details
+                Room details and booking widget
               </Link>
             </CardContent>
           </Card>

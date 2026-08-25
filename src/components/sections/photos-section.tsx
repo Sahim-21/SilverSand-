@@ -23,8 +23,9 @@ export function PhotosSection({ showGalleryLink = true }: PhotosSectionProps) {
               Photos
             </Heading>
             <Text tone="muted" className="mt-2">
-              Real photographs from the owner will replace these placeholders. We do not
-              use stock villa images.
+              Owner-supplied photographs will appear here. These placeholders will be
+              replaced with real images of the room, bathroom, and property exterior —
+              we do not use stock images or unverified OTA scrapes.
             </Text>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

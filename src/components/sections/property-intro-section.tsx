@@ -13,20 +13,23 @@ export function PropertyIntroSection() {
       <Container>
         <Stack gap="md" className="max-w-3xl">
           <Heading as="h2" size="section">
-            A homestay, not a hotel chain
+            One room. You set the occupancy.
           </Heading>
           <Text tone="muted">
-            {BUSINESS_NAME} is a single-property homestay in Murudeshwar. We offer one
-            room type — the{" "}
+            {BUSINESS_NAME} has one room type:{" "}
             <Link href={ROOM_PATH} className="text-mangrove underline">
-              Deluxe AC Room
-            </Link>{" "}
-            — priced by how many guests share it (2, 3, 4, 6, or 8). That keeps groups
-            and families on one bill instead of booking multiple OTA rooms.
+              the Deluxe AC Room
+            </Link>
+            . The nightly rate changes depending on how many guests share it — 2, 3, 4,
+            6, or 8 — so a family of six pays one bill, not three OTA bookings cobbled
+            together. We don&apos;t run multiple properties or rent out a room while we
+            live elsewhere; this is a single homestay, and the host is the one answering
+            your WhatsApp.
           </Text>
           <Text size="sm" tone="muted">
-            We are not listing amenities, bed layout, or beach distance until the owner
-            confirms them. What you see on this site is what we can stand behind today.
+            Bed layout, bathroom details, and amenity list are pending the owner&apos;s
+            confirmation and will be published here once verified — not copied from an
+            OTA mirror.
           </Text>
           <TodoNotice
             item="bedsBath"

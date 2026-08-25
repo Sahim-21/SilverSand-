@@ -23,9 +23,11 @@ export function RoomPageHero() {
                 {ROOM_NAME}
               </Heading>
               <Text tone="muted" className="mt-4 max-w-prose">
-                Our only room type. Nightly rate depends on how many guests share the
-                room (2, 3, 4, 6, or 8). Extra beds are charged per person when offered
-                — the current rate is set by the owner in the admin panel.
+                Our only room type, priced by occupancy — how many guests share the room
+                sets the nightly rate. Suitable for couples, families, and groups of up
+                to eight. An extra bed can be added for an additional per-person charge
+                when available; the current rate is set by the owner and visible in the
+                widget when published.
               </Text>
             </div>
           </Stack>

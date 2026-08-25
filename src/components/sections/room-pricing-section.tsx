@@ -17,12 +17,13 @@ export function RoomPricingSection() {
               Room &amp; pricing
             </Heading>
             <Text tone="muted" className="mt-2">
-              Occupancy rates are set by the owner in the admin panel and shown here
-              when published.{" "}
+              The nightly rate depends on how many guests share the Deluxe AC Room.
+              Rates are set by the owner and shown here when published — not estimated
+              or rounded.{" "}
               <Link href={ROOM_PATH} className="text-mangrove underline">
-                View the Deluxe AC Room page
+                See the full room page
               </Link>{" "}
-              for layout notes and the booking widget.
+              for occupancy details and the booking widget.
             </Text>
           </div>
           <OccupancyPricing />

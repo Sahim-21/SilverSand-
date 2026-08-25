@@ -12,11 +12,12 @@ export function NearbyAttractionsSection() {
         <Stack gap="lg">
           <div className="max-w-2xl">
             <Heading as="h2" size="section">
-              Nearby attractions
+              What to do near Murudeshwar
             </Heading>
             <Text tone="muted" className="mt-2">
-              Places visitors often combine with a stay in Murudeshwar. Travel times
-              from {`Silver Sand`} are not listed until the owner shares a map pin.
+              Most guests combine the temple and beach with one or two day trips. The
+              notes below describe each place — distances from our homestay will be
+              added once the owner shares a confirmed map pin.
             </Text>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">

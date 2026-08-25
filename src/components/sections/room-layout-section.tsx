@@ -12,17 +12,20 @@ export function RoomLayoutSection() {
         <Stack gap="lg">
           <div className="max-w-2xl">
             <Heading as="h2" size="section">
-              Layout &amp; pricing
+              Occupancy pricing
             </Heading>
             <Text tone="muted" className="mt-2">
-              Occupancy rates below are loaded from the admin panel when published. We
-              do not hardcode nightly prices on this site.
+              The rate below is per room per night, based on how many guests share it.
+              Higher occupancy means a lower cost per person — which is why the
+              2-sharing rate is not the same as the 8-sharing rate halved. Rates are set
+              by the owner and updated in the admin panel; the numbers you see are
+              current, not rounded estimates.
             </Text>
           </div>
           <OccupancyPricing />
           <TodoNotice
             item="bedsBath"
-            detail="Bed count, bathroom layout, and AC coverage for 6–8 sharing are not published yet (checklist #3)."
+            detail="Bed count, bathroom layout, and maximum extra beds for this room are not published yet (checklist #3). The owner needs to confirm before we list them here."
           />
         </Stack>
       </Container>

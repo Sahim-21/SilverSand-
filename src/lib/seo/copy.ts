@@ -18,37 +18,37 @@ export const PAGE_SEO = {
   home: {
     title: "Homestay in Murudeshwar",
     absoluteTitle: `${BUSINESS_NAME} | Homestay in Murudeshwar`,
-    description: `${BUSINESS_NAME} is a homestay in Murudeshwar, Karnataka. One ${ROOM_NAME} with occupancy-based pricing for 2, 3, 4, 6, or 8 sharing. Book direct on WhatsApp or call ${DISPLAY_PHONE}.`,
+    description: `${BUSINESS_NAME} — one Deluxe AC Room in Murudeshwar, Karnataka. Priced by occupancy (2–8 guests). Book direct on WhatsApp at ${DISPLAY_PHONE}. No OTA, no middleman.`,
     path: "/",
   },
   rooms: {
     title: "Rooms in Murudeshwar",
-    description: `Rooms at ${BUSINESS_NAME}: one ${ROOM_NAME}, priced by how many guests share it (2–8). Occupancy rates come from the owner — not an OTA catalogue.`,
+    description: `One room at ${BUSINESS_NAME}: the ${ROOM_NAME}, air-conditioned, priced by how many guests share it (2, 3, 4, 6, or 8). Rates are set by the owner — not an OTA estimate.`,
     path: "/rooms",
   },
   room: {
-    title: `${ROOM_NAME} in Murudeshwar`,
-    description: `${ROOM_NAME} at ${BUSINESS_NAME}, Murudeshwar. Nightly rate by occupancy (2, 3, 4, 6, or 8 sharing) plus extra bed when offered. Check dates on WhatsApp.`,
+    title: `${ROOM_NAME} — occupancy pricing`,
+    description: `The ${ROOM_NAME} at ${BUSINESS_NAME}, Murudeshwar. Nightly rate set by the owner based on occupancy (2–8 sharing). Extra bed available when offered. Check dates on WhatsApp.`,
     path: ROOM_PATH,
   },
   gallery: {
-    title: "Photos of the homestay",
-    description: `Photographs of ${BUSINESS_NAME} in Murudeshwar. Owner-supplied photos will replace these placeholders — we do not use stock villa images.`,
+    title: "Photos — Silver Sand Beach Homestay",
+    description: `Photographs of ${BUSINESS_NAME} in Murudeshwar. Owner-supplied images of the room, bathroom, and exterior. Placeholders until the owner provides them.`,
     path: "/gallery",
   },
   about: {
-    title: "About this homestay",
-    description: `About ${BUSINESS_NAME} in Murudeshwar: a single-property stay with one ${ROOM_NAME}, occupancy pricing, and direct WhatsApp booking with the host.`,
+    title: "About Silver Sand Beach Homestay",
+    description: `${BUSINESS_NAME} is a family-run homestay in Murudeshwar with one Deluxe AC Room. Book directly with the host on WhatsApp — no OTA, no booking fee.`,
     path: "/about",
   },
   location: {
-    title: "Location in Murudeshwar",
-    description: `${BUSINESS_NAME} is in Murudeshwar, Karnataka. Street address and map pin will be published when the owner confirms them. Ask for directions on WhatsApp.`,
+    title: "Getting to Murudeshwar",
+    description: `${BUSINESS_NAME} is in Murudeshwar, Karnataka on the Konkan coast. Murdeshwar Railway Station is on the Konkan Railway. Street address and map pin will be added when confirmed.`,
     path: "/location",
   },
   contact: {
     title: "Phone and WhatsApp",
-    description: `Contact ${BUSINESS_NAME} in Murudeshwar: WhatsApp or call ${DISPLAY_PHONE}. Send dates and occupancy — we confirm availability ourselves.`,
+    description: `Contact ${BUSINESS_NAME}: WhatsApp or call ${DISPLAY_PHONE}. Send your dates and group size — the host confirms availability directly.`,
     path: "/contact",
   },
   privacy: {
@@ -58,12 +58,12 @@ export const PAGE_SEO = {
   },
   terms: {
     title: "Booking terms",
-    description: `Booking terms for ${BUSINESS_NAME}: WhatsApp or phone confirmation, occupancy estimates from published rates, and house rules once the owner publishes them.`,
+    description: `Booking terms for ${BUSINESS_NAME}: WhatsApp or phone confirmation by the host, occupancy estimates from published rates, and house rules once the owner publishes them.`,
     path: "/terms",
   },
   notFound: {
     title: "Page not found",
-    description: `That page is not on ${BUSINESS_NAME}. Go back to the homestay in Murudeshwar, or WhatsApp us about dates.`,
+    description: `That page is not on ${BUSINESS_NAME}. Return to the homestay in Murudeshwar, or WhatsApp us about your dates.`,
     path: "/404",
   },
 } as const satisfies Record<string, PageSeoCopy>;

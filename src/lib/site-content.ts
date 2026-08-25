@@ -3,32 +3,47 @@
  * Do not invent property-specific amenities, distances, or reviews.
  */
 
-/** Well-known reasons people visit Murudeshwar (destination context, not our distances). */
+/**
+ * Well-known destination facts about Murudeshwar.
+ * These describe the town, not Silver Sand's proximity to anything.
+ */
 export const murudeshwarContext = {
   intro:
-    "Murudeshwar is a coastal temple town in Uttara Kannada, Karnataka — known for the towering Shiva statue, the Murudeshwar Temple on the Arabian Sea, and quiet beaches along the Konkan coast.",
+    "Murudeshwar is a coastal town in Uttara Kannada, Karnataka, set on a small peninsula that juts into the Arabian Sea. Most visitors come for the Murudeshwar Temple, the Shiva statue visible from the highway, and the beach that wraps around the promontory.",
   beach:
-    "Murudeshwar Beach is a popular stretch for sunrise walks and family outings near the temple complex. We have not published our homestay’s walking or driving distance to the beach until the owner confirms it.",
+    "Murudeshwar Beach runs along the eastern and southern edges of the peninsula. It is a working fishing beach as well as a spot for sunrise walks. We have not published our walking distance to the beach — confirm that on WhatsApp once the owner provides a map pin.",
   temple:
-    "The Murudeshwar Temple and Raja Gopura draw pilgrims and visitors year-round. Many guests combine darshan with a short coastal stay — ask us on WhatsApp when planning your dates.",
+    "The Murudeshwar Temple sits on Kanduka Hill, overlooking the sea. The gopura is one of the tallest temple towers in the world and serves as a landmark visible from most parts of town. Pilgrims visit year-round; the beach and temple are within a short distance of each other in the town centre.",
 };
 
-/** Attractions visitors often pair with a Murudeshwar trip — not “from our doorstep” claims. */
+/**
+ * Attractions visitors commonly pair with a Murudeshwar stay.
+ * Travel times from Silver Sand are intentionally omitted — no confirmed pin.
+ * Notes state what makes each place worth visiting, not invented distances.
+ */
 export const nearbyAttractions = [
   {
     name: "Murudeshwar Temple & Shiva statue",
-    note: "Iconic coastal temple and one of the tallest Shiva statues in the world.",
+    note: "The temple complex on Kanduka Hill includes one of the world's tallest Shiva statues. The sea is visible from the top — it's a five-minute walk from the beach if you're already at the temple. Worth a morning rather than a rushed stop.",
   },
   {
     name: "Murudeshwar Beach",
-    note: "Sandy shoreline near the temple — popular at sunrise and sunset.",
+    note: "The beach wraps around the base of the hill. Early morning is quietest; fishing boats leave at dawn. No entry charge. The sand is dark and coarse compared to tourist-only beaches further south.",
   },
   {
-    name: "Netrani Island (scuba)",
-    note: "Day trips for diving are common from the coast; operators are separate from our homestay.",
+    name: "Netrani Island",
+    note: "About 19 km offshore, Netrani is one of the best scuba and snorkelling spots on the Karnataka coast. Day trips run from Murdeshwar jetty. Operators are independent — ask locally or on WhatsApp for current contacts.",
   },
   {
     name: "Idagunji Ganapati Temple",
-    note: "A well-known pilgrimage stop in the region, often combined with a coastal itinerary.",
+    note: "A significant Ganesha shrine about 30 km south of Murudeshwar in Idagunji. Many pilgrims combine it with a Murudeshwar visit. Worth planning a half-day if you have a vehicle.",
+  },
+  {
+    name: "Yana rock formations",
+    note: "Unusual black crystalline rock formations in the Sahyadri foothills, roughly 50–60 km inland. A trekking day trip for guests who want to see the Western Ghats. Best in the dry season.",
+  },
+  {
+    name: "Murdeshwar jetty & local fish market",
+    note: "The fishing jetty near the beach is active in the early morning. If you're staying on the coast, watching the boats return and the catch come in is a genuine local experience, not a scheduled tour.",
   },
 ] as const;

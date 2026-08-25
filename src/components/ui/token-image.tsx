@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { type ImageProps } from "next/image";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { TOKEN_BLUR_DATA_URL } from "@/lib/images/placeholder";
 import { cn } from "@/lib/utils";
@@ -13,7 +13,8 @@ type TokenImageProps = ImageProps & {
 
 /**
  * next/image with a sand-deep reserved slot (no CLS) and `placeholder="blur"`.
- * Shimmer is CSS on the slot; `prefers-reduced-motion` keeps the slot static.
+ * Shimmer sits behind the photo so a missed onLoad cannot hide it.
+ * `prefers-reduced-motion` keeps the slot static.
  */
 export function TokenImage({
   alt,
@@ -25,18 +26,27 @@ export function TokenImage({
   ...props
 }: TokenImageProps) {
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
   const staticSrc = typeof props.src === "object";
+
+  const markLoaded = useCallback(() => setLoaded(true), []);
+
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img?.complete && img.naturalWidth > 0) markLoaded();
+  }, [markLoaded, props.src]);
 
   return (
     <span className={cn("relative block overflow-hidden bg-sand-deep", slotClassName)}>
       <Image
         {...props}
+        ref={imgRef}
         alt={alt}
         placeholder={placeholder ?? "blur"}
         {...(staticSrc ? {} : { blurDataURL: blurDataURL ?? TOKEN_BLUR_DATA_URL })}
         className={cn("z-[1]", className)}
         onLoad={(event) => {
-          setLoaded(true);
+          markLoaded();
           onLoad?.(event);
         }}
       />

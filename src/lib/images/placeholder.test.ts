@@ -24,6 +24,9 @@ test("image skeleton shimmers only when motion is allowed and reserves the box",
   assert.ok(tokenImage.includes("alt={alt}"));
   assert.ok(tokenImage.includes("bg-sand-deep"));
   assert.ok(tokenImage.includes("slotClassName"));
+  assert.ok(tokenImage.includes("imgRef"));
+  assert.ok(tokenImage.includes("naturalWidth"));
+  assert.match(css, /\.ss-image-skeleton \{[\s\S]*z-index:\s*0/);
 
   const occupancy = readFileSync(
     join(process.cwd(), "src/components/marketing/occupancy-room-image.tsx"),

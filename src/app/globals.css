@@ -484,7 +484,7 @@ body {
 .ss-image-skeleton {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 0;
   background-color: var(--sand-deep);
   pointer-events: none;
 }

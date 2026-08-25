@@ -6,6 +6,24 @@ Format: newest first. Each entry: date, what, why, what we explicitly rejected.
 
 ---
 
+## 2026-08-25 — Photos no longer hide behind the sand skeleton
+
+### What
+
+- The loading skeleton sits _behind_ the `next/image` photo (`z-index: 0`). A missed `onLoad` (image already complete before hydration) can no longer cover 2/3/4 sharing, beach, Idagunji, or Netrani.
+- `TokenImage` also marks the slot loaded when the img is already `complete`.
+
+### Why
+
+Above-the-fold occupancy and attraction photos were finishing before React attached `onLoad`, so the sand-deep overlay never lifted.
+
+### Rejected
+
+- Leaving an opaque overlay on top of the decoded photo.
+- `unoptimized` / skipping `next/image`.
+
+---
+
 ## 2026-08-25 — Gold contact FAB (WhatsApp + Call)
 
 ### What
